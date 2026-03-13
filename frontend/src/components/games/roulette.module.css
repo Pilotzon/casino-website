@@ -1,0 +1,465 @@
+/* ============================================================
+   Roulette.module.css — European Roulette (Stake-style)
+   ============================================================ */
+
+:root {
+  --bg-body: #1a2c38;
+  --bg-sidebar: #213743;
+  --bg-input: #2f4553;
+  --accent-green: #00e701;
+  --accent-red: #f12c4c;
+  --text-secondary: #b1bad3;
+  --bitcoin: #fca311;
+  --stage-bg: #0f2a35;
+  --tile: #2f4553;
+  --tile-dark: #243b48;
+  --red: #fe2247;
+  --green: #419e3f;
+}
+
+
+/* ============================================================
+   Layout
+   ============================================================ */
+
+.container {
+  display: flex;
+  background: var(--bg-body);
+  color: #fff;
+  min-height: 600px;
+  font-family: "proxima-nova", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  overflow: hidden;
+}
+
+
+/* ============================================================
+   Sidebar
+   ============================================================ */
+
+.sidebar {
+  width: 320px;
+  background: var(--bg-sidebar);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border-right: 1px solid rgba(0, 0, 0, 0.2);
+  flex-shrink: 0;
+  border-bottom-right-radius: 8px;
+}
+
+.modeToggle { background: #0f212e; border-radius: 50px; padding: 5px; display: flex; }
+.modeBtn {
+  flex: 1; background: transparent; border: none; color: #b1bad3;
+  padding: 10px 0; border-radius: 40px; font-weight: 700; font-size: 14px; cursor: pointer;
+}
+.modeBtn.active { background: #2f4553; color: #fff; }
+
+.controlGroup { display: flex; flex-direction: column; gap: 8px; }
+.labelRow { display: flex; justify-content: space-between; font-size: 13px; font-weight: 600; color: var(--text-secondary); }
+
+/* Chip selector */
+.chipSelector {
+  display: flex; align-items: center; justify-content: space-between;
+  background: #0f212e; border: 2px solid #395263; border-radius: 9px;
+  height: 54px; padding: 0 8px; gap: 8px;
+}
+.chipNav {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08);
+  color: #fff; font-weight: 900; cursor: pointer; flex-shrink: 0;
+}
+.chipRow { display: flex; gap: 10px; justify-content: center; flex: 1; }
+.chipBtn {
+  width: 40px; height: 40px; border-radius: 999px;
+  border: 3px solid transparent; background: transparent;
+  display: grid; place-items: center; cursor: grab; flex-shrink: 0;
+  transition: border-color 150ms ease; outline: none;
+}
+.chipBtn:active { cursor: grabbing; }
+.chipBtn img { width: 34px; height: 34px; filter: brightness(1.35) saturate(1.25); pointer-events: none; }
+.chipBtnActive {
+  border-color: #ffffff;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
+}
+
+/* Bet input */
+.betInputRow {
+  display: flex; background: #0f212e; border: 2px solid #395263;
+  border-radius: 9px; height: 44px; overflow: hidden;
+}
+.betInputLike { flex: 1; display: flex; align-items: center; padding: 0 12px; font-weight: 600; font-size: 16px; }
+.btcIcon { color: var(--bitcoin); margin-left: 10px; font-weight: 800; }
+.splitButtons { display: flex; align-items: center; background: var(--bg-input); border-left: 1px solid rgba(255,255,255,0.06); padding: 0 4px; }
+.splitButtons button { background: transparent; border: none; color: #fff; opacity: 0.7; padding: 0 12px; cursor: not-allowed; }
+.divider { width: 1px; height: 16px; background: rgba(255,255,255,0.08); }
+
+/* Bet button */
+.betButton {
+  background: var(--accent-green); color: #013e01; border: none;
+  border-radius: 8px; height: 44px; font-weight: 800; font-size: 16px; cursor: pointer;
+}
+.betButton:disabled { opacity: 0.65; cursor: default; }
+
+
+/* ============================================================
+   Game Stage
+   ============================================================ */
+
+.gameStage {
+  flex: 1; background: #0F212E; padding: 24px;
+  display: flex; justify-content: center; align-items: flex-start;
+  padding-top: 28px; overflow-y: auto; position: relative;
+}
+.stageCard { width: 100%; max-width: 1200px; }
+
+
+/* ============================================================
+   Top Row (desktop wheel area)
+   ============================================================ */
+
+.topRow {
+  display: grid; grid-template-columns: 100px 1fr 70px;
+  align-items: center; gap: 16px; margin-bottom: 18px;
+}
+.resultBox { width: 80px; height: 80px; border-radius: 10px; background: #2f4553; display: grid; place-items: center; position: relative; left: 175%;}
+.resultNum { display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; font-size: 26px; font-weight: 900; }
+.resultColor_red   { background: var(--red); color: #fff; }
+.resultColor_black  { background: #2f4553; color: #fff; border: 2px solid rgba(255,255,255,0.15); }
+.resultColor_green  { background: var(--green); color: #fff; }
+
+
+/* ============================================================
+   Wheel & Ball
+   ============================================================ */
+
+.wheelWrap { position: relative; width: 340px; height: 340px; margin: 0 auto; }
+.wheel { position: absolute; inset: 0; display: grid; place-items: center; will-change: transform; }
+.wheel img { width: 340px; height: 340px; display: block; }
+.ballOrbit {
+  position: absolute; inset: 0; display: grid; place-items: center;
+  transform-origin: 50% 50%; --ball-r: 165px; will-change: transform;
+}
+.ballHidden { opacity: 0; pointer-events: none; }
+.ball { width: 16px; height: 16px; transform: translateY(calc(var(--ball-r) * -1)); }
+.wheelIdleAnim { animation: idleWheel 14s linear infinite; }
+@keyframes idleWheel { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+
+/* ============================================================
+   History
+   ============================================================ */
+
+.historyCol { display: flex; flex-direction: column; gap: 8px; align-items: center; }
+.historyRow { display: flex; gap: 6px; align-items: center; justify-content: center; flex-wrap: wrap; }
+.histBall {
+  width: 38px; height: 38px; border-radius: 999px;
+  display: grid; place-items: center; font-weight: 900; font-size: 14px;
+}
+.histColor_red   { background: var(--red); }
+.histColor_black  { background: var(--tile); border: 2px solid rgba(255,255,255,0.1); }
+.histColor_green  { background: var(--green); }
+
+
+/* ============================================================
+   Win Popup
+   ============================================================ */
+
+.winPopup {
+  position: absolute; top: 22%; left: 50%;
+  transform: translate(-50%, -50%) scale(0.85);
+  background: #0F212E; border: 2px solid rgba(0,172,0,0.9); border-radius: 16px;
+  padding: 18px 24px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.28);
+  z-index: 100; animation: winPop 160ms ease-out forwards; min-width: 240px;
+}
+@keyframes winPop { to { transform: translate(-50%, -50%) scale(1.06); } }
+.winPopupTitle { font-weight: 900; font-size: 13px; letter-spacing: 0.7px; color: var(--accent-green); text-transform: uppercase; }
+.winPopupAmount { margin-top: 8px; font-weight: 900; font-size: 18px; color: #fff; }
+
+
+/* ============================================================
+   Board — Desktop (horizontal)
+
+   14 columns: zero | 12 number cols | 2:1 col
+   The 2:1 column is 1fr same as number columns so squares match.
+   ============================================================ */
+
+.tableWrap { width: 100%; display: grid; place-items: center; position: relative; }
+.boardOuter { position: relative; width: 100%; max-width: 900px; }
+
+/* ============================================================
+   Board — Desktop (horizontal)
+   ============================================================ */
+
+.board {
+  display: grid; width: 100%;
+  /* zero column wider, then 12 number cols + 1 col for 2:1, all equal 1fr */
+  grid-template-columns: minmax(56px, 0.9fr) repeat(13, 1fr);
+  grid-template-rows: repeat(3, auto) minmax(48px, auto) minmax(48px, auto);
+  grid-template-areas:
+    "number0 number3  number6  number9  number12 number15 number18 number21 number24 number27 number30 number33 number36 row1"
+    "number0 number2  number5  number8  number11 number14 number17 number20 number23 number26 number29 number32 number35 row2"
+    "number0 number1  number4  number7  number10 number13 number16 number19 number22 number25 number28 number31 number34 row3"
+    ".       range0112 range0112 range0112 range0112 range1324 range1324 range1324 range1324 range2536 range2536 range2536 range2536 ."
+    ".       range0118 range0118 parityEven parityEven colorRed colorRed colorBlack colorBlack parityOdd parityOdd range1936 range1936 .";
+  gap: 4px;
+}
+
+
+/* ============================================================
+   Board — Mobile (vertical / stacked)
+   ============================================================ */
+
+.boardMobile {
+  display: grid; width: max-content; margin: 0 auto;
+  grid-template-columns: repeat(2, 42px) repeat(3, 58px);
+  grid-template-rows: 40px repeat(12, 1fr) auto;
+  grid-template-areas:
+    ".          .          number0  number0  number0"
+    "range0118  range0112  number1  number2  number3"
+    "range0118  range0112  number4  number5  number6"
+    "parityEven range0112  number7  number8  number9"
+    "parityEven range0112  number10 number11 number12"
+    "colorRed   range1324  number13 number14 number15"
+    "colorRed   range1324  number16 number17 number18"
+    "colorBlack range1324  number19 number20 number21"
+    "colorBlack range1324  number22 number23 number24"
+    "parityOdd  range2536  number25 number26 number27"
+    "parityOdd  range2536  number28 number29 number30"
+    "range1936  range2536  number31 number32 number33"
+    "range1936  range2536  number34 number35 number36"
+    ".          .          row3     row2     row1";
+  gap: 3px;
+}
+
+
+/* ============================================================
+   Pocket (board cell)
+   ============================================================ */
+
+.pocket {
+  position: relative; display: flex; align-items: center; justify-content: center;
+  border-radius: 4px; border: 2px solid transparent; cursor: pointer;
+  user-select: none; min-height: 0; padding: 6px 2px; font-weight: 900;
+  font-size: 15px; color: #fff; background: var(--tile); overflow: visible;
+  outline: none;
+  /* Smooth fade transition for background and border on hover */
+  transition: background 180ms ease, border-color 180ms ease;
+}
+
+/* Prevent any push/zoom on click */
+.pocket:active {
+  transform: none !important;
+}
+
+/* Number cells: square */
+.pocketRed, .pocketBlack { aspect-ratio: 1; }
+.pocketRed   { background: var(--red); }
+.pocketBlack { background: var(--tile); }
+
+/* Zero: NOT square, stretches across 3 rows */
+.pocketGreen { background: var(--green); }
+
+/* 2:1 column cells: square, outlined */
+.pocketCol {
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.18);
+  aspect-ratio: 1;
+}
+.pocketCol.pocketHover { border-color: rgba(255, 255, 255, 0.4); }
+
+/* Dozens & even-money (1to12, 13to24, 25to36, 1to18, Even, Odd, 19to36): outlined */
+.pocketDark {
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.18);
+  min-height: 48px;
+}
+.pocketDark.pocketHover { border-color: rgba(255, 255, 255, 0.4); }
+
+/* Red even-money: outlined with red border + red fill inside */
+.pocketRedSolid {
+  background: var(--red);
+  min-height: 48px;
+}
+
+/* Black even-money: outlined with dark fill inside */
+.pocketBlackSolid {
+  background: var(--tile);
+  min-height: 48px;
+}
+
+/* ============================================================
+   Pocket Hover Colors (explicit colors, no filters)
+   ============================================================ */
+
+.pocketRed.pocketHover        { background: #ff5a7a; }
+.pocketBlack.pocketHover      { background: #3d5a6b; }
+.pocketGreen.pocketHover      { background: #52b856; }
+.pocketCol.pocketHover        { background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.4); }
+.pocketDark.pocketHover       { background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.4); }
+.pocketRedSolid.pocketHover   { background: #ff5a7a; }
+.pocketBlackSolid.pocketHover { background: #3d5a6b; }
+
+/* Winner: green border, no glow */
+.pocketWinner { border: 3px solid #2DF10E !important; z-index: 20;}
+
+.pocketName { position: relative; z-index: 2; pointer-events: none; line-height: 1; }
+
+
+/* ============================================================
+   Inside Bet Overlays
+   ============================================================ */
+
+.insideHitOverlay, .insideChipOverlay {
+  position: absolute; left: 0; top: 0; pointer-events: none; z-index: 50;
+}
+.insideHitOverlay { z-index: 60; }
+.zone {
+  position: absolute; pointer-events: auto; background: transparent;
+  border-radius: 8px; border: none; padding: 0; cursor: pointer; outline: none;
+}
+.zoneHover { background: rgba(255, 255, 255, 0); }
+
+
+/* ============================================================
+   Chip Stacks
+   ============================================================ */
+
+.stack {
+  position: absolute; inset: 0; display: flex; align-items: center;
+  justify-content: center; flex-direction: column; pointer-events: none; z-index: 10;
+}
+.anchorStack {
+  position: absolute; transform: translate(-50%, -50%);
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; pointer-events: none; z-index: 10;
+}
+.stackImgs { position: relative; width: 28px; height: 28px; flex-shrink: 0; }
+.stackChip { position: absolute; left: 0; top: 0; width: 28px; height: 28px; filter: brightness(1.2) saturate(1.2); }
+.stackAmt {
+  position: absolute; bottom: 2px; left: 50%; transform: translateX(-50%);
+  background: rgba(0,0,0,0.7); border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 10px; padding: 1px 5px; font-size: 9px; font-weight: 900;
+  white-space: nowrap; pointer-events: none; z-index: 12; line-height: 1.3;
+}
+
+
+/* ============================================================
+   Table Footer
+   ============================================================ */
+
+.tableFooter {
+  width: 100%; max-width: 900px; display: flex;
+  justify-content: space-between; margin-top: 14px; padding: 0 4px;
+}
+.undoBtn, .clearBtn {
+  background: transparent; border: none; color: #b1bad3;
+  font-weight: 800; cursor: pointer; font-size: 14px;
+}
+.undoBtn:hover, .clearBtn:hover { color: #fff; }
+.undoBtn:disabled, .clearBtn:disabled { opacity: 0.6; cursor: default; }
+
+
+/* ============================================================
+   Floating Drag Chip
+   ============================================================ */
+
+.floatingChip { position: fixed; z-index: 9999; transform: translate(-50%, -50%); pointer-events: none; }
+.floatingChip img { width: 46px; height: 46px; filter: brightness(1.35) saturate(1.25); }
+
+
+/* ============================================================
+   Responsive — Tablet
+   ============================================================ */
+
+@media (max-width: 900px) {
+  .container { flex-direction: column; }
+  .sidebar { width: 100%; border-right: none; }
+  .gameStage { padding: 14px; }
+  .topRow { display: none; }
+  .winPopup { top: 40%; }
+}
+
+
+/* ============================================================
+   Responsive — Mobile
+   ============================================================ */
+
+@media (max-width: 700px) {
+  .sidebar { padding: 12px; gap: 12px; }
+  .pocket { font-size: 13px; padding: 4px 2px; }
+  .winPopup { position: fixed; top: 50%; min-width: 200px; }
+}
+
+
+/* ============================================================
+   Mobile Wheel Overlay
+   ============================================================ */
+
+.mobileWheelOverlay {
+  position: fixed; inset: 0; z-index: 3000;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex; align-items: center; justify-content: center;
+  padding: 16px;
+}
+
+.mobileWheelCard {
+  width: 100%;
+  max-width: 360px;
+  max-height: calc(100vh - 32px);
+  max-height: calc(100dvh - 32px);
+  background: #0f212e;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow: hidden;
+}
+
+.mobileWheelInner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.mobileResultBox {
+  width: 64px; height: 64px; border-radius: 10px;
+  background: #2f4553; display: grid; place-items: center;
+}
+
+.mobileWheelWrap {
+  position: relative;
+  width: min(280px, calc(100vw - 96px));
+  height: min(280px, calc(100vw - 96px));
+}
+
+.mobileWheelWrap .wheel {
+  position: absolute; inset: 0;
+  display: grid; place-items: center; will-change: transform;
+}
+
+.mobileWheelWrap .wheel img {
+  width: 100%; height: 100%; display: block;
+}
+
+.mobileWheelWrap .ballOrbit {
+  position: absolute; inset: 0;
+  display: grid; place-items: center;
+  transform-origin: 50% 50%; will-change: transform;
+  /* Scale down the ball radius for the smaller wheel */
+  --ball-r: 136px;
+}
+
+.mobileWheelWrap .ball {
+  width: 14px; height: 14px;
+  transform: translateY(calc(var(--ball-r) * -1));
+}
+
+.mobileCloseBtn {
+  width: 100%; height: 44px; border: none; border-radius: 10px;
+  background: rgba(255, 255, 255, 0.08); color: #fff; font-weight: 900; cursor: pointer;
+  flex-shrink: 0;
+}

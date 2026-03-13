@@ -1,0 +1,285 @@
+/* Adobe Typekit / Proxima Nova */
+@import url("https://p.typekit.net/p.css?s=1&k=aba0ebl&ht=tk&f=139.173.175.176.10296&a=6570577&app=typekit&e=css");
+
+@font-face {
+  font-family:"proxima-nova";
+  src:url("https://use.typekit.net/af/2555e1/00000000000000007735e603/30/l?primer=9e9145798bfc6b7954a6cb7abc2ead67980260945baf1d129a2d2e98d0352745&fvd=n7&v=3") format("woff2"),
+      url("https://use.typekit.net/af/2555e1/00000000000000007735e603/30/d?primer=9e9145798bfc6b7954a6cb7abc2ead67980260945baf1d129a2d2e98d0352745&fvd=n7&v=3") format("woff"),
+      url("https://use.typekit.net/af/2555e1/00000000000000007735e603/30/a?primer=9e9145798bfc6b7954a6cb7abc2ead67980260945baf1d129a2d2e98d0352745&fvd=n7&v=3") format("opentype");
+  font-display:auto;
+  font-style:normal;
+  font-weight:700;
+  font-stretch:normal;
+}
+
+@font-face {
+  font-family:"proxima-nova";
+  src:url("https://use.typekit.net/af/78aca8/00000000000000007735e60d/30/l?primer=9e9145798bfc6b7954a6cb7abc2ead67980260945baf1d129a2d2e98d0352745&fvd=n6&v=3") format("woff2"),
+      url("https://use.typekit.net/af/78aca8/00000000000000007735e60d/30/d?primer=9e9145798bfc6b7954a6cb7abc2ead67980260945baf1d129a2d2e98d0352745&fvd=n6&v=3") format("woff"),
+      url("https://use.typekit.net/af/78aca8/00000000000000007735e60d/30/a?primer=9e9145798bfc6b7954a6cb7abc2ead67980260945baf1d129a2d2e98d0352745&fvd=n6&v=3") format("opentype");
+  font-display:auto;
+  font-style:normal;
+  font-weight:600;
+  font-stretch:normal;
+}
+
+@font-face {
+  font-family:"proxima-nova";
+  src:url("https://use.typekit.net/af/efe4a5/00000000000000007735e609/30/l?primer=9e9145798bfc6b7954a6cb7abc2ead67980260945baf1d129a2d2e98d0352745&fvd=n4&v=3") format("woff2"),
+      url("https://use.typekit.net/af/efe4a5/00000000000000007735e609/30/d?primer=9e9145798bfc6b7954a6cb7abc2ead67980260945baf1d129a2d2e98d0352745&fvd=n4&v=3") format("woff"),
+      url("https://use.typekit.net/af/efe4a5/00000000000000007735e609/30/a?primer=9e9145798bfc6b7954a6cb7abc2ead67980260945baf1d129a2d2e98d0352745&fvd=n4&v=3") format("opentype");
+  font-display:auto;
+  font-style:normal;
+  font-weight:400;
+  font-stretch:normal;
+}
+
+@font-face {
+  font-family:"proxima-nova";
+  src:url("https://use.typekit.net/af/3322cc/00000000000000007735e616/30/l?primer=9e9145798bfc6b7954a6cb7abc2ead67980260945baf1d129a2d2e98d0352745&fvd=i4&v=3") format("woff2"),
+      url("https://use.typekit.net/af/3322cc/00000000000000007735e616/30/d?primer=9e9145798bfc6b7954a6cb7abc2ead67980260945baf1d129a2d2e98d0352745&fvd=i4&v=3") format("woff"),
+      url("https://use.typekit.net/af/3322cc/00000000000000007735e616/30/a?primer=9e9145798bfc6b7954a6cb7abc2ead67980260945baf1d129a2d2e98d0352745&fvd=i4&v=3") format("opentype");
+  font-display:auto;
+  font-style:italic;
+  font-weight:400;
+  font-stretch:normal;
+}
+
+.tk-proxima-nova { font-family: "proxima-nova",sans-serif; }
+
+:root {
+  /* Stake-inspired Color Palette */
+  --bg-body: #0f212e;
+  --bg-elevated: #1a2c38;
+  --bg-sidebar: #213743;
+  --bg-surface: #2f4553;
+  --bg-panel: #1a2c38;
+  --bg-input: #2f4553;
+  --bg-input-hover: #354d5c;
+
+  /* Accent Colors */
+  --accent-primary: #00e701;
+  --accent-primary-hover: #00fa01;
+  --accent-success: #00e701;
+  --accent-success-hover: #00fa01;
+  --accent-danger: #ed4137;
+  --accent-danger-hover: #ff4137;
+  --accent-warning: #ff9f00;
+  --accent-blue: #3e73ff;
+
+  /* Text Colors */
+  --text-primary: #ffffff;
+  --text-secondary: #b1bad3;
+  --text-tertiary: #7a8a9e;
+  --text-muted: #556575;
+
+  /* Border Colors */
+  --border-default: #2f4553;
+  --border-focus: #557086;
+  --border-active: #00e701;
+
+  /* Game Specific */
+  --game-heads: #ff9f00;
+  --game-tails: #3e73ff;
+  --game-red: #ed4137;
+  --game-black: #1a2c38;
+  --game-green: #00e701;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 20px rgba(0, 231, 1, 0.3);
+
+  /* Spacing */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 12px;
+  --space-lg: 16px;
+  --space-xl: 24px;
+  --space-2xl: 32px;
+
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-full: 9999px;
+
+  /* Typography */
+  --font-primary: 'proxima-nova', -apple-system, BlinkMacSystemFont;
+  --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: var(--font-primary);
+  font-feature-settings: "salt" on;
+  background: var(--bg-body);
+  color: var(--text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-panel);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--bg-input-hover);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border-focus);
+}
+
+/* Selection */
+::selection {
+  background: var(--accent-primary);
+  color: var(--bg-body);
+}
+
+/* Focus Styles */
+*:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+/* Disabled State */
+:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Link Reset */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Button Reset */
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+}
+
+/* Input Reset */
+input, textarea, select {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  background: transparent;
+  border: none;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+}
+
+/* Remove number input spinners */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* Utility Classes */
+.container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.gap-sm {
+  gap: var(--space-sm);
+}
+
+.gap-md {
+  gap: var(--space-md);
+}
+
+.gap-lg {
+  gap: var(--space-lg);
+}
+
+.text-center {
+  text-align: center;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}

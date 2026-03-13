@@ -1,0 +1,404 @@
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  background: rgba(15, 21, 30, 0.75);
+  border-bottom: 1px solid var(--border-default);
+  z-index: 1000;
+  backdrop-filter: blur(12px);
+}
+
+.container {
+  max-width: 1600px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-xl);
+  
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ✅ Logo controls SVG color via currentColor */
+.logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+
+  color: #ffffff;
+  transition: color 160ms ease, transform 120ms ease;
+}
+
+.logo:hover {
+  color: var(--accent-success);
+}
+
+.logo:active {
+  transform: scale(0.98);
+}
+
+.logoSvg {
+  height: 28px;
+  width: auto;
+  display: block;
+}
+
+/* Force any shapes inside to use currentColor */
+.logoSvg path,
+.logoSvg rect,
+.logoSvg circle,
+.logoSvg polygon,
+.logoSvg line,
+.logoSvg polyline,
+.logoSvg g {
+  fill: currentColor;
+  stroke: currentColor;
+}
+
+.mobileToggle {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.04);
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.hamburger {
+  width: 18px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.9);
+  position: relative;
+  display: block;
+}
+.hamburger::before,
+.hamburger::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 18px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.9);
+}
+.hamburger::before { top: -6px; }
+.hamburger::after { top: 6px; }
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex: 1;
+  
+}
+
+.link,
+.linkBtn {
+  padding: var(--space-sm) var(--space-md);
+  color: var(--text-secondary);
+  font-weight: 700;
+  font-size: 14px;
+  border-radius: var(--radius-md);
+  transition: var(--transition-fast);
+  white-space: nowrap;
+  text-decoration: none;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  position: relative;
+}
+
+.linkBtn:hover,
+.link:hover {
+  color: var(--text-primary);
+  background: var(--bg-surface);
+}
+
+.linkActive {
+  color: var(--accent-primary);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.linkDisabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* hover-only unavailable hint */
+.hoverHint {
+  position: absolute;
+  left: 50%;
+  top: calc(100% + 8px);
+  transform: translateX(-50%) translateY(-2px);
+  font-size: 11px;
+  font-weight: 900;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #007AFF;
+  border: 2px solid #0054add0;
+  color: rgba(255, 255, 255, 0.92);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 140ms ease, transform 140ms ease;
+  white-space: nowrap;
+}
+
+.linkBtn.linkDisabled:hover .hoverHint {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.actionsHidden {
+  display: none;
+}
+
+.balance {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: var(--radius-md);
+}
+
+.balanceLabel {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.balanceAmount {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.balanceCurrency {
+  font-size: 14px;
+  font-weight: 900;
+  color: var(--accent-warning);
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.username {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* Mobile Menu */
+.mobileMenu {
+  position: fixed;
+  top: 70px;
+  left: 0;
+  right: 0;
+  background: rgba(10, 14, 20, 0.92);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  transform: translateY(-10px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 160ms ease, transform 160ms ease;
+    backdrop-filter: blur(12px);
+}
+
+.mobileMenuOpen {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+    backdrop-filter: blur(12px);
+}
+
+.mobileLinks {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 12px var(--space-lg) 16px var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mobileLink {
+  height: 46px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.04);
+  color: #fff;
+  font-weight: 850;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  
+}
+
+.mobileLinkActive {
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.mobileLinkDisabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.mobilePill {
+  font-size: 11px;
+  font-weight: 900;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(255, 0, 0, 0.10);
+  border: 1px solid rgba(255, 0, 0, 0.22);
+}
+
+.mobileDivider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 10px 0;
+}
+
+.mobileAuth {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.mobileMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.mobileUserLine {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mobileUser {
+  font-weight: 900;
+}
+
+.mobileRole {
+  font-size: 11px;
+  font-weight: 900;
+  opacity: 0.7;
+  text-transform: uppercase;
+}
+
+.mobileBalance {
+  font-family: var(--font-mono);
+  font-weight: 800;
+  opacity: 0.9;
+}
+
+.mobileNote {
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 700;
+  margin-top: 6px;
+}
+
+/* Form styles */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+.formGroup label {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.formGroup input {
+  width: 100%;
+  padding: var(--space-md);
+  background: var(--bg-input);
+  border: 2px solid var(--border-default);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-size: 14px;
+  font-weight: 650;
+  transition: var(--transition-fast);
+}
+.formGroup input:focus {
+  border-color: var(--accent-primary);
+  background: var(--bg-input-hover);
+}
+.hint {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  margin-top: -4px;
+}
+
+@media (max-width: 1024px) {
+  .links {
+    gap: var(--space-xs);
+  }
+  .link,
+  .linkBtn {
+    padding: var(--space-sm);
+    font-size: 13px;
+  }
+  .balanceLabel {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 var(--space-md);
+    
+  }
+  .links {
+    display: none;
+  }
+  .username {
+    display: none;
+  }
+  .mobileToggle {
+    display: inline-flex;
+  }
+  .logoSvg {
+    height: 24px;
+  }
+
+  
+}

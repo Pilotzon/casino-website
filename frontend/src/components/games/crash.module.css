@@ -1,0 +1,357 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap');
+
+:root {
+  --bg-body: #1a2c38;
+  --bg-sidebar: #213743;
+  --bg-input: #0f212e;
+  --bg-surface: #2f4553;
+  --accent-green: #00e701;
+  --accent-red: #f12c4c;
+  --accent-orange: #ff9500;
+  --text-secondary: #b1bad3;
+  --bitcoin: #fca311;
+}
+
+.container {
+  display: flex;
+  background: var(--bg-body);
+  color: white;
+  min-height: calc(100vh - 130px);
+  font-family: 'proxima-nova';
+font-feature-settings: "salt" on;;
+}
+
+.sidebar {
+  width: 320px;
+  background: var(--bg-sidebar);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border-right: 1px solid rgba(0,0,0,0.2);
+}
+
+.modeToggle {
+  background: #0f212e;
+  border-radius: 50px;
+  padding: 5px;
+  display: flex;
+}
+
+.modeBtn {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #b1bad3;
+  padding: 10px 0;
+  border-radius: 40px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.modeBtn.active {
+  background: #2f4553;
+  color: #ffffff;
+}
+
+.controlGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.labelRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.inputGroup {
+  display: flex;
+  background: var(--bg-input);
+  border: 1px solid var(--bg-surface);
+  border-radius: 4px;
+  height: 44px;
+}
+
+.inputWrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding-left: 12px;
+}
+
+.inputWrapper input {
+  background: transparent;
+  border: none;
+  color: white;
+  width: 100%;
+  font-weight: 700;
+  font-size: 14px;
+  outline: none;
+}
+
+.btcIcon {
+  color: var(--bitcoin);
+  margin-right: 12px;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.splitButtons {
+  display: flex;
+  align-items: center;
+  border-left: 1px solid var(--bg-surface);
+  padding: 0 4px;
+}
+
+.splitButtons button {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-weight: 600;
+  padding: 0 12px;
+  height: 100%;
+  cursor: pointer;
+}
+
+.divider { width: 1px; height: 16px; background: var(--bg-surface); }
+
+.cashoutInput {
+  display: flex;
+  background: var(--bg-input);
+  border: 1px solid var(--bg-surface);
+  border-radius: 4px;
+  height: 44px;
+  overflow: hidden;
+}
+
+.cashoutInput input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: white;
+  padding-left: 12px;
+  font-weight: 700;
+  font-size: 14px;
+  outline: none;
+}
+
+.arrowButtons {
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid var(--bg-surface);
+}
+
+.arrowButtons button {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 0 10px;
+  font-size: 10px;
+}
+
+.arrowButtons button:first-child {
+  border-bottom: 1px solid var(--bg-surface);
+}
+
+.betButton {
+  background: var(--accent-green);
+  color: #013e01;
+  border: none;
+  border-radius: 8px;
+  height: 44px;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 6px;
+  box-shadow: 0 7px 15px rgba(0,0,0,0.1);
+  transition: all 0.2s;
+}
+
+.cashoutButton {
+  background: var(--accent-red);
+  color: white;
+}
+
+.readonlyInput {
+  background: var(--bg-input);
+  border: 1px solid var(--bg-surface);
+  border-radius: 4px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+}
+
+.readonlyInput input {
+  background: transparent;
+  border: none;
+  color: white;
+  flex: 1;
+  font-weight: 700;
+  font-size: 14px;
+  outline: none;
+}
+
+.historySection {
+  margin-top: 20px;
+}
+
+.historyLabel {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+.historyItems {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.historyChip {
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.lowCrash {
+  background: rgba(241, 44, 76, 0.2);
+  color: var(--accent-red);
+}
+
+.medCrash {
+  background: rgba(255, 149, 0, 0.2);
+  color: var(--accent-orange);
+}
+
+.highCrash {
+  background: rgba(0, 231, 1, 0.2);
+  color: var(--accent-green);
+}
+
+.gameStage {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-input);
+  padding: 40px;
+  position: relative;
+}
+
+.graphContainer {
+  flex: 1;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  position: relative;
+  background: var(--bg-sidebar);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.multiplierOverlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  pointer-events: none;
+}
+
+.waitingText, .countdownText {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+.currentMulti {
+  font-size: 120px;
+  font-weight: 900;
+  color: white;
+  text-shadow: 0 0 40px rgba(255, 149, 0, 0.8);
+  animation: pulse 0.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.crashedMulti {
+  color: var(--accent-red);
+  text-shadow: 0 0 40px rgba(241, 44, 76, 0.8);
+  animation: shake 0.5s;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-10px); }
+  75% { transform: translateX(10px); }
+}
+
+.crashedLabel {
+  font-size: 40px;
+  font-weight: 800;
+  color: var(--accent-red);
+  margin-top: 20px;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+}
+
+.timeAxis {
+  position: absolute;
+  bottom: 0;
+  left: 20px;
+  right: 20px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.betsPanel {
+  position: absolute;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg-sidebar);
+  padding: 12px 24px;
+  border-radius: 6px;
+  display: flex;
+  gap: 40px;
+}
+
+.betsHeader {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+}
+
+.betsCount, .betsTotal {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 900px) {
+  .container { flex-direction: column; }
+  .sidebar { width: 100%; border-right: none; }
+  .currentMulti { font-size: 80px; }
+}

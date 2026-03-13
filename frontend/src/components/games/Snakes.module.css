@@ -1,0 +1,957 @@
+:root{
+  --bg-body:#1a2c38;
+  --bg-sidebar:#213743;
+  --bg-stage:#0f212e;
+
+  --board-cell: 128px;
+
+  --tile-gap-x: 7px;
+  --tile-gap-y: -4px;
+
+  --tile-base-height: 14px;
+  --tile-base-color: #1a2f3a;
+  --tile-base-snake-walking: #8294A2;
+  --tile-base-snake-landed: #8a0a24;
+
+  --text-secondary:#b1bad3;
+  --accent-green:#00e701;
+
+  --tile-face:#2F4553;
+
+  --snake-hover-base:#BA0E30;
+  --snake-hover-bg:#E9113C;
+
+  --diff-hover-base:#105EB4;
+  --diff-hover-bg:#047BFF;
+  --start-arrow:#225689;
+}
+
+.container{
+  display:flex;
+  background:var(--bg-body);
+  color:#fff;
+  min-height:600px;
+  font-family:"proxima-nova";
+  font-feature-settings:"salt" on;
+  overflow:hidden;
+}
+
+.sidebar{
+  width:320px;
+  background:var(--bg-sidebar);
+  padding:16px;
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+  border-right:1px solid rgba(0,0,0,0.2);
+}
+
+.modeToggle{
+  background:#0f212e;
+  border-radius:50px;
+  padding:5px;
+  display:flex;
+  width:100%;
+}
+
+.modeBtn{
+  flex:1;
+  background:transparent;
+  border:none;
+  color:#b1bad3;
+  padding:10px 0;
+  border-radius:40px;
+  font-weight:700;
+  font-size:14px;
+  cursor:pointer;
+  transition:all .2s ease;
+  text-align:center;
+}
+.active{
+  background:#2f4553;
+  color:#fff;
+  box-shadow:0 2px 5px rgba(0,0,0,0.1);
+}
+
+.controlGroup{ display:flex; flex-direction:column; gap:8px; }
+
+.labelRow{
+  display:flex;
+  justify-content:space-between;
+  font-size:13px;
+  font-weight:600;
+  color:var(--text-secondary);
+}
+
+.inputGroup{
+  display:flex;
+  overflow:hidden;
+  background: #0F212E;
+  border: 2px solid #395263;
+  border-radius: 9px;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
+  height: 44px;
+}
+
+.inputGroup:focus-within { border-color: #49687e; }
+
+.prefix{ color:rgba(255,255,255,0.55); font-weight:800; margin-right:10px; }
+
+.inputWrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding-left: 12px;
+}
+.inputWrapper input {
+  background: transparent;
+  border: none;
+  color: white;
+  width: 100%;
+  font-weight: 500;
+  font-size: 16px;
+  outline: none;
+  font-family: 'proxima-nova';
+  font-feature-settings: "salt" on;
+}
+
+.splitButtons{
+  display:flex;
+  align-items:center;
+  background:#0F212E;
+  border-left:1px solid rgba(255,255,255,0.06);
+  padding:0 4px;
+}
+.splitButtons button{
+  background:transparent;
+  border:none;
+  color:#fff;
+  font-weight:700;
+  padding:0 12px;
+  height:100%;
+  cursor:pointer;
+  font-size:13px;
+}
+.divider{ width:1px; height:16px; background:rgba(255,255,255,0.08); }
+
+.readonlyInput {
+  background: #0F212E;
+  border: 2px solid #395263;
+  border-radius: 9px;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
+  height: 44px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+}
+.readonlyInput:focus-within { border-color: #49687e; }
+
+.readonlyInput select {
+  width: 100%;
+  height: 100%;
+  background: #0F212E;
+  border: none;
+  color: #fff;
+  font-weight: 600;
+  outline: none;
+  font-family: 'proxima-nova';
+  font-feature-settings: "salt" on;
+  appearance: none;
+  -webkit-appearance: none;
+}
+.select {
+  width: 100%;
+  height: 44px;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+  font-family: "proxima-nova";
+  font-feature-settings: "salt" on;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.betButton {
+  background: var(--accent-green);
+  color: #013e01;
+  border: none;
+  border-radius: 8px;
+  height: 44px;
+  font-weight: 800;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 6px;
+  font-family: "proxima-nova";
+  font-feature-settings: "salt" on;
+  transition: filter 0.2s, transform 0.1s;
+  box-shadow: 0 7px 15px rgba(0, 0, 0, 0.1);
+}
+.betButton:hover { filter: brightness(1.08); }
+.betButton:disabled { opacity: 0.55; cursor: not-allowed; }
+
+.rollButton,.cashoutButton{
+  background:#2F4553;
+  color:#fff;
+  border:none;
+  border-radius:8px;
+  height:44px;
+  font-weight:900;
+  font-size:16px;
+  cursor:pointer;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
+  transition: 120ms;
+}
+.rollButton:disabled,.cashoutButton:disabled{ opacity:.55; cursor:not-allowed; }
+
+.gameStage{
+  flex:1;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:var(--bg-stage);
+  padding:22px;
+}
+
+.boardWrap{
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:14px;
+  position: relative;
+}
+
+.board{
+  position:relative;
+  width: calc(var(--board-cell) * 4);
+  height: calc(var(--board-cell) * 4);
+}
+
+/* ===== tiles with 2-layer 3D effect ===== */
+/* Back layer (base) */
+.tile{
+  position:absolute;
+  border-radius:14px;
+  background: var(--tile-base-color);
+  display:flex;
+  flex-direction:column;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Start tile - not clickable */
+.tileStart {
+  cursor: default;
+}
+
+/* Front face */
+.tileFront {
+  flex: 1;
+  margin: -4px 5px;
+  margin-bottom: var(--tile-base-height);
+  background: var(--tile-face);
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  transition: filter 100ms ease;
+}
+
+/* Hover - just brighten the front (not for start tile) */
+.tile:hover .tileFront {
+  filter: brightness(1.15);
+}
+.tileStart:hover .tileFront {
+  filter: brightness(1);
+}
+
+/* ===== Selected tile (clicked) ===== */
+.tileSelected {
+  z-index: 100 !important;
+  background: var(--diff-hover-base);
+}
+.tileSelected .tileFront {
+  background: var(--diff-hover-bg);
+}
+
+/* Selected snake tile - red base */
+.tileSelected.tileSnake {
+  background: var(--snake-hover-base);
+}
+.tileSelected.tileSnake .tileFront {
+  background: var(--snake-hover-bg);
+}
+.tileSelected .snakeIcon {
+  color: #fff;
+  opacity: 0.92;
+}
+
+/* ===== Walking through normal tile - scale up + fade color in ===== */
+.tileWalking {
+  z-index: 20 !important;
+  animation: walkTileEntry 100ms ease-out forwards;
+}
+
+.tileWalking .tileFront {
+  animation: walkFrontEntry 100ms ease-out forwards;
+}
+
+@keyframes walkTileEntry {
+  0% {
+    transform: scale(1);
+    background-color: var(--tile-base-color);
+  }
+  60% {
+    transform: scale(1.12);
+    background-color: var(--diff-hover-bg);
+  }
+  100% {
+    transform: scale(1.08);
+    background-color: var(--diff-hover-bg);
+  }
+}
+
+@keyframes walkFrontEntry {
+  0% {
+    margin: -4px 5px;
+    margin-bottom: var(--tile-base-height);
+  }
+  60% {
+    margin: 3px 5px;
+    margin-bottom: var(--tile-base-height);
+  }
+  100% {
+    margin: 3px 5px;
+    margin-bottom: var(--tile-base-height);
+  }
+}
+
+/* ===== Walking through snake tile ===== */
+.tileWalkingSnakeThrough {
+  z-index: 20 !important;
+  animation: walkTileEntrySnake 100ms ease-out forwards;
+}
+
+.tileWalkingSnakeThrough .tileFront {
+  animation: walkFrontEntry 100ms ease-out forwards;
+}
+
+@keyframes walkTileEntrySnake {
+  0% {
+    transform: scale(1);
+    background-color: var(--tile-base-color);
+  }
+  60% {
+    transform: scale(1.12);
+    background-color: var(--tile-base-snake-walking);
+  }
+  100% {
+    transform: scale(1.08);
+    background-color: var(--tile-base-snake-walking);
+  }
+}
+
+.tileWalkingSnakeThrough .snakeIcon {
+  color: #fff;
+  opacity: 0.92;
+}
+
+/* ===== Tile exiting - scale down + fade color out ===== */
+.tileExiting {
+  z-index: 19 !important;
+  animation: tileExit 100ms ease-out forwards;
+}
+
+.tileExiting .tileFront {
+  animation: tileFrontExit 100ms ease-out forwards;
+}
+
+@keyframes tileExit {
+  0% {
+    transform: scale(1.08);
+    background-color: var(--diff-hover-bg);
+  }
+  100% {
+    transform: scale(1);
+    background-color: var(--tile-base-color);
+  }
+}
+
+@keyframes tileFrontExit {
+  0% {
+    margin: 3px 5px;
+    margin-bottom: var(--tile-base-height);
+  }
+  100% {
+    margin: -4px 5px;
+    margin-bottom: var(--tile-base-height);
+  }
+}
+
+/* Snake tile exiting */
+.tileExiting.tileSnake {
+  animation: tileExitSnake 100ms ease-out forwards;
+}
+
+@keyframes tileExitSnake {
+  0% {
+    transform: scale(1.08);
+    background-color: var(--tile-base-snake-walking);
+  }
+  100% {
+    transform: scale(1);
+    background-color: var(--tile-base-color);
+  }
+}
+
+/* ===== Active tile entrance animation ===== */
+.tileActiveEntering {
+  z-index: 20 !important;
+  animation: activeTileEntry 100ms ease-out forwards;
+}
+
+.tileActiveEntering .tileFront {
+  animation: activeFrontEntry 100ms ease-out forwards;
+}
+
+@keyframes activeTileEntry {
+  0% {
+    transform: scale(1);
+    background-color: var(--tile-base-color);
+  }
+  60% {
+    transform: scale(1.10);
+    background-color: var(--diff-hover-base);
+  }
+  100% {
+    transform: scale(1);
+    background-color: var(--diff-hover-base);
+  }
+}
+
+@keyframes activeFrontEntry {
+  0% {
+    margin: -4px 5px;
+    margin-bottom: var(--tile-base-height);
+    background-color: var(--tile-face);
+  }
+  60% {
+    background-color: var(--diff-hover-bg);
+  }
+  100% {
+    margin: -4px 5px;
+    margin-bottom: var(--tile-base-height);
+    background-color: var(--diff-hover-bg);
+  }
+}
+
+/* ===== Active snake tile entrance animation ===== */
+.tileActiveSnakeEntering {
+  z-index: 20 !important;
+  animation: activeSnakeTileEntry 100ms ease-out forwards;
+}
+
+.tileActiveSnakeEntering .tileFront {
+  animation: activeFrontEntry 100ms ease-out forwards;
+}
+
+@keyframes activeSnakeTileEntry {
+  0% {
+    transform: scale(1);
+    background-color: var(--tile-base-color);
+  }
+  60% {
+    transform: scale(1.10);
+    background-color: var(--tile-base-snake-walking);
+  }
+  100% {
+    transform: scale(1);
+    background-color: var(--tile-base-snake-walking);
+  }
+}
+
+.tileActiveSnakeEntering .snakeIcon {
+  color: #fff;
+  opacity: 0.92;
+}
+
+/* ===== Landed on normal tile - BOTH base and front change ===== */
+.tileActive {
+  transform: scale(1);
+  z-index: 20 !important;
+  background: var(--diff-hover-base);
+}
+.tileActive .tileFront {
+  background: var(--diff-hover-bg);
+}
+
+/* ===== Active snake tile (not lost yet) - white base, blue front ===== */
+.tileActiveSnake {
+  transform: scale(1);
+  z-index: 20 !important;
+  background: var(--tile-base-snake-walking);
+}
+.tileActiveSnake .tileFront {
+  background: var(--diff-hover-bg);
+}
+.tileActiveSnake .snakeIcon {
+  color: #fff;
+  opacity: 0.92;
+}
+
+/* ===== Landed on snake tile (lost) ===== */
+.tileLandedSnake {
+  transform: scale(1);
+  z-index: 20 !important;
+  background: var(--tile-base-snake-landed);
+}
+.tileLandedSnake .tileFront {
+  background: var(--snake-hover-bg);
+}
+.tileLandedSnake .snakeIcon {
+  color: #fff;
+  opacity: 0.92;
+}
+
+/* ===== Tile landing bounce ===== */
+.tileLanding {
+  animation: tileLandingBounce 300ms ease-out;
+}
+
+@keyframes tileLandingBounce {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* ===== Dim tiles after first roll ===== */
+.tileDimAfterRoll {
+  opacity: 1;
+}
+
+/* ===== Zoom pulse on layout change ===== */
+.tileZoomPulse {
+  animation: tileZoomPulse 400ms ease-out;
+}
+
+@keyframes tileZoomPulse {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Center multiplier text */
+.centerMult{ 
+  font-weight:1000; 
+  font-size:30px;
+  transition: color 300ms ease, transform 100ms ease;
+}
+
+.centerMultWin {
+  color: var(--accent-green);
+}
+
+.centerMultLose {
+  color: var(--snake-hover-bg);
+}
+
+.centerMultAnimating {
+  animation: multPulse 400ms ease-out;
+}
+
+@keyframes multPulse {
+  0% {
+    transform: scale(1);
+  }
+  30% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.multValue{ font-size:22px; font-weight:900; color:#eaf2f9; }
+
+.startIcon{
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  color: var(--start-arrow);
+}
+
+.startArrowSvg{
+  width: 42px;
+  height: 42px;
+}
+
+.snakeIcon{
+  color: var(--text-secondary);
+  opacity:0.55;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+}
+.snakeIcon svg{ width:54px; height:54px; }
+
+/* ===== center tile ===== */
+.centerTile{
+  position:absolute;
+  left: var(--board-cell);
+  top: var(--board-cell);
+  width: calc(var(--board-cell) * 2);
+  height: calc(var(--board-cell) * 2);
+  border-radius:12px;
+  background:#0f212e;
+  border:1px solid rgba(255,255,255,0.06);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:14px;
+  z-index: 10;
+  transform: scale(0.92);
+}
+
+.diceHolder{ display:flex; gap:14px; }
+
+/* ===== dice with dots ===== */
+.die{
+  width:78px;
+  height:78px;
+  border-radius:16px;
+  background:#d0d6e6;
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  padding: 12px;
+  gap: 4px;
+  box-shadow:
+    0 10px 0 0 #9ba3b5,
+    0 14px 8px rgba(0,0,0,0.25);
+  transition: transform 0ms, box-shadow 0ms;
+}
+
+.dieDot {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: transparent;
+}
+
+.dieDot.visible {
+  background: #0f212e;
+}
+
+/* Dice pressed */
+.diePressed {
+  transform: translateY(6px);
+  box-shadow:
+    0 4px 0 0 #9ba3b5,
+    0 6px 4px rgba(0,0,0,0.2);
+}
+
+/* Dice rolling - only when pressed */
+.dieRolling.diePressed {
+  animation: dieRoll 120ms linear infinite;
+}
+
+/* Dice unpress */
+.dieUnpress {
+  animation: dieUnpressSpring 300ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes dieRoll{
+  0%{ transform: rotate(0deg) translateY(6px); }
+  50%{ transform: translateY(6px); }
+  100%{ transform: rotate(0deg) translateY(6px); }
+}
+
+@keyframes dieUnpressSpring {
+  0% {
+    transform: translateY(6px);
+    box-shadow:
+      0 4px 0 0 #9ba3b5,
+      0 6px 4px rgba(0,0,0,0.2);
+  }
+  100% {
+    transform: translateY(0);
+    box-shadow:
+      0 10px 0 0 #9ba3b5,
+      0 14px 8px rgba(0,0,0,0.25);
+  }
+}
+
+/* ===== dots with difficulty color ===== */
+.rollDots{
+  width:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:14px;
+  margin-top: 24px;
+}
+.dot{
+  width:16px;
+  height:16px;
+  border-radius:50%;
+  background: rgba(255,255,255,0.12);
+  transition: background-color 200ms ease, transform 200ms ease;
+}
+.dotActive{ 
+  background: var(--diff-hover-bg);
+  transform: scale(1.1);
+}
+
+/* ===== Hover panel with float-in ===== */
+.wheelHoverPanel{
+  position:absolute;
+  z-index:200;
+  background:#213743;
+  border-radius:10px;
+  padding:12px;
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
+  width: 340px;
+  transition: opacity 180ms ease, visibility 180ms linear, transform 180ms ease;
+}
+
+.panelBelow.wheelHoverPanel{
+  transform: translate(-50%, calc(var(--board-cell) + 22px));
+}
+.panelBelow.wheelHoverPanelVisible{
+  transform: translate(-50%, calc(var(--board-cell) + 10px));
+}
+
+.panelAbove.wheelHoverPanel{
+  transform: translate(-50%, -102px);
+}
+.panelAbove.wheelHoverPanelVisible{
+  transform: translate(-50%, -90px);
+}
+
+.wheelHoverPanelVisible{
+  opacity:1;
+  visibility:visible;
+}
+
+.wheelHoverBoxes{
+  display:grid;
+  gap:14px;
+}
+.wheelHoverBox{
+  background:#2F4553;
+  border-radius:10px;
+  padding:12px 14px;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
+}
+.wheelHoverLabel{
+  font-size:13px;
+  font-weight:700;
+  color:#b1bad3;
+}
+.wheelHoverValue{
+  margin-top:10px;
+  font-size:16px;
+  font-weight:900;
+  color:#fff;
+}
+.wheelHoverArrow{
+  position:relative;
+  height:0;
+}
+.wheelHoverArrow::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+  width:0;
+  height:0;
+  border-left:10px solid transparent;
+  border-right:10px solid transparent;
+}
+
+.panelAbove .wheelHoverArrow::after{
+  top: 12px;
+  border-top: 10px solid #213743;
+}
+.panelBelow .wheelHoverArrow::after{
+  top: -10px;
+  border-bottom: 10px solid #213743;
+}
+
+/* Win popup */
+.winPopup {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.85);
+  transform-origin: center;
+  background: #0F212E;
+  border: 2px solid rgba(0, 172, 0, 0.9);
+  border-radius: 16px;
+  padding: 18px 24px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.28);
+  opacity: 1;
+  animation: snakeWinPop 160ms ease-out forwards;
+  min-width: 240px;
+  z-index: 80;
+}
+@keyframes snakeWinPop {
+  to { transform: translate(-50%, -50%) scale(1.06); }
+}
+.winPopupTitle {
+  font-weight: 900;
+  font-size: 13px;
+  letter-spacing: 0.7px;
+  color: var(--accent-green);
+  text-transform: uppercase;
+}
+.winPopupAmount {
+  margin-top: 8px;
+  font-weight: 900;
+  font-size: 18px;
+  color: #ffffff;
+}
+
+/* Loss popup */
+.lossPopup {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.85);
+  transform-origin: center;
+  background: #0F212E;
+  border: 2px solid var(--snake-hover-base);
+  border-radius: 16px;
+  padding: 18px 24px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.28);
+  opacity: 1;
+  animation: snakeLossPop 160ms ease-out forwards;
+  min-width: 240px;
+  z-index: 80;
+}
+@keyframes snakeLossPop {
+  to { transform: translate(-50%, -50%) scale(1.06); }
+}
+.lossPopupTitle {
+  font-weight: 900;
+  font-size: 13px;
+  letter-spacing: 0.7px;
+  color: var(--snake-hover-bg);
+  text-transform: uppercase;
+}
+.lossPopupAmount {
+  margin-top: 8px;
+  font-weight: 900;
+  font-size: 18px;
+  color: #ffffff;
+}
+
+/* mobile modal */
+.modalOverlay{
+  position:fixed;
+  inset:0;
+  background: rgba(0,0,0,0.55);
+  display:grid;
+  place-items:center;
+  z-index:1000;
+  padding:16px;
+}
+.modalCard{
+  width:100%;
+  max-width:360px;
+  background:#0f212e;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,0.08);
+  padding:16px;
+}
+.modalTitle{
+  font-weight:900;
+  font-size:12px;
+  color:#b1bad3;
+  text-transform:uppercase;
+}
+.modalGrid{
+  margin-top:12px;
+  display:grid;
+  gap:10px;
+}
+.modalItem{
+  background:#213743;
+  border-radius:10px;
+  padding:12px;
+  border:1px solid rgba(255,255,255,0.06);
+}
+.modalItemLabel{
+  font-size:12px;
+  font-weight:800;
+  color:#b1bad3;
+}
+.modalItemValue{
+  margin-top:8px;
+  font-size:14px;
+  font-weight:900;
+  color:#fff;
+}
+.modalBtnPrimary{
+  margin-top:12px;
+  width:100%;
+  height:42px;
+  border:none;
+  border-radius:10px;
+  background: var(--accent-green);
+  color:#013e01;
+  font-weight:900;
+  cursor:pointer;
+}
+
+/* responsive */
+@media (max-width: 900px){
+  :root{
+    --board-cell: 108px;
+    --tile-gap-x: 6px;
+    --tile-gap-y: 6px;
+  }
+  .container{ flex-direction:column; }
+  .sidebar{ width:100%; border-right:none; }
+  .gameStage{ padding:14px; }
+}
+@media (max-width: 600px){
+  :root{
+    --board-cell: 94px;
+    --tile-gap-x: 6px;
+    --tile-gap-y: 6px;
+  }
+  .wheelHoverPanel{ display:none; }
+
+  .winPopup, .lossPopup {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    min-width: 0;
+    width: 100%;
+    margin: 0 0 12px 0;
+    animation: none;
+  }
+}

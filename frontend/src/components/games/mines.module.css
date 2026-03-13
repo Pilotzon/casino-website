@@ -1,0 +1,498 @@
+/* frontend/src/components/games/mines.module.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap');
+
+:root {
+  /* Global Colors */
+  --bg-body: #1a2c38;
+  --bg-sidebar: #213743;
+  --bg-input: #0f212e;
+  --bg-surface: #2f4553;
+  --accent-green: #00e701;
+  --text-secondary: #b1bad3;
+  --bitcoin: #fca311;
+
+  /* Inputs */
+  --ui-outline: rgba(255, 255, 255, 0.10);
+  --ui-outline-focus: rgba(255, 255, 255, 0.18);
+  --ui-input-radius: 8px;
+  --ui-input-border: 2px;
+  --ui-input-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
+
+  /* Mines Tile Configuration */
+  --mines-tile-face: #2F4553;    /* Flat Face Color */
+  --mines-tile-shadow: #213743;  /* Solid Shadow Color */
+  --mines-tile-hover: #557086;   /* Lighten on hover */
+  --mines-tile-hole: #071824;    /* Empty hole color */
+  
+  --mines-tile-radius: 10px;
+  --mines-tile-gap: 13px;
+  --mines-base-height: 8px;      /* The static 3D height */
+}
+
+/* ========================================= */
+/* SIDEBAR                       */
+/* ========================================= */
+
+.container {
+  display: flex;
+  background: var(--bg-body);
+  color: white;
+  min-height: 600px;
+  font-family: 'proxima-nova';
+font-feature-settings: "salt" on;;
+  overflow: hidden;
+}
+
+.sidebar {
+  width: 320px;
+  background: var(--bg-sidebar);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border-right: 1px solid rgba(0,0,0,0.2);
+  border-bottom-right-radius: 8px;
+}
+
+.sidebar select { background: transparent; color: #ffffff; }
+.sidebar select option { background: var(--bg-input); color: #ffffff; }
+.sidebar select optgroup { background: var(--bg-input); color: #ffffff; }
+
+.controlsHeader { margin-bottom: 4px; }
+
+.modeToggle {
+  background: #0f212e;
+  border-radius: 50px;
+  padding: 5px;
+  display: flex;
+  width: 100%;
+  position: relative;
+}
+
+.modeBtn {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #b1bad3;
+  padding: 10px 0;
+  border-radius: 40px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  font-family: 'proxima-nova';
+font-feature-settings: "salt" on;;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.active {
+  background: #2f4553;
+  color: #ffffff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.modeBtn:hover:not(.active) { color: #ffffff; }
+
+.controlGroup { display: flex; flex-direction: column; gap: 8px; }
+
+.labelRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.inputGroup {
+  display: flex;
+  background: var(--bg-input);
+  border: var(--ui-input-border) solid var(--ui-outline);
+  border-radius: 9px;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
+  height: 44px;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.inputGroup:focus-within { border-color: var(--ui-outline-focus); }
+
+.inputWrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding-left: 12px;
+}
+
+.inputWrapper input {
+  background: transparent;
+  border: none;
+  color: white;
+  width: 100%;
+  font-weight: 700;
+  font-size: 14px;
+  outline: none;
+  font-family: 'proxima-nova';
+font-feature-settings: "salt" on;;
+}
+
+.coinChip {
+  color: var(--bitcoin);
+  font-weight: 800;
+  font-size: 14px;
+  width: 42px;
+  display: grid;
+  place-items: center;
+  border-left: 1px solid rgba(255,255,255,0.06);
+  background: var(--bg-input);
+}
+
+.splitButtons {
+  display: flex;
+  align-items: center;
+  background: var(--bg-input);
+  border-left: 1px solid rgba(255,255,255,0.06);
+  padding: 0 4px;
+}
+
+.splitButtons button {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-weight: 600;
+  padding: 0 12px;
+  height: 100%;
+  cursor: pointer;
+  font-size: 13px;
+}
+.splitButtons button:hover { color: white; }
+
+.divider { width: 1px; height: 16px; background: rgba(255,255,255,0.08); }
+
+.readonlyInput {
+  position: relative;
+  background: var(--bg-input);
+  border: var(--ui-input-border) solid var(--ui-outline);
+  border-radius: 9px;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
+  height: 44px;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+}
+.readonlyInput:focus-within { border-color: #49687e; }
+
+.readonlyInput input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+  outline: none;
+  font-family: 'proxima-nova';
+font-feature-settings: "salt" on;;
+}
+
+.select {
+  width: 100%;
+  height: 44px;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+  font-family: 'proxima-nova';
+font-feature-settings: "salt" on;;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.hasCaret::after {
+  content: "";
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  transform: translateY(-50%) rotate(45deg);
+  border-right: 2px solid rgba(255, 255, 255, 0.55);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.55);
+  pointer-events: none;
+}
+
+.bigButton {
+  background: var(--accent-green);
+  color: #013e01;
+  border: none;
+  border-radius: 8px;
+  height: 44px;
+  font-weight: 800;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 6px;
+  font-family: 'proxima-nova';
+font-feature-settings: "salt" on;;
+  transition: filter 0.2s, transform 0.1s;
+  box-shadow: 0 7px 15px rgba(0, 0, 0, 0.1);
+}
+.bigButton:hover { filter: brightness(1.08); }
+.bigButton:disabled { opacity: 0.55; cursor: not-allowed; }
+
+.secondaryButton {
+  background: #2F4553;
+  color: #fff;
+  border-radius: 8px;
+  height: 41px;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  font-family: "proxima-nova";
+  font-feature-settings: "salt" on;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
+}
+.secondaryButton:hover { color: #fff; }
+.secondaryButton:disabled { color: #909BA1; opacity: 0.55; cursor: not-allowed; }
+
+/* Global button active state - Tile overrides this later */
+button:active { transform: scale(0.97); }
+
+.coinChipSmall {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  background: #fca311;
+  color: #1a2c38;
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+  font-size: 12px;
+}
+
+/* ========================================= */
+/* GAME BOARD & TILES             */
+/* ========================================= */
+
+.gameStage {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #0F212E;
+  padding: 32px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--mines-tile-gap);
+  width: 100%;
+  max-width: 680px; 
+  margin: 0 auto;
+}
+
+.tile {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: var(--mines-tile-radius);
+
+  background-color: var(--mines-tile-face);
+  box-shadow: 0 var(--mines-base-height) 0 var(--mines-tile-shadow);
+
+  /* CHANGED: Added transition for transform/shadow/bg-color 
+     This handles the reset animation when starting a new game.
+  */
+  transition: transform 0s ease, box-shadow 0s ease, background-color 0.35s ease;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5.5px;
+}
+
+/* Hover: LEVITATE THE WHOLE TILE 
+   Transition here can be 'none' or '0.1s' for responsiveness. 
+   Keeping it short so clicking feels snappy.
+*/
+.tile:not(.tileRevealed):hover {
+  background-color: var(--mines-tile-hover);
+  transform: translateY(-3.5px); 
+  box-shadow: 0 var(--mines-base-height) 0 var(--mines-tile-shadow);
+  cursor: pointer;
+  transition: transform 0s ease, box-shadow 0s ease;
+}
+
+/* Active (Click): UNREVEALED TILE
+   Instantly snaps back.
+*/
+.tile:not(.tileRevealed):active {
+  background-color: var(--mines-tile-hover);
+  transform: translateY(0) scale(1);
+  box-shadow: 0 var(--mines-base-height) 0 var(--mines-tile-shadow);
+  transition: none;
+}
+
+.tile:disabled {
+  cursor: default;
+  opacity: 1;
+}
+
+/* Revealed: Becomes a hole sitting on the "ground" */
+.tileRevealed {
+  background-color: var(--mines-tile-hole);
+  box-shadow: 0 0 0 var(--mines-tile-shadow); /* Shrink shadow to zero */
+  transform: translateY(var(--mines-base-height)); 
+  border: 1px solid rgba(255,255,255,0.05);
+  cursor: default;
+}
+
+/* Active (Click): REVEALED TILE (Mines/Gems)
+   Forced scale(1) to stop the global button zoom.
+*/
+.tileRevealed:active {
+  transform: translateY(var(--mines-base-height)) scale(1);
+  transition: none;
+}
+
+/* Icon / Gem / Mine Animation */
+.icon {
+  width: 60%;
+  height: 60%;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 5px rgba(0,0,0,0.5));
+  
+  /* The ONLY smooth animation: Zoom In */
+  animation: zoomIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* ✅ Win popup (Limbo-like) */
+.winPopup {
+  position: absolute;
+  top: 50%;
+  left: 58.5%;
+  transform: translate(-50%, -50%) scale(0.85);
+  transform-origin: center;
+  background: #0F212E;
+  border: 3px solid rgb(0, 187, 0);
+  border-radius: 16px;
+  padding: 18px 24px;
+  text-align: center;
+  opacity: 1;
+  animation: minesWinPop 160ms ease-out forwards;
+  min-width: 240px;
+  z-index: 50;
+}
+
+@keyframes minesWinPop {
+  to { transform: translate(-50%, -50%) scale(1.06); }
+}
+
+.winPopupTitle {
+  font-weight: 900;
+  font-size: 13px;
+  letter-spacing: 0.7px;
+  color: var(--accent-green);
+  text-transform: uppercase;
+}
+
+.winPopupAmount {
+  margin-top: 8px;
+  font-weight: 900;
+  font-size: 18px;
+  color: #ffffff;
+}
+
+@media (max-width: 600px) {
+  .winPopup {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    min-width: 0;
+    width: 100%;
+    margin: 0 0 12px 0;
+    animation: none;
+  }
+}
+
+@keyframes zoomIn {
+  0% { transform: scale(0); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@media (max-width: 900px) {
+  .container { flex-direction: column; }
+  .sidebar { width: 100%; border-right: none; }
+  .gameStage { padding: 16px; }
+  
+  .grid {
+    max-width: 100%;
+    gap: 12px;
+  }
+}
+
+/* ========================================= */
+/* LOSS DARKENING (AFTER HIT MINE)            */
+/* ========================================= */
+
+/* Darken ONLY the unrevealed tiles after losing */
+.gridLost .tile:not(.tileRevealed) {
+  background-color: #1a2f3b; /* darker than --mines-tile-face */
+  box-shadow: 0 var(--mines-base-height) 0 #162a34; /* darker base */
+  filter: saturate(0.85) brightness(0.95);
+}
+
+/* Keep holes slightly dim too (optional, matches "lost" feel) */
+.gridLost .tileRevealed {
+  filter: brightness(0.92);
+}
+
+/* Keep icons readable */
+.gridLost .icon {
+  filter: drop-shadow(0 4px 5px rgba(0,0,0,0.6));
+}
+
+/* ===== Mobile polish (Mines) ===== */
+@media (max-width: 600px) {
+
+  :root {
+  --mines-base-height: 6px;      /* The static 3D height */
+  }
+  
+  .sidebar {
+    padding: 12px;
+    gap: 12px;
+    border-bottom-right-radius: 0;
+  }
+
+  .gameStage {
+    padding: 14px;
+  }
+
+  .grid {
+    gap: 10px;
+    max-width: 520px;
+  }
+
+  .tile {
+    border-radius: 10px;
+  }
+
+  .bigButton,
+  .secondaryButton {
+    width: 100%;
+  }
+}
+
+@media (max-width: 380px) {
+  .grid {
+    gap: 8px;
+  }
+}
