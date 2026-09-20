@@ -8,7 +8,6 @@
 .container {
   --lose-red: #ef4444;
 
-  --table-bg: #0f2a35;
   --pill-bg: rgba(0,0,0,0.35);
   --pill-text: rgba(255,255,255,0.95);
 
@@ -26,7 +25,7 @@
 .container {
   composes: game-shell from global;
   display: flex;
-  background: var(--color-bg-game);
+  background: #0f1c27; /* game panel — literal per spec */
   color: white;
   font-family: 'proxima-nova';
   font-feature-settings: "salt" on;
@@ -36,7 +35,7 @@
 /* Sidebar */
 .sidebar {
   width: var(--layout-sidebar-width);
-  background: var(--bg-sidebar);
+  background: #17232e; /* sidebar panel — literal per spec */
   padding: var(--space-lg);
   display: flex;
   flex-direction: column;
@@ -152,7 +151,7 @@
   flex:1;
   position:relative;
   overflow:hidden;
-  background: var(--table-bg);
+  background: #0f1c27; /* game panel — literal per spec */
 }
 
 /* ===== SIMPLE DECK IMAGE (top-right) ===== */
@@ -408,7 +407,7 @@
   top: 42%;
   transform: translate(-50%, -50%) scale(0.90);
   transform-origin: center;
-  background: var(--color-bg-game);
+  background: #0f1c27; /* game panel — literal per spec */
   border-radius: 16px;
   padding: 16px 22px;
   text-align:center;

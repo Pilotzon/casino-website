@@ -8,7 +8,6 @@
    styles/global.css — do not redefine them here.
    ========================================================= */
 .container {
-  --stage-bg: #0f2a35;
   --tile: #2f4553;
   --tile-dark: #243b48;
   --red: #fe2247;
@@ -23,7 +22,7 @@
 .container {
   composes: game-shell from global;
   display: flex;
-  background: var(--color-bg-game);
+  background: #0f1c27; /* game panel — literal per spec */
   color: #fff;
   font-family: "proxima-nova", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
   overflow: hidden;
@@ -36,7 +35,7 @@
 
 .sidebar {
   width: var(--layout-sidebar-width);
-  background: var(--bg-sidebar);
+  background: #17232e; /* sidebar panel — literal per spec */
   padding: var(--space-lg);
   display: flex;
   flex-direction: column;
@@ -84,8 +83,7 @@
 .chipBtn:active { cursor: grabbing; }
 .chipBtn img { width: 34px; height: 34px; filter: brightness(1.35) saturate(1.25); pointer-events: none; }
 .chipBtnActive {
-  border-color: #ffffff;
-  box-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
+  border-color: #1475e1; /* recolor only — 3px border space always reserved */
 }
 
 /* Bet input */
@@ -120,7 +118,7 @@
    ============================================================ */
 
 .gameStage {
-  flex: 1; background: var(--color-bg-game); padding: 24px;
+  flex: 1; background: #0f1c27; /* game panel — literal per spec */ padding: 24px;
   display: flex; justify-content: center; align-items: flex-start;
   padding-top: 28px; overflow-y: auto; position: relative;
 }
@@ -146,7 +144,7 @@
    Wheel & Ball
    ============================================================ */
 
-.wheelWrap { position: relative; width: 340px; height: 340px; margin: 0 auto; }
+.wheelWrap { position: relative; width: 340px; height: 340px; margin: 0; }
 .wheel { position: absolute; inset: 0; display: grid; place-items: center; will-change: transform; }
 .wheel img { width: 340px; height: 340px; display: block; }
 .ballOrbit {
@@ -163,11 +161,12 @@
    History
    ============================================================ */
 
-.historyCol { display: flex; flex-direction: column; gap: 8px; align-items: center; }
-.historyRow { display: flex; gap: 6px; align-items: center; justify-content: center; flex-wrap: wrap; }
+.historyCol { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; background: #17232e; border-radius: 8px; padding: 12px; }
+.historyRow { display: flex; gap: 4px; align-items: center; justify-content: flex-start; flex-wrap: wrap; }
 .histBall {
   width: 38px; height: 38px; border-radius: 999px;
   display: grid; place-items: center; font-weight: 900; font-size: 14px;
+  background: #0f212e; /* neutral slot (red/black/green classes override) */
 }
 .histColor_red   { background: var(--red); }
 .histColor_black  { background: var(--tile); border: 2px solid rgba(255,255,255,0.1); }
@@ -181,7 +180,7 @@
 .winPopup {
   position: absolute; top: 22%; left: 50%;
   transform: translate(-50%, -50%) scale(0.85);
-  background: var(--color-bg-game); border: 2px solid rgba(0,172,0,0.9); border-radius: 16px;
+  background: #0f1c27; /* game panel — literal per spec */ border: 2px solid rgba(0,172,0,0.9); border-radius: 16px;
   padding: 18px 24px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.28);
   z-index: 100; animation: winPop 160ms ease-out forwards; min-width: 240px;
 }
@@ -421,7 +420,7 @@
   max-width: 360px;
   max-height: calc(100vh - 32px);
   max-height: calc(100dvh - 32px);
-  background: var(--color-bg-game);
+  background: #0f1c27; /* game panel — literal per spec */
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
   padding: 16px;

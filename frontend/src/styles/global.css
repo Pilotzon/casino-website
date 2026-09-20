@@ -210,7 +210,7 @@ html, body {
 body {
   font-family: var(--font-primary);
   font-feature-settings: "salt" on;
-  background: var(--color-bg-page);
+  background: #0e1a24; /* page background — literal per spec */
   color: var(--text-primary);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
@@ -383,14 +383,13 @@ input[type="number"] {
   flex: 1 1 auto;
   min-height: 0;
   border-radius: var(--radius-lg);
+  border: 1px solid #1c2b38; /* hairline frame so the box reads against the page */
   overflow: hidden;
-  margin-bottom: var(--space-xl);
 }
 
 @media (max-width: 900px) {
   .game-shell {
     flex: none;
-    margin-bottom: var(--space-lg);
   }
 }
 
@@ -436,6 +435,7 @@ input[type="number"] {
 .sidebar-mode-active {
   background: var(--color-switcher-active); /* understated capsule, no glow */
   color: var(--sidebar-mode-active-color);
+  border-color: var(--color-accent-blue); /* recolor only — border space was reserved */
 }
 
 /* ---- Control group / label row ---- */

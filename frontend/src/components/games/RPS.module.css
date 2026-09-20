@@ -13,7 +13,7 @@
 .container {
   composes: game-shell from global;
   display: flex;
-  background: var(--color-bg-game);
+  background: #0f1c27; /* game panel — literal per spec */
   color: #fff;
   font-family: "proxima-nova", sans-serif;
   overflow: hidden;
@@ -22,7 +22,7 @@
 /* ═══════ Sidebar ═══════ */
 .sidebar {
   width: var(--layout-sidebar-width);
-  background: var(--bg-sidebar);
+  background: #17232e; /* sidebar panel — literal per spec */
   padding: var(--space-lg);
   display: flex;
   flex-direction: column;
@@ -81,14 +81,15 @@
   height: 40px; background: var(--sidebar-btn-secondary-bg); border-radius: 8px;
   color: rgba(255, 255, 255, 0.7); font-weight: 800; font-size: 12px;
   display: flex; align-items: center; justify-content: space-between;
-  padding: 0 10px; border: none; cursor: pointer;
-  box-shadow: var(--ui-input-shadow);
-  transition: 120ms;
+  padding: 0 10px; border: 2px solid var(--sidebar-btn-secondary-bg); /* ALWAYS rendered — reserves space */
+  cursor: pointer;
+  transition: transform 100ms ease, border-color 140ms ease;
   font-size: 14px;
 }
 
+.choiceSmall:active:not(:disabled) { transform: scale(0.9); }
 .choiceSmall:disabled { opacity: 0.5; cursor: not-allowed; }
-.choiceSmallActive { outline: 2px solid rgba(0, 231, 1, 0.45); }
+.choiceSmallActive { border-color: #1475e1; } /* recolor only — zero layout shift */
 .choiceSmallIcon { width: 14px; height: 14px; opacity: 0.9;}
 
 .readonlyMoney {
@@ -99,8 +100,8 @@
 /* ═══════ Stage ═══════ */
 .stage {
   flex: 1; position: relative; overflow: hidden;
-  background: linear-gradient(180deg, #0f2531 0%, #0f212e 100%);
-  display: flex; justify-content: center;
+  background: #0f1c27; /* game panel — literal per spec */
+  display: flex; justify-content: flex-start; /* top-left anchored */
 }
 
 .stageInner {
@@ -285,7 +286,7 @@
 .multPillActive {
   color: #0f212e;
   background: #fff;
-  border-color: #fff;
+  border-color: #1475e1; /* recolor only — border space always reserved */
 }
 .multPillSpacer { width: 1px; height: 22px; }
 
@@ -452,7 +453,7 @@
   position: absolute;
   left: 50%; top: 40%;
   transform: translate(-50%, -50%) scale(1.2);
-  background: var(--color-bg-game);
+  background: #0f1c27; /* game panel — literal per spec */
   border-radius: 14px;
   padding: 14px 20px;
   text-align: center;

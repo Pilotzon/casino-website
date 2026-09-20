@@ -6,14 +6,13 @@
    styles/global.css — do not redefine them here.
    ========================================================= */
 .container {
-  --stage-bg: #0f212e;
   --accent-orange: #ff9500;
 }
 
 .container {
   composes: game-shell from global;
   display: flex;
-  background: var(--color-bg-game);
+  background: #0f1c27; /* game panel — literal per spec */
   color: white;
   font-family: 'proxima-nova';
 font-feature-settings: "salt" on;;
@@ -21,7 +20,7 @@ font-feature-settings: "salt" on;;
 
 .sidebar {
   width: var(--layout-sidebar-width);
-  background: var(--bg-sidebar);
+  background: #17232e; /* sidebar panel — literal per spec */
   padding: var(--space-lg);
   display: flex;
   flex-direction: column;
@@ -117,6 +116,9 @@ font-feature-settings: "salt" on;;
 
 .historySection {
   margin-top: 20px;
+  background: #17232e; /* history panel — visible against game bg */
+  border-radius: 8px;
+  padding: 12px;
 }
 
 .historyLabel {
@@ -129,11 +131,12 @@ font-feature-settings: "salt" on;;
 .historyItems {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 4px;
 }
 
 .historyChip {
   padding: 6px 10px;
+  background: #0f212e; /* neutral slot (low/high classes override color) */
   border-radius: 4px;
   font-size: 12px;
   font-weight: 700;
@@ -158,19 +161,19 @@ font-feature-settings: "salt" on;;
   flex: 1;
   display: flex;
   flex-direction: column;
-  background: var(--stage-bg);
-  padding: 40px;
+  background: #0f1c27; /* game panel — literal per spec */
+  padding: 24px 32px;
   position: relative;
 }
 
 .graphContainer {
   flex: 1;
-  width: 100%;
-  max-width: 1000px;
-  margin: 0 auto;
+  width: 1000px; /* fixed core size */
+  max-width: 100%;
+  margin: 0;
   position: relative;
-  background: var(--bg-sidebar);
-  border-radius: 12px;
+  background: #17232e; /* graph panel — visible against game bg */
+  border-radius: 8px;
   padding: 20px;
 }
 
@@ -246,7 +249,7 @@ font-feature-settings: "salt" on;;
   bottom: 25px;
   left: 50%;
   transform: translateX(-50%);
-  background: var(--bg-sidebar);
+  background: #17232e; /* sidebar panel — literal per spec */
   padding: 12px 24px;
   border-radius: 6px;
   display: flex;

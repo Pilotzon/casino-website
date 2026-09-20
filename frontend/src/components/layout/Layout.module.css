@@ -2,7 +2,7 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: var(--color-bg-page);
+  background: #0e1a24; /* page background — literal per spec */
 }
 
 .main {
@@ -18,7 +18,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--color-bg-page);
+  background: #0e1a24;
 }
 
 .loader {

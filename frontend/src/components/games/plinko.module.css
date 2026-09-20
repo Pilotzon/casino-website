@@ -15,7 +15,7 @@
 .container {
   composes: game-shell from global;
   display: flex;
-  background: var(--color-bg-game);
+  background: #0f1c27; /* game panel — literal per spec */
   color: white;
   font-family: 'proxima-nova';
   font-feature-settings: "salt" on;
@@ -25,7 +25,7 @@
 /* Sidebar */
 .sidebar {
   width: var(--layout-sidebar-width);
-  background: var(--bg-sidebar);
+  background: #17232e; /* sidebar panel — literal per spec */
   padding: var(--space-lg);
   display: flex;
   flex-direction: column;
@@ -86,10 +86,10 @@
 .gameStage {
   flex: 1;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #0f2a35;
-  padding: 28px;
+  justify-content: flex-start; /* top-left anchored */
+  align-items: flex-start;
+  background: #0f1c27; /* game panel — literal per spec */
+  padding: 24px 32px;
   position: relative;
   overflow: visible;
 }
@@ -104,7 +104,8 @@
 
 .boardWrap {
   width: 100%;
-  height: min(78vh, 760px);
+  height: 700px; /* fixed core size */
+  max-height: 100%;
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -300,7 +301,7 @@
 .bucketModalCard {
   width: 100%;
   max-width: 360px;
-  background: var(--color-bg-game);
+  background: #0f1c27; /* game panel — literal per spec */
   border-radius: 14px;
   border: 1px solid rgba(255,255,255,0.08);
   padding: 16px;

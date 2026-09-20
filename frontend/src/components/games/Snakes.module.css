@@ -4,7 +4,6 @@
    styles/global.css — do not redefine them here.
    ========================================================= */
 .container{
-  --bg-stage:#0f212e;
 
   --board-cell: 128px;
 
@@ -29,7 +28,7 @@
 .container{
   composes: game-shell from global;
   display:flex;
-  background: var(--color-bg-game);
+  background: #0f1c27; /* game panel — literal per spec */
   color:#fff;
   font-family:"proxima-nova";
   font-feature-settings:"salt" on;
@@ -38,7 +37,7 @@
 
 .sidebar{
   width: var(--layout-sidebar-width);
-  background:var(--bg-sidebar);
+  background: #17232e; /* sidebar panel — literal per spec */
   padding: var(--space-lg);
   display:flex;
   flex-direction:column;
@@ -102,10 +101,10 @@
 .gameStage{
   flex:1;
   display:flex;
-  justify-content:center;
-  align-items:center;
-  background:var(--bg-stage);
-  padding:22px;
+  justify-content:flex-start; /* top-left anchored */
+  align-items:flex-start;
+  background:#0f1c27; /* game panel — literal per spec */
+  padding:24px 32px;
 }
 
 .boardWrap{
@@ -510,7 +509,7 @@
   width: calc(var(--board-cell) * 2);
   height: calc(var(--board-cell) * 2);
   border-radius:12px;
-  background: var(--color-bg-game);
+  background: #0f1c27; /* game panel — literal per spec */
   border:1px solid rgba(255,255,255,0.06);
   display:flex;
   flex-direction:column;
@@ -548,7 +547,7 @@
 }
 
 .dieDot.visible {
-  background: var(--color-bg-game);
+  background: #0f1c27; /* game panel — literal per spec */
 }
 
 /* Dice pressed */
@@ -697,7 +696,7 @@
   left: 50%;
   transform: translate(-50%, -50%) scale(0.85);
   transform-origin: center;
-  background: var(--color-bg-game);
+  background: #0f1c27; /* game panel — literal per spec */
   border: 2px solid rgba(0, 172, 0, 0.9);
   border-radius: 16px;
   padding: 18px 24px;
@@ -732,7 +731,7 @@
   left: 50%;
   transform: translate(-50%, -50%) scale(0.85);
   transform-origin: center;
-  background: var(--color-bg-game);
+  background: #0f1c27; /* game panel — literal per spec */
   border: 2px solid var(--snake-hover-base);
   border-radius: 16px;
   padding: 18px 24px;
@@ -773,7 +772,7 @@
 .modalCard{
   width:100%;
   max-width:360px;
-  background: var(--color-bg-game);
+  background: #0f1c27; /* game panel — literal per spec */
   border-radius:14px;
   border:1px solid rgba(255,255,255,0.08);
   padding:16px;

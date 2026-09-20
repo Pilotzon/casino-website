@@ -4,7 +4,7 @@
   left: 0;
   right: 0;
   height: var(--nav-height);
-  background: var(--color-bg-navbar); /* blends into the page background */
+  background: #0e1a24; /* blends into the page background — literal per spec */
   border-bottom: 1px solid var(--color-border-navbar);
   z-index: 1000;
 }

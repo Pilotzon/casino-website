@@ -20,7 +20,7 @@
 .container {
   composes: game-shell from global;
   display: flex;
-  background: var(--color-bg-game);
+  background: #0f1c27; /* game panel — literal per spec */
   color: var(--text-primary);
   font-family: 'proxima-nova';
 font-feature-settings: "salt" on;;
@@ -30,7 +30,7 @@ font-feature-settings: "salt" on;;
 /* Sidebar Styles */
 .sidebar {
   width: var(--layout-sidebar-width);
-  background: var(--bg-sidebar);
+  background: #17232e; /* sidebar panel — literal per spec */
   padding: var(--space-lg);
   display: flex;
   flex-direction: column;
@@ -92,18 +92,19 @@ font-feature-settings: "salt" on;;
   flex: 1;
   display: flex;
   flex-direction: column;
-  background: var(--color-bg-game);
-  padding: 50px;
-  justify-content: center;
+  background: #0f1c27; /* game panel — literal per spec */
+  padding: 24px 32px;
+  justify-content: flex-start; /* top-left anchored */
+  align-items: flex-start;
   position: relative;
 }
 
 /* (rest of your Dice CSS unchanged below) */
 /* --------- UPDATED ROLLING BAR (matches screenshot) --------- */
 .sliderWrapper {
-  width: 100%;
-  max-width: 900px;
-  margin: 0 auto 100px auto;
+  width: 900px; /* fixed core size */
+  max-width: 100%;
+  margin: 0;
   position: relative;
   padding: 0;
   box-sizing: border-box;
@@ -279,7 +280,7 @@ font-feature-settings: "salt" on;;
   top: -55px;
   left: 50%;
   transform: translateX(-50%);
-  background: var(--bg-sidebar);
+  background: #17232e; /* sidebar panel — literal per spec */
   color: white;
   padding: 8px 12px;
   border-radius: 8px;
@@ -296,7 +297,7 @@ font-feature-settings: "salt" on;;
   left: 50%;
   transform: translate(-50%, -50%) scale(0.85);
   transform-origin: center;
-  background: var(--color-bg-game);
+  background: #0f1c27; /* game panel — literal per spec */
   border: 2px solid rgba(0, 172, 0, 0.9);
   border-radius: 16px;
   padding: 18px 24px;
@@ -348,15 +349,14 @@ font-feature-settings: "salt" on;;
   transform: translateX(-50%);
   width: 90%;
   max-width: 900px;
-  background: var(--bg-sidebar);
-  border-radius: 6px;
-  padding: 12px 20px;
+  background: #17232e; /* stats panel — visible against game bg */
+  border-radius: 8px;
+  padding: 12px;
   display: flex;
   gap: 16px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.statBox { flex: 1; }
+.statBox { flex: 1; background: #0f212e; border-radius: 4px; padding: 8px 12px; }
 .statHeader {
   color: var(--text-secondary);
   font-size: 12px;

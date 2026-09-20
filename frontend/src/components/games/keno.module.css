@@ -4,7 +4,6 @@
    styles/global.css — do not redefine them here.
    ========================================================= */
 .container {
-  --bg-stage: #0f212e;
 
   --tile-face: #2f4553;
   --tile-shadow: #213743;
@@ -32,7 +31,7 @@
 .container {
   composes: game-shell from global;
   display: flex;
-  background: var(--color-bg-game);
+  background: #0f1c27; /* game panel — literal per spec */
   color: #fff;
   font-family: "proxima-nova";
   font-feature-settings: "salt" on;
@@ -41,7 +40,7 @@
 
 .sidebar {
   width: var(--layout-sidebar-width);
-  background: var(--bg-sidebar);
+  background: #17232e; /* sidebar panel — literal per spec */
   padding: var(--space-lg);
   display: flex;
   flex-direction: column;
@@ -131,10 +130,10 @@
 .gameStage {
   flex: 1;
   display: flex;
-  justify-content: center;
-  align-items: stretch;
-  background: var(--bg-stage);
-  padding: 22px;
+  justify-content: flex-start; /* top-left anchored */
+  align-items: flex-start;
+  background: #0f1c27; /* game panel — literal per spec */
+  padding: 24px 32px;
 }
 
 .boardWrap {
@@ -154,10 +153,8 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(8, 1fr);
+  grid-template-columns: repeat(8, 72px); /* fixed tile size */
   gap: var(--tile-gap);
-  width: 90%;
-  margin: 0 auto;
 }
 
 /* Tiles */
@@ -429,7 +426,7 @@
   left: 50%;
   transform: translate(-50%, -50%) scale(0.85);
   transform-origin: center;
-  background: var(--color-bg-game);
+  background: #0f1c27; /* game panel — literal per spec */
   border: 2px solid rgba(0, 172, 0, 0.9);
   border-radius: 16px;
   padding: 18px 24px;
@@ -470,7 +467,7 @@
 .modalCard {
   width: 100%;
   max-width: 360px;
-  background: var(--color-bg-game);
+  background: #0f1c27; /* game panel — literal per spec */
   border-radius: 14px;
   border: 1px solid rgba(255,255,255,0.08);
   padding: 16px;
@@ -522,6 +519,13 @@
   color: #ffffff;
   font-weight: 900;
   cursor: pointer;
+}
+
+@media (max-width: 700px) {
+  .grid {
+    grid-template-columns: repeat(8, minmax(0, 1fr)); /* fluid again on small screens */
+    width: 100%;
+  }
 }
 
 /* responsive */

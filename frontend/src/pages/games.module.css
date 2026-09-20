@@ -129,15 +129,17 @@
 /* ===== Existing game view styles ===== */
 
 .gameContainer {
-  height: calc(100vh - var(--nav-height)); /* fixed: only the page scrolls, never the box */
+  /* box = viewport - navbar - main's bottom padding; 24px gutter on ALL sides */
+  height: calc(100vh - var(--nav-height) - var(--space-lg));
   display: flex;
   flex-direction: column;
-  padding: var(--space-md) var(--space-xl) 0;
+  padding: var(--space-xl);
 }
 
 @media (max-width: 900px) {
   .gameContainer {
     height: auto; /* small screens fall back to normal page scroll */
+    padding: var(--space-lg);
   }
 }
 

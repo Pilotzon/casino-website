@@ -14,7 +14,7 @@
   --mines-tile-hole: #071824;    /* Empty hole color */
 
   --mines-tile-radius: 10px;
-  --mines-tile-gap: 13px;
+  --mines-tile-gap: 9px;   /* fixed: 8-10px per spec */
   --mines-base-height: 8px;      /* The static 3D height */
 }
 
@@ -25,7 +25,7 @@
 .container {
   composes: game-shell from global;
   display: flex;
-  background: var(--color-bg-game);
+  background: #0f1c27; /* game panel — literal per spec */
   color: white;
   font-family: 'proxima-nova';
 font-feature-settings: "salt" on;;
@@ -34,7 +34,7 @@ font-feature-settings: "salt" on;;
 
 .sidebar {
   width: var(--layout-sidebar-width);
-  background: var(--bg-sidebar);
+  background: #17232e; /* sidebar panel — literal per spec */
   padding: var(--space-lg);
   display: flex;
   flex-direction: column;
@@ -143,19 +143,16 @@ font-feature-settings: "salt" on;;
 .gameStage {
   flex: 1;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  background: var(--color-bg-game);
-  padding: 32px;
+  justify-content: flex-start; /* content anchored top-left, not centered */
+  align-items: flex-start;
+  background: #0f1c27; /* game panel — literal per spec */
+  padding: 24px 32px;
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(5, 105px); /* fixed tile size (~100-110px) */
   gap: var(--mines-tile-gap);
-  width: 100%;
-  max-width: 680px; 
-  margin: 0 auto;
 }
 
 .tile {
@@ -243,7 +240,7 @@ font-feature-settings: "salt" on;;
   left: 58.5%;
   transform: translate(-50%, -50%) scale(0.85);
   transform-origin: center;
-  background: var(--color-bg-game);
+  background: #0f1c27; /* game panel — literal per spec */
   border: 3px solid rgb(0, 187, 0);
   border-radius: 16px;
   padding: 18px 24px;
@@ -297,6 +294,7 @@ font-feature-settings: "salt" on;;
   .gameStage { padding: 16px; }
   
   .grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr)); /* fluid again on small screens */
     max-width: 100%;
     gap: 12px;
   }

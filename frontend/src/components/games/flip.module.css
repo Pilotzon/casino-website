@@ -6,13 +6,9 @@
    styles/global.css — do not redefine them here.
    ========================================================= */
 .container {
-  --stage-bg: #0f212e;
-}
-
-.container {
   composes: game-shell from global;
   display: flex;
-  background: var(--color-bg-game);
+  background: #0f1c27; /* game panel — literal per spec */
   color: white;
   font-family: 'proxima-nova';
 font-feature-settings: "salt" on;;
@@ -21,7 +17,7 @@ font-feature-settings: "salt" on;;
 
 .sidebar {
   width: var(--layout-sidebar-width);
-  background: var(--bg-sidebar);
+  background: #17232e; /* sidebar panel — literal per spec */
   padding: var(--space-lg);
   display: flex;
   flex-direction: column;
@@ -82,7 +78,7 @@ font-feature-settings: "salt" on;;
   left: 50%;
   transform: translate(-50%, -50%) scale(0.85);
   transform-origin: center;
-  background: var(--color-bg-game);
+  background: #0f1c27; /* game panel — literal per spec */
   border: 2px solid rgba(0, 172, 0, 0.9);
   border-radius: 16px;
   padding: 18px 24px;
@@ -126,21 +122,10 @@ font-feature-settings: "salt" on;;
   }
 }
 
+/* Random Pick — unified secondary button (defined once in global.css) */
 .randomButton {
-  background: var(--bg-surface);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  height: 44px;
-  font-weight: 600;
-  font-size: 16px;
-  cursor: pointer;
-  font-family: 'proxima-nova';
-font-feature-settings: "salt" on;;
-  margin-top: 6px;
-  box-shadow: 0 7px 15px rgba(0, 0, 0, 0.1);
+  composes: sidebar-secondary-button from global;
 }
-.randomButton:hover { background: #3d5565; }
 
 .sideSelector {
   display: flex;
@@ -155,16 +140,19 @@ font-feature-settings: "salt" on;;
   padding: 0 15px;
   height: 44px;
   background: var(--color-bg-input);
+  border: 2px solid var(--color-bg-input); /* ALWAYS rendered — invisible while inactive, reserves space */
   border-radius: 8px;
   cursor: pointer;
-  transition: all 0.2s;
-  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
+  transition: transform 100ms ease, border-color 140ms ease;
 }
 
+.sideBtn:active:not(:disabled) {
+  transform: scale(0.9);
+}
+
+/* Active: recolor the border ONLY — zero layout shift */
 .activeSide {
-  background: var(--color-bg-input);
-  border-color: var(--ui-outline-focus);
-  border: var(--ui-outline-focus) solid 2px;
+  border-color: #1475e1;
 }
 
 .textSide {
@@ -183,10 +171,10 @@ font-feature-settings: "salt" on;;
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: var(--stage-bg);
-  padding: 40px;
+  justify-content: flex-start; /* coin anchored top-left, not centered */
+  align-items: flex-start;
+  background: #0f1c27; /* game panel — literal per spec */
+  padding: 24px 32px;
   position: relative;
 }
 
@@ -217,14 +205,13 @@ font-feature-settings: "salt" on;;
 .historyBar {
   position: absolute;
   bottom: 25px;
-  background: var(--bg-sidebar);
-  padding: 12px 20px;
-  border-radius: 6px;
+  background: #17232e; /* history panel — visible against game bg */
+  padding: 12px;
+  border-radius: 8px;
   display: flex;
   flex-direction: column;
   gap: 8px;
   width: auto;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .historyLabel {
@@ -235,13 +222,13 @@ font-feature-settings: "salt" on;;
 
 .historyGrid {
   display: flex;
-  gap: 6px;
+  gap: 4px;
 }
 
 .slot {
   width: 26px;
   height: 36px;
-  background: var(--stage-bg);
+  background: #0f212e; /* slot — visible inside the panel */
   border-radius: 4px;
   display: flex;
   align-items: center;
@@ -255,7 +242,7 @@ font-feature-settings: "salt" on;;
   left: 50%;
   transform: translate(-50%, -50%) scale(0.85);
   transform-origin: center;
-  background: var(--color-bg-game);
+  background: #0f1c27; /* game panel — literal per spec */
   border: 2px solid rgba(0, 172, 0, 0.9);
   border-radius: 16px;
   padding: 18px 24px;

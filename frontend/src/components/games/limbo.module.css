@@ -11,7 +11,7 @@
 .container {
   composes: game-shell from global;
   display: flex;
-  background: var(--color-bg-game);
+  background: #0f1c27; /* game panel — literal per spec */
   color: white;
   font-family: 'proxima-nova';
   font-feature-settings: "salt" on;
@@ -20,7 +20,7 @@
 
 .sidebar {
   width: var(--layout-sidebar-width);
-  background: var(--bg-sidebar);
+  background: #17232e; /* sidebar panel — literal per spec */
   padding: var(--space-lg);
   display: flex;
   flex-direction: column;
@@ -77,15 +77,15 @@
 /* ===== Stage ===== */
 .gameStage {
   flex: 1;
-  background: var(--color-bg-game);
+  background: #0f1c27; /* game panel — literal per spec */
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
+  align-items: flex-start; /* top-left anchored */
+  justify-content: flex-start;
+  padding: 24px 32px;
   gap: 20px;
-  overflow-y: auto;
+  overflow: hidden; /* nothing scrolls inside the box */
 }
 
 /* Desktop big number */
@@ -96,7 +96,7 @@
   line-height: 1;
   color: #ffffff;
   user-select: none;
-  text-align: center;
+  text-align: left;
   flex-shrink: 0;
 }
 
@@ -109,7 +109,7 @@
   left: auto;
   transform: scale(0.85);
   transform-origin: center;
-  background: var(--color-bg-game);
+  background: #0f1c27; /* game panel — literal per spec */
   border: 2px solid rgba(0, 172, 0, 0.9);
   border-radius: 16px;
   padding: 18px 24px;
@@ -192,10 +192,9 @@
 }
 
 .recentPanel {
-  background: rgba(33, 55, 67, 0.65);
-  border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 10px;
-  padding: 14px;
+  background: #17232e; /* recent-results panel — visible against game bg */
+  border-radius: 8px;
+  padding: 12px;
 }
 
 .recentLabel {
@@ -207,7 +206,7 @@
 
 .recentRow {
   display: flex;
-  gap: 10px;
+  gap: 4px;
   align-items: center;
   overflow-x: auto;
   padding-bottom: 2px;
@@ -220,7 +219,8 @@
 
 .recentChip {
   padding: 7px 12px;
-  border-radius: 6px;
+  background: #0f212e; /* neutral slot (win/loss classes override color) */
+  border-radius: 4px;
   font-size: 13px;
   font-weight: 900;
   white-space: nowrap;
