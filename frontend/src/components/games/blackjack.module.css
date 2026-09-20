@@ -1,19 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap');
 
-:root {
+/* =========================================================
+   Blackjack-specific theme (scoped to this game only)
+   Shared sidebar control tokens/classes live in
+   styles/global.css — do not redefine them here.
+   ========================================================= */
+.container {
   --bg-body: #1a2c38;
-  --bg-sidebar: #213743;
-  --bg-input: #0f212e;
-  --bg-surface: #2f4553;
-  --accent-green: #00e701;
-  --text-secondary: #b1bad3;
-  --bitcoin: #fca311;
-
-  --ui-outline: rgba(255, 255, 255, 0.10);
-  --ui-outline-focus: rgba(255, 255, 255, 0.18);
-  --ui-input-radius: 8px;
-  --ui-input-border: 2px;
-  --ui-input-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
 
   --lose-red: #ef4444;
 
@@ -64,60 +57,27 @@
   color: var(--text-secondary);
 }
 
+/* =========================================================
+   Sidebar controls — shared styling lives in styles/global.css
+   (composed here so every game matches). Blackjack-specific
+   tweaks only below.
+   ========================================================= */
 .inputGroup {
-  display:flex;
-  align-items:center;
-  background: var(--bg-input);
-  border: var(--ui-input-border) solid var(--ui-outline);
-  border-radius: 9px;
-  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
-  height: 44px;
-  overflow:hidden;
-  transition: border-color 0.2s;
+  composes: sidebar-input-group from global;
 }
-.inputGroup:focus-within { border-color: var(--ui-outline-focus); }
-
 .inputWrapper {
-  flex: 1;
-  display:flex;
-  align-items:center;
-  padding-left: 12px;
+  composes: sidebar-input-wrapper from global;
 }
-.inputWrapper input {
-  background: transparent;
-  border:none;
-  color:white;
-  width:100%;
-  font-weight: 700;
-  font-size: 14px;
-  outline:none;
-  font-family: 'proxima-nova';
+.btcIcon {
+  composes: sidebar-currency-icon from global;
+  margin: 0 10px;
 }
-
-.btcIcon { color: var(--bitcoin); margin: 0 10px; font-weight: 700; font-size: 14px; }
-
-.splitButtons{
-  display:flex;
-  align-items:center;
-  background: var(--bg-input);
-  border-left: 1px solid rgba(255,255,255,0.06);
-  padding: 0 4px;
-  height:100%;
+.splitButtons {
+  composes: sidebar-split-buttons from global;
 }
-.splitButtons button{
-  background: transparent;
-  border:none;
-  color: var(--text-secondary);
-  font-weight: 600;
-  padding: 0 12px;
-  height: 100%;
-  cursor:pointer;
-  font-size: 13px;
-  font-family: 'proxima-nova';
-  font-feature-settings: "salt" on;
+.divider {
+  composes: sidebar-divider from global;
 }
-.splitButtons button:hover{ color:white; }
-.divider{ width:1px; height:16px; background: rgba(255,255,255,0.08); }
 
 .actionGrid{
   display:grid;
@@ -184,24 +144,10 @@
 }
 
 
-button:active { transform: scale(0.97); }
 
-.betButton{
-  background: var(--accent-green);
-  color: #013e01;
-  border:none;
-  border-radius: 8px;
-  height: 44px;
-  font-weight: 800;
-  font-size: 16px;
-  cursor:pointer;
-  margin-top: 6px;
-  font-family: 'proxima-nova';
-  transition: filter 0.2s, transform 0.1s;
-  box-shadow: var(--ui-input-shadow);
+.betButton {
+  composes: sidebar-bet-button from global;
 }
-.betButton:hover{ filter: brightness(1.08); }
-.betButton:disabled{ opacity: 0.55; cursor:not-allowed; }
 
 /* Board */
 .gameStage{

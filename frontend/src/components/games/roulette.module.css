@@ -2,14 +2,13 @@
    Roulette.module.css — European Roulette (Stake-style)
    ============================================================ */
 
-:root {
+/* =========================================================
+   Roulette-specific theme (scoped to this game only)
+   Shared sidebar control tokens/classes live in
+   styles/global.css — do not redefine them here.
+   ========================================================= */
+.container {
   --bg-body: #1a2c38;
-  --bg-sidebar: #213743;
-  --bg-input: #2f4553;
-  --accent-green: #00e701;
-  --accent-red: #f12c4c;
-  --text-secondary: #b1bad3;
-  --bitcoin: #fca311;
   --stage-bg: #0f2a35;
   --tile: #2f4553;
   --tile-dark: #243b48;
@@ -48,25 +47,33 @@
   border-bottom-right-radius: 8px;
 }
 
-.modeToggle { background: #0f212e; border-radius: 50px; padding: 5px; display: flex; }
-.modeBtn {
-  flex: 1; background: transparent; border: none; color: #b1bad3;
-  padding: 10px 0; border-radius: 40px; font-weight: 700; font-size: 14px; cursor: pointer;
-}
-.modeBtn.active { background: #2f4553; color: #fff; }
+/* =========================================================
+   Sidebar controls — shared styling lives in styles/global.css
+   (composed here so every game matches). Roulette-specific
+   tweaks only below.
+   ========================================================= */
+.modeToggle { composes: sidebar-mode-toggle from global; }
+.modeBtn { composes: sidebar-mode-btn from global; }
+.active { composes: sidebar-mode-active from global; }
 
-.controlGroup { display: flex; flex-direction: column; gap: 8px; }
-.labelRow { display: flex; justify-content: space-between; font-size: 13px; font-weight: 600; color: var(--text-secondary); }
+.controlGroup { composes: sidebar-control-group from global; }
+.labelRow { composes: sidebar-label-row from global; }
 
-/* Chip selector */
+/* Chip selector — roulette-specific chip picking control,
+   built on the shared sidebar input tokens */
 .chipSelector {
   display: flex; align-items: center; justify-content: space-between;
-  background: #0f212e; border: 2px solid #395263; border-radius: 9px;
+  background: var(--sidebar-input-bg);
+  border: var(--ui-input-border) solid var(--ui-outline);
+  border-radius: var(--sidebar-input-radius);
+  box-shadow: var(--ui-input-shadow);
   height: 54px; padding: 0 8px; gap: 8px;
+  transition: border-color 0.2s;
 }
+.chipSelector:focus-within { border-color: var(--ui-outline-focus); }
 .chipNav {
   width: 36px; height: 36px; border-radius: 10px;
-  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.06); border: 1px solid var(--sidebar-split-divider);
   color: #fff; font-weight: 900; cursor: pointer; flex-shrink: 0;
 }
 .chipRow { display: flex; gap: 10px; justify-content: center; flex: 1; }
@@ -85,21 +92,29 @@
 
 /* Bet input */
 .betInputRow {
-  display: flex; background: #0f212e; border: 2px solid #395263;
-  border-radius: 9px; height: 44px; overflow: hidden;
+  composes: sidebar-input-group from global;
 }
-.betInputLike { flex: 1; display: flex; align-items: center; padding: 0 12px; font-weight: 600; font-size: 16px; }
-.btcIcon { color: var(--bitcoin); margin-left: 10px; font-weight: 800; }
-.splitButtons { display: flex; align-items: center; background: var(--bg-input); border-left: 1px solid rgba(255,255,255,0.06); padding: 0 4px; }
-.splitButtons button { background: transparent; border: none; color: #fff; opacity: 0.7; padding: 0 12px; cursor: not-allowed; }
-.divider { width: 1px; height: 16px; background: rgba(255,255,255,0.08); }
+.betInputLike {
+  composes: sidebar-input-wrapper from global;
+  padding: 0 12px;
+  font-weight: 600;
+  font-size: 16px;
+}
+.btcIcon {
+  composes: sidebar-currency-icon from global;
+  margin-right: 0;
+  margin-left: 10px;
+  font-weight: 800;
+}
+.splitButtons { composes: sidebar-split-buttons from global; }
+/* Roulette split buttons are display-only (disabled) */
+.splitButtons button { opacity: 0.7; cursor: not-allowed; }
+.divider { composes: sidebar-divider from global; }
 
 /* Bet button */
 .betButton {
-  background: var(--accent-green); color: #013e01; border: none;
-  border-radius: 8px; height: 44px; font-weight: 800; font-size: 16px; cursor: pointer;
+  composes: sidebar-bet-button from global;
 }
-.betButton:disabled { opacity: 0.65; cursor: default; }
 
 
 /* ============================================================

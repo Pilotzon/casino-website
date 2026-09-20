@@ -1,21 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap');
 
-:root {
+/* =========================================================
+   Limbo-specific theme (scoped to this game only)
+   Shared sidebar control tokens/classes live in
+   styles/global.css — do not redefine them here.
+   ========================================================= */
+.container {
   --bg-body: #1a2c38;
-  --bg-sidebar: #213743;
-  --bg-input: #0f212e;
-  --bg-surface: #2f4553;
-  --accent-green: #00e701;
-  --accent-red: #f12c4c;
-  --text-secondary: #b1bad3;
-  --bitcoin: #fca311;
-
-  /* unified inputs */
-  --ui-outline: rgba(255, 255, 255, 0.10);
-  --ui-outline-focus: rgba(255, 255, 255, 0.18);
-  --ui-input-radius: 8px;
-  --ui-input-border: 2px;
-  --ui-input-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
 }
 
 .container {
@@ -39,113 +30,50 @@
   border-bottom-right-radius: 8px;
 }
 
+/* =========================================================
+   Sidebar controls — shared styling lives in styles/global.css
+   (composed here so every game matches). Limbo-specific tweaks
+   only below.
+   ========================================================= */
 .modeToggle {
-  background: #0f212e;
-  border-radius: 50px;
-  padding: 5px;
-  display: flex;
-  width: 100%;
+  composes: sidebar-mode-toggle from global;
 }
-
 .modeBtn {
-  flex: 1;
-  background: transparent;
-  border: none;
-  color: #b1bad3;
-  padding: 10px 0;
-  border-radius: 40px;
-  font-weight: 700;
-  font-size: 14px;
-  cursor: pointer;
-  transition: all 0.2s;
+  composes: sidebar-mode-btn from global;
 }
-.modeBtn.active { background: #2f4553; color: #ffffff; }
+.active {
+  composes: sidebar-mode-active from global;
+}
 
-.controlGroup { display: flex; flex-direction: column; gap: 8px; }
-
+.controlGroup {
+  composes: sidebar-control-group from global;
+}
 .labelRow {
-  display: flex;
-  justify-content: space-between;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text-secondary);
+  composes: sidebar-label-row from global;
 }
 
 .inputGroup {
-  display: flex;
-  background: var(--bg-input);
-  border: var(--ui-input-border) solid var(--ui-outline);
-  border-radius: 9px;
-  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
-  height: 44px;
-  overflow: hidden;
+  composes: sidebar-input-group from global;
 }
-.inputGroup:focus-within { border-color: var(--ui-outline-focus); }
-
-.inputWrapper { flex: 1; display: flex; align-items: center; padding-left: 12px; }
-
-.inputWrapper input {
-  background: transparent;
-  border: none;
-  color: white;
-  width: 100%;
-  font-weight: 700;
-  font-size: 14px;
-  outline: none;
+.inputWrapper {
+  composes: sidebar-input-wrapper from global;
 }
-
-.btcIcon { margin-right: 12px; font-weight: 700; font-size: 14px; color: var(--bitcoin); }
-
-.splitButtons { display: flex; align-items: center; border-left: 1px solid rgba(255,255,255,0.06); padding: 0 4px; }
-.splitButtons button {
-  background: transparent;
-  border: none;
-  color: var(--text-secondary);
-  font-weight: 600;
-  padding: 0 12px;
-  height: 100%;
-  cursor: pointer;
+.btcIcon {
+  composes: sidebar-currency-icon from global;
 }
-.splitButtons button:hover { color: white; }
-.divider { width: 1px; height: 16px; background: rgba(255,255,255,0.08); }
+.splitButtons {
+  composes: sidebar-split-buttons from global;
+}
+.divider {
+  composes: sidebar-divider from global;
+}
 
 .betButton {
-  background: var(--accent-green);
-  color: #013e01;
-  border: none;
-  border-radius: 8px;
-  height: 44px;
-  font-weight: 700;
-  font-size: 16px;
-  cursor: pointer;
-  margin-top: 6px;
-  font-family: 'proxima-nova';
-  font-feature-settings: "salt" on;
-  transition: filter 0.2s, transform 0.1s;
-  box-shadow: 0 7px 15px rgba(0, 0, 0, 0.1);
+  composes: sidebar-bet-button from global;
 }
-.betButton:hover { filter: brightness(1.1); }
 
 .readonlyInput {
-  background: #0F212E;
-  border: var(--ui-input-border) solid #395263;
-  border-radius: 9px;
-  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
-  height: 44px;
-  display: flex;
-  align-items: center;
-  padding: 0 12px;
-}
-.readonlyInput:focus-within { border-color: #49687e; }
-
-.readonlyInput input {
-  background: transparent;
-  border: none;
-  color: white;
-  flex: 1;
-  font-weight: 700;
-  font-size: 14px;
-  outline: none;
+  composes: sidebar-readonly-input from global;
 }
 
 /* ===== Stage ===== */
@@ -241,17 +169,9 @@
 }
 
 .bottomInputWrap {
+  composes: sidebar-input-group from global;
   position: relative;
-  height: 44px;
-  background: var(--bg-input);
-  border: var(--ui-input-border) solid var(--ui-outline);
-  border-radius: 9px;
-  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
-  display: flex;
-  align-items: center;
-  overflow: hidden;
 }
-.bottomInputWrap:focus-within { border-color: var(--ui-outline-focus); }
 
 .bottomInput {
   width: 100%;

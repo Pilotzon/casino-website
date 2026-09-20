@@ -1,16 +1,11 @@
-:root {
+/* =========================================================
+   Keno-specific theme (scoped to this game only)
+   Shared sidebar control tokens/classes live in
+   styles/global.css — do not redefine them here.
+   ========================================================= */
+.container {
   --bg-body: #1a2c38;
-  --bg-sidebar: #213743;
-  --bg-input: #0f212e;
   --bg-stage: #0f212e;
-
-  --text-secondary: #b1bad3;
-
-  --ui-outline: rgba(255, 255, 255, 0.10);
-  --ui-outline-focus: rgba(255, 255, 255, 0.18);
-  --ui-input-radius: 8px;
-  --ui-input-border: 2px;
-  --ui-input-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
 
   --tile-face: #2f4553;
   --tile-shadow: #213743;
@@ -30,7 +25,6 @@
   --win-shadow: #008a2c;
 
   --pill-hover: #3a5566;
-  --accent-green: #00e701;
 
   /* ✅ pressed solid top bar color */
   --pressed-top: #071822;
@@ -57,92 +51,43 @@
   border-bottom-right-radius: 8px;
 }
 
-.sidebar select { background: transparent; color: #ffffff; }
-.sidebar select option { background: var(--bg-input); color: #ffffff; }
-.sidebar select optgroup { background: var(--bg-input); color: #ffffff; }
 
+/* =========================================================
+   Sidebar controls — shared styling lives in styles/global.css
+   (composed here so every game matches). Keno-specific tweaks
+   only below.
+   ========================================================= */
 .modeToggle {
-  background: #0f212e;
-  border-radius: 50px;
-  padding: 5px;
-  display: flex;
-  width: 100%;
-  position: relative;
+  composes: sidebar-mode-toggle from global;
 }
-
 .modeBtn {
-  flex: 1;
-  background: transparent;
-  border: none;
-  color: #b1bad3;
-  padding: 10px 0;
-  border-radius: 40px;
-  font-weight: 700;
-  font-size: 14px;
-  cursor: pointer;
-  font-family: "proxima-nova";
-  font-feature-settings: "salt" on;
-  transition: all 0.2s ease;
-  text-align: center;
+  composes: sidebar-mode-btn from global;
 }
-
 .active {
-  background: #2f4553;
-  color: #ffffff;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  composes: sidebar-mode-active from global;
 }
 
 .controlGroup {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  composes: sidebar-control-group from global;
 }
-
 .labelRow {
-  display: flex;
-  justify-content: space-between;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text-secondary);
+  composes: sidebar-label-row from global;
 }
 
 .inputGroup {
-  display: flex;
-  background: var(--bg-input);
-  border: var(--ui-input-border) solid var(--ui-outline);
-  border-radius: 9px;
-  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
-  height: 44px;
-  overflow: hidden;
-  transition: border-color 0.2s;
+  composes: sidebar-input-group from global;
 }
-.inputGroup:focus-within { border-color: var(--ui-outline-focus); }
-
 .inputWrapper {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  padding-left: 12px;
+  composes: sidebar-input-wrapper from global;
 }
 
-.inputWrapper input {
-  background: transparent;
-  border: none;
-  color: #fff;
-  width: 100%;
-  font-weight: 700;
-  font-size: 14px;
-  outline: none;
-  font-family: "proxima-nova";
-  font-feature-settings: "salt" on;
-}
-
+/* Keno coin chip inside the bet input */
 .coinChip {
   width: 42px;
   display: grid;
   place-items: center;
-  border-left: 1px solid rgba(255,255,255,0.06);
-  background: var(--bg-input);
+  border-left: 1px solid var(--sidebar-split-divider);
+  background: var(--sidebar-input-bg);
 }
 
 .coinIcon {
@@ -152,58 +97,15 @@
 }
 
 .splitButtons {
-  display: flex;
-  align-items: center;
-  background: var(--bg-input);
-  border-left: 1px solid rgba(255,255,255,0.06);
-  padding: 0 4px;
+  composes: sidebar-split-buttons from global;
 }
-
-.splitButtons button {
-  background: transparent;
-  border: none;
-  color: #fff;
-  font-weight: 600;
-  padding: 0 12px;
-  height: 100%;
-  cursor: pointer;
-  font-size: 13px;
-}
-.splitButtons button:hover { color: #fff; }
-
 .divider {
-  width: 1px;
-  height: 16px;
-  background: rgba(255,255,255,0.08);
+  composes: sidebar-divider from global;
 }
 
 /* Mines-like dropdown */
 .readonlyInput {
-  position: relative;
-  background: var(--bg-input);
-  border: var(--ui-input-border) solid var(--ui-outline);
-  border-radius: 9px;
-  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
-  height: 44px;
-  display: flex;
-  align-items: center;
-  padding: 0 12px;
-}
-.readonlyInput:focus-within { border-color: #49687e; }
-
-.select {
-  width: 100%;
-  height: 44px;
-  border: none;
-  outline: none;
-  background: transparent;
-  color: #fff;
-  font-weight: 700;
-  font-size: 14px;
-  font-family: "proxima-nova";
-  font-feature-settings: "salt" on;
-  appearance: none;
-  -webkit-appearance: none;
+  composes: sidebar-readonly-input from global;
 }
 
 .hasCaret::after {
@@ -220,38 +122,12 @@
 }
 
 .bigButton {
-  background: var(--accent-green);
-  color: #013e01;
-  border: none;
-  border-radius: 8px;
-  height: 44px;
-  font-weight: 800;
-  font-size: 16px;
-  cursor: pointer;
-  margin-top: 6px;
-  font-family: "proxima-nova";
-  font-feature-settings: "salt" on;
-  transition: filter 0.2s, transform 0.1s;
-  box-shadow: 0 7px 15px rgba(0, 0, 0, 0.1);
+  composes: sidebar-bet-button from global;
 }
-.bigButton:hover { filter: brightness(1.08); }
-.bigButton:disabled { opacity: 0.55; cursor: not-allowed; }
 
 .secondaryButton {
-  background: #2F4553;
-  color: #fff;
-  border-radius: 8px;
-  height: 41px;
-  font-weight: 700;
-  font-size: 16px;
-  cursor: pointer;
-  font-family: "proxima-nova";
-  font-feature-settings: "salt" on;
-  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
-  transition: 220ms;
+  composes: sidebar-secondary-button from global;
 }
-.secondaryButton:hover { color: #fff; }
-.secondaryButton:disabled { color: #909BA1; opacity: 0.55; cursor: not-allowed; }
 
 /* Stage */
 .gameStage {
@@ -665,7 +541,7 @@
 }
 
 @media (max-width: 600px) {
-  :root {
+  .container {
     --tile-base-height: 6px;
     --tile-base-height-hover: 8px;
     --tile-gap: 8px;
@@ -702,6 +578,6 @@
 }
 
 @media (max-width: 380px) {
-  :root { --tile-gap: 7px; }
+  .container { --tile-gap: 7px; }
   .tileNumber { font-size: 13px; }
 }

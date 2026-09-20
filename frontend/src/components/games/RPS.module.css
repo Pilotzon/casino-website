@@ -1,12 +1,10 @@
-:root {
+/* =========================================================
+   RPS-specific theme (scoped to this game only)
+   Shared sidebar control tokens/classes live in
+   styles/global.css — do not redefine them here.
+   ========================================================= */
+.container {
   --bg-body: #1a2c38;
-  --bg-sidebar: #213743;
-  --bg-input: #0f212e;
-  --text-secondary: #b1bad3;
-  --accent-green: #00e701;
-  --ui-outline: rgba(255, 255, 255, 0.1);
-  --ui-outline-focus: rgba(255, 255, 255, 0.18);
-  --ui-input-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
   --cardW: 146px;
   --cardH: 164px;
   --gap: 14px;
@@ -34,87 +32,58 @@
   flex-shrink: 0;
 }
 
-.controlGroup { display: flex; flex-direction: column; gap: 8px; }
-
+/* =========================================================
+   Sidebar controls — shared styling lives in styles/global.css
+   (composed here so every game matches). RPS-specific tweaks
+   only below.
+   ========================================================= */
+.controlGroup {
+  composes: sidebar-control-group from global;
+}
 .labelRow {
-  display: flex; justify-content: space-between;
-  font-size: 13px; font-weight: 600; color: var(--text-secondary);
+  composes: sidebar-label-row from global;
 }
-
 .inputGroup {
-  display: flex;
-  background: #0F212E;
-  border: var(--ui-input-border) solid #395263;
-  border-radius: 9px;
-  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
-  height: 44px;
-  overflow: hidden;
-  transition: border-color 0.2s;
+  composes: sidebar-input-group from global;
 }
-.inputGroup:focus-within { border-color: var(--ui-outline-focus); }
-
-.inputWrapper {flex: 1; display: flex; align-items: center; padding-left: 12px; }
-.inputWrapper input {
-  background: transparent; border: none; color: #fff; width: 100%;
-  font-weight: 700; font-size: 14px; outline: none; font-family: inherit;
+.inputWrapper {
+  composes: sidebar-input-wrapper from global;
 }
-
 .splitButtons {
-  display: flex; align-items: center;
-  border-left: 1px solid rgba(255, 255, 255, 0.06);
-  padding: 0 4px; height: 100%;
+  composes: sidebar-split-buttons from global;
 }
-.splitButtons button {
-  background: transparent; border: none; color: var(--text-secondary);
-  font-weight: 600; padding: 0 12px; height: 100%; cursor: pointer;
-  font-size: 13px; font-family: inherit;
+.divider {
+  composes: sidebar-divider from global;
 }
-.splitButtons button:hover { color: #fff; }
-.divider { width: 1px; height: 16px; background: rgba(255, 255, 255, 0.08); }
 
 .betButton {
-  background: var(--accent-green); color: #013e01;
-  border: none; border-radius: 8px; height: 42px;
-  font-weight: 800; font-size: 15px; cursor: pointer;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-  transition: 120ms;
+  composes: sidebar-bet-button from global;
 }
-.betButton:disabled { opacity: 0.5; cursor: not-allowed; }
 
 .betRow { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
 .cashoutBtn {
-  height: 42px; border-radius: 8px; background: #2a3f4b;
-  color: rgba(255, 255, 255, 0.85); font-weight: 800;
-  transition: 120ms;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  composes: sidebar-secondary-button from global;
 }
-.cashoutBtn:disabled { opacity: 0.5; cursor: not-allowed; }
 
 .continueBtn {
-  height: 42px; border-radius: 8px; background: var(--accent-green);
-  color: #013e01; font-weight: 800; border: none; cursor: pointer;
-  transition: 120ms;
+  composes: sidebar-bet-button from global;
+  margin-top: 0;
 }
-.continueBtn:disabled { opacity: 0.5; cursor: not-allowed; }
 
 .secondaryButton {
-  height: 40px; border-radius: 8px; background: #2a3f4b;
-  color: rgba(255, 255, 255, 0.85); font-weight: 800; font-size: 15px;
-  border: none; cursor: pointer;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-  transition: 120ms;
+  composes: sidebar-secondary-button from global;
 }
-.secondaryButton:disabled { opacity: 0.5; cursor: not-allowed; }
 
 .choiceRow { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px;}
 
+/* RPS-specific pick buttons (game choice UI) */
 .choiceSmall {
-  height: 40px; background: #2a3f4b; border-radius: 8px;
+  height: 40px; background: var(--sidebar-btn-secondary-bg); border-radius: 8px;
   color: rgba(255, 255, 255, 0.7); font-weight: 800; font-size: 12px;
   display: flex; align-items: center; justify-content: space-between;
   padding: 0 10px; border: none; cursor: pointer;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--ui-input-shadow);
   transition: 120ms;
   font-size: 14px;
 }
@@ -124,9 +93,7 @@
 .choiceSmallIcon { width: 14px; height: 14px; opacity: 0.9;}
 
 .readonlyMoney {
-  height: 42px; border-radius: 9px; background: var(--bg-input);
-  display: flex; align-items: center; padding: 0 12px;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03), 0 2px 4px -2px rgba(0, 0, 0, 0.03);
+  composes: sidebar-readonly-input from global;
 }
 .moneyValue { font-weight: 900; font-size: 14px; }
 
@@ -516,7 +483,7 @@
 }
 
 @media (max-width: 700px) {
-  :root { --cardW: 84px; --cardH: 96px; --gap: 10px; }
+  .container { --cardW: 84px; --cardH: 96px; --gap: 10px; }
 
   .playerCardChoice {
     width: 83px !important;

@@ -1,20 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap');
 
-:root {
+/* =========================================================
+   Flip-specific theme (scoped to this game only)
+   Shared sidebar control tokens/classes live in
+   styles/global.css — do not redefine them here.
+   ========================================================= */
+.container {
   --bg-body: #1a2c38;
-  --bg-sidebar: #213743;
-  --bg-input: #0f212e;
-  --bg-surface: #2f4553;
-  --accent-green: #00e701;
-  --text-secondary: #b1bad3;
-  --bitcoin: #fca311;
-
-  /* unified inputs */
-  --ui-outline: rgba(255, 255, 255, 0.10);
-  --ui-outline-focus: rgba(255, 255, 255, 0.18);
-  --ui-input-radius: 8px;
-  --ui-input-border: 2px;
-  --ui-input-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
+  --stage-bg: #0f212e;
 }
 
 .container {
@@ -39,155 +32,49 @@ font-feature-settings: "salt" on;;
 
 .controlsHeader { margin-bottom: 4px; }
 
+/* =========================================================
+   Sidebar controls — shared styling lives in styles/global.css
+   (composed here so every game matches). Flip-specific tweaks
+   only below.
+   ========================================================= */
 .modeToggle {
-  background: #0f212e;
-  border-radius: 50px;
-  padding: 5px;
-  display: flex;
-  width: 100%;
-  position: relative;
+  composes: sidebar-mode-toggle from global;
 }
-
 .modeBtn {
-  flex: 1;
-  background: transparent;
-  border: none;
-  color: #b1bad3;
-  padding: 10px 0;
-  border-radius: 40px;
-  font-weight: 700;
-  font-size: 14px;
-  cursor: pointer;
-  font-family: 'proxima-nova';
-font-feature-settings: "salt" on;;
-  transition: all 0.2s ease;
-  text-align: center;
+  composes: sidebar-mode-btn from global;
 }
-.modeBtn.active {
-  background: #2f4553;
-  color: #ffffff;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+.active {
+  composes: sidebar-mode-active from global;
 }
-.modeBtn:hover:not(.active) { color: #ffffff; }
 
 .controlGroup {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  composes: sidebar-control-group from global;
 }
-
 .labelRow {
-  display: flex;
-  justify-content: space-between;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text-secondary);
+  composes: sidebar-label-row from global;
 }
 
 .inputGroup {
-  display: flex;
-  background: var(--bg-input);
-  border: var(--ui-input-border) solid var(--ui-outline);
-  border-radius: 9px;
-  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
-  height: 44px;
-  overflow: hidden;
-  transition: border-color 0.2s;
+  composes: sidebar-input-group from global;
 }
-.inputGroup:focus-within { border-color: var(--ui-outline-focus); }
-
 .inputWrapper {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  padding-left: 12px;
+  composes: sidebar-input-wrapper from global;
 }
-.inputWrapper input {
-  background: transparent;
-  border: none;
-  color: white;
-  width: 100%;
-  font-weight: 700;
-  font-size: 14px;
-  outline: none;
-  font-family: 'proxima-nova';
-font-feature-settings: "salt" on;;
-}
-
 .btcIcon {
-  color: var(--bitcoin);
-  margin-right: 12px;
-  font-weight: 700;
-  font-size: 14px;
+  composes: sidebar-currency-icon from global;
 }
-
 .splitButtons {
-  display: flex;
-  align-items: center;
-  background: var(--bg-input);
-  border-left: 1px solid rgba(255,255,255,0.06);
-  padding: 0 4px;
+  composes: sidebar-split-buttons from global;
 }
-.splitButtons button {
-  background: transparent;
-  border: none;
-  color: #fff;
-  font-weight: 600;
-  padding: 0 12px;
-  height: 100%;
-  cursor: pointer;
-  font-size: 13px;
-}
-.splitButtons button:hover { color: white; }
-
 .divider {
-  width: 1px;
-  height: 16px;
-  background: rgba(255,255,255,0.08);
+  composes: sidebar-divider from global;
 }
-
 .readonlyInput {
-  background: #0F212E;
-  border: var(--ui-input-border) solid #395263;
-  border-radius: 9px;
-  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
-  height: 44px;
-  display: flex;
-  align-items: center;
-  padding: 0 12px;
+  composes: sidebar-readonly-input from global;
 }
-.readonlyInput:focus-within { border-color: #49687e; }
-
-.readonlyInput input {
-  background: transparent;
-  border: none;
-  color: white;
-  flex: 1;
-  font-weight: 700;
-  font-size: 14px;
-  outline: none;
-  font-family: 'proxima-nova';
-font-feature-settings: "salt" on;;
-}
-
-button:active { transform: scale(0.97); }
-
 .betButton {
-  background: var(--accent-green);
-  color: #013e01;
-  border: none;
-  border-radius: 8px;
-  height: 44px;
-  font-weight: 700;
-  font-size: 16px;
-  cursor: pointer;
-  margin-top: 6px;
-  font-family: 'proxima-nova';
-font-feature-settings: "salt" on;;
-  transition: filter 0.2s, transform 0.1s;
-  box-shadow: 0 7px 15px rgba(0, 0, 0, 0.1);
+  composes: sidebar-bet-button from global;
 }
-.betButton:hover { filter: brightness(1.1); }
 
 /* ✅ Limbo-style win popup (Flip) */
 .winPopup {
@@ -268,7 +155,7 @@ font-feature-settings: "salt" on;;
   align-items: center;
   padding: 0 15px;
   height: 44px;
-  background: var(--bg-input);
+  background: var(--sidebar-input-bg);
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s;
@@ -276,7 +163,7 @@ font-feature-settings: "salt" on;;
 }
 
 .activeSide {
-  background: var(--bg-input);
+  background: var(--sidebar-input-bg);
   border-color: var(--ui-outline-focus);
   border: var(--ui-outline-focus) solid 2px;
 }
@@ -299,7 +186,7 @@ font-feature-settings: "salt" on;;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: var(--bg-input);
+  background: var(--stage-bg);
   padding: 40px;
   position: relative;
 }
@@ -355,7 +242,7 @@ font-feature-settings: "salt" on;;
 .slot {
   width: 26px;
   height: 36px;
-  background: var(--bg-input);
+  background: var(--stage-bg);
   border-radius: 4px;
   display: flex;
   align-items: center;

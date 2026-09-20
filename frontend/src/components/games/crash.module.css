@@ -1,15 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap');
 
-:root {
+/* =========================================================
+   Crash-specific theme (scoped to this game only)
+   Shared sidebar control tokens/classes live in
+   styles/global.css — do not redefine them here.
+   ========================================================= */
+.container {
   --bg-body: #1a2c38;
-  --bg-sidebar: #213743;
-  --bg-input: #0f212e;
-  --bg-surface: #2f4553;
-  --accent-green: #00e701;
-  --accent-red: #f12c4c;
+  --stage-bg: #0f212e;
   --accent-orange: #ff9500;
-  --text-secondary: #b1bad3;
-  --bitcoin: #fca311;
 }
 
 .container {
@@ -31,122 +30,65 @@ font-feature-settings: "salt" on;;
   border-right: 1px solid rgba(0,0,0,0.2);
 }
 
+/* =========================================================
+   Sidebar controls — shared styling lives in styles/global.css
+   (composed here so every game matches). Crash-specific tweaks
+   only below.
+   ========================================================= */
 .modeToggle {
-  background: #0f212e;
-  border-radius: 50px;
-  padding: 5px;
-  display: flex;
+  composes: sidebar-mode-toggle from global;
 }
-
 .modeBtn {
-  flex: 1;
-  background: transparent;
-  border: none;
-  color: #b1bad3;
-  padding: 10px 0;
-  border-radius: 40px;
-  font-weight: 700;
-  font-size: 14px;
-  cursor: pointer;
-  transition: all 0.2s;
+  composes: sidebar-mode-btn from global;
 }
-
-.modeBtn.active {
-  background: #2f4553;
-  color: #ffffff;
+.active {
+  composes: sidebar-mode-active from global;
 }
 
 .controlGroup {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  composes: sidebar-control-group from global;
 }
-
 .labelRow {
-  display: flex;
-  justify-content: space-between;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text-secondary);
+  composes: sidebar-label-row from global;
 }
 
 .inputGroup {
-  display: flex;
-  background: var(--bg-input);
-  border: 1px solid var(--bg-surface);
-  border-radius: 4px;
-  height: 44px;
+  composes: sidebar-input-group from global;
 }
-
 .inputWrapper {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  padding-left: 12px;
+  composes: sidebar-input-wrapper from global;
 }
-
-.inputWrapper input {
-  background: transparent;
-  border: none;
-  color: white;
-  width: 100%;
-  font-weight: 700;
-  font-size: 14px;
-  outline: none;
-}
-
 .btcIcon {
-  color: var(--bitcoin);
-  margin-right: 12px;
-  font-weight: 700;
-  font-size: 14px;
+  composes: sidebar-currency-icon from global;
 }
-
 .splitButtons {
-  display: flex;
-  align-items: center;
-  border-left: 1px solid var(--bg-surface);
-  padding: 0 4px;
+  composes: sidebar-split-buttons from global;
+}
+.divider {
+  composes: sidebar-divider from global;
 }
 
-.splitButtons button {
-  background: transparent;
-  border: none;
-  color: var(--text-secondary);
-  font-weight: 600;
-  padding: 0 12px;
-  height: 100%;
-  cursor: pointer;
-}
-
-.divider { width: 1px; height: 16px; background: var(--bg-surface); }
-
+/* Auto-cashout input — same shared control styling */
 .cashoutInput {
-  display: flex;
-  background: var(--bg-input);
-  border: 1px solid var(--bg-surface);
-  border-radius: 4px;
-  height: 44px;
-  overflow: hidden;
+  composes: sidebar-input-group from global;
 }
-
 .cashoutInput input {
   flex: 1;
   background: transparent;
   border: none;
-  color: white;
+  color: var(--sidebar-input-text);
   padding-left: 12px;
   font-weight: 700;
   font-size: 14px;
   outline: none;
 }
 
+/* Crash-specific up/down stepper inside the cashout input */
 .arrowButtons {
   display: flex;
   flex-direction: column;
-  border-left: 1px solid var(--bg-surface);
+  border-left: 1px solid var(--sidebar-split-divider);
 }
-
 .arrowButtons button {
   flex: 1;
   background: transparent;
@@ -156,48 +98,22 @@ font-feature-settings: "salt" on;;
   padding: 0 10px;
   font-size: 10px;
 }
-
 .arrowButtons button:first-child {
-  border-bottom: 1px solid var(--bg-surface);
+  border-bottom: 1px solid var(--sidebar-split-divider);
 }
 
 .betButton {
-  background: var(--accent-green);
-  color: #013e01;
-  border: none;
-  border-radius: 8px;
-  height: 44px;
-  font-weight: 700;
-  font-size: 16px;
-  cursor: pointer;
-  margin-top: 6px;
-  box-shadow: 0 7px 15px rgba(0,0,0,0.1);
-  transition: all 0.2s;
+  composes: sidebar-bet-button from global;
 }
 
+/* Crash-specific: auto-cashout variant of the bet button */
 .cashoutButton {
   background: var(--accent-red);
-  color: white;
+  color: #ffffff;
 }
 
 .readonlyInput {
-  background: var(--bg-input);
-  border: 1px solid var(--bg-surface);
-  border-radius: 4px;
-  height: 44px;
-  display: flex;
-  align-items: center;
-  padding: 0 12px;
-}
-
-.readonlyInput input {
-  background: transparent;
-  border: none;
-  color: white;
-  flex: 1;
-  font-weight: 700;
-  font-size: 14px;
-  outline: none;
+  composes: sidebar-readonly-input from global;
 }
 
 .historySection {
@@ -243,7 +159,7 @@ font-feature-settings: "salt" on;;
   flex: 1;
   display: flex;
   flex-direction: column;
-  background: var(--bg-input);
+  background: var(--stage-bg);
   padding: 40px;
   position: relative;
 }

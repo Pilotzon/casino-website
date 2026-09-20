@@ -1,23 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap");
 
 /* =========================================================
-   Theme
+   Theme — Tower-specific tokens (scoped to this game only).
+   Shared sidebar control tokens/classes live in
+   styles/global.css — do not redefine them here.
    ========================================================= */
-:root {
+.container {
   --bg-body: #1a2c38;
-  --bg-sidebar: #213743;
-  --bg-input: #0f212e;
-  --bg-surface: #2f4553;
-
-  --accent-green: #00e701;
-  --text-secondary: #b1bad3;
-  --bitcoin: #fca311;
-
-  --ui-outline: rgba(255, 255, 255, 0.1);
-  --ui-outline-focus: rgba(255, 255, 255, 0.18);
-  --ui-input-radius: 8px;
-  --ui-input-border: 2px;
-  --ui-input-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
 
   --board-inner: #182433;
   --board-frame: #6f8090;
@@ -74,102 +63,44 @@
 }
 
 /* =========================================================
-   Sidebar controls
+   Sidebar controls — shared styling lives in styles/global.css
+   (composed here so every game matches). Tower-specific
+   tweaks only below.
    ========================================================= */
 .controlsHeader {
   margin-bottom: 4px;
 }
 
 .modeToggle {
-  background: #0f212e;
-  border-radius: 50px;
-  padding: 5px;
-  display: flex;
-  width: 100%;
-  position: relative;
+  composes: sidebar-mode-toggle from global;
 }
-
 .modeBtn {
-  flex: 1;
-  background: transparent;
-  border: none;
-  color: #b1bad3;
-  padding: 10px 0;
-  border-radius: 40px;
-  font-weight: 700;
-  font-size: 14px;
-  cursor: pointer;
-  font-family: 'proxima-nova';
-  transition: all 0.2s ease;
-  text-align: center;
+  composes: sidebar-mode-btn from global;
 }
-.modeBtn.active {
-  background: #2f4553;
-  color: #ffffff;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-.modeBtn:hover:not(.active) {
-  color: #ffffff;
+.active {
+  composes: sidebar-mode-active from global;
 }
 
 .controlGroup {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  composes: sidebar-control-group from global;
 }
-
 .labelRow {
-  display: flex;
-  justify-content: space-between;
-  color: var(--text-secondary);
-  font-size: 13px;
-  font-weight: 600;
+  composes: sidebar-label-row from global;
 }
 
-.inputGroup,
+.inputGroup {
+  composes: sidebar-input-group from global;
+}
 .readonlyInput {
-  height: 44px;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-  background: var(--bg-input);
-  border: var(--ui-input-border) solid var(--ui-outline);
-  border-radius: 9px;
-  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
-  transition: border-color 0.2s;
+  composes: sidebar-readonly-input from global;
 }
-
-.inputGroup:focus-within,
-.readonlyInput:focus-within {
-  border-color: var(--ui-outline-focus);
-}
-
 .inputWrapper {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  padding-left: 12px;
-}
-
-.inputWrapper input,
-.readonlyInput input {
-  width: 100%;
-  border: none;
-  outline: none;
-  background: transparent;
-  color: #fff;
-  font: 700 14px "Inter";
-}
-
-.readonlyInput {
-  position: relative;
-  padding: 0 12px;
+  composes: sidebar-input-wrapper from global;
 }
 
 .btcIcon {
-  color: var(--bitcoin);
-  font-weight: 700;
-  font-size: 14px;
+  composes: sidebar-currency-icon from global;
+  margin-right: 0;
   margin-left: 12px;
 }
 
@@ -179,66 +110,26 @@
 }
 
 .splitButtons {
-  display: flex;
-  align-items: center;
-  padding: 0 4px;
-  background: var(--bg-input);
-  border-left: 1px solid rgba(255, 255, 255, 0.06);
+  composes: sidebar-split-buttons from global;
 }
-
-.splitButtons button {
-  height: 100%;
-  padding: 0 12px;
-  border: none;
-  background: transparent;
-  color: var(--text-secondary);
-  font-weight: 600;
-  font-size: 13px;
-  cursor: pointer;
-}
-
-.splitButtons button:hover {
-  color: #fff;
-}
-
 .divider {
-  width: 1px;
-  height: 16px;
-  background: rgba(255, 255, 255, 0.08);
+  composes: sidebar-divider from global;
 }
 
 .select {
-  height: 44px;
+  height: var(--sidebar-input-height);
   padding: 0 12px;
   outline: none;
-  background: var(--bg-input);
+  background: var(--sidebar-input-bg);
   border: var(--ui-input-border) solid var(--ui-outline);
-  border-radius: 9px;
-  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
-  color: #fff;
+  border-radius: var(--sidebar-input-radius);
+  box-shadow: var(--ui-input-shadow);
+  color: var(--sidebar-input-text);
   font-weight: 700;
 }
 
 .betButton {
-  height: 44px;
-  margin-top: 6px;
-  border: none;
-  border-radius: 8px;
-  background: var(--accent-green);
-  color: #013e01;
-  font: 700 16px "Inter";
-  cursor: pointer;
-  box-shadow: 0 7px 15px rgba(0, 0, 0, 0.1);
-  transition: filter 0.2s, transform 0.1s;
-}
-
-.betButton:hover {
-  filter: brightness(1.1);
-}
-
-.betButton:disabled {
-  opacity: 0.65;
-  cursor: not-allowed;
+  composes: sidebar-bet-button from global;
 }
 
 /* =========================================================
