@@ -2,7 +2,7 @@ import { useMemo, useRef, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useToast } from "../../context/ToastContext";
 import { gamesAPI } from "../../services/api";
-import styles from "./Limbo.module.css";
+import styles from "./limbo.module.css";
 
 import useGameAudio from "../../hooks/useGameAudio";
 

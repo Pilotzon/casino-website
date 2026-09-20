@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo, useRef } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useToast } from "../../context/ToastContext";
 import { gamesAPI } from "../../services/api";
-import styles from "./Dice.module.css";
+import styles from "./dice.module.css";
 
 import useGameAudio from "../../hooks/useGameAudio";
 

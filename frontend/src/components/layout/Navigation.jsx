@@ -5,7 +5,7 @@ import { useToast } from "../../context/ToastContext";
 import Button from "../common/Button";
 import Modal from "../common/Modal";
 import api from "../../services/api";
-import styles from "./Navigation.module.css";
+import styles from "./navigation.module.css";
 
 function Navigation() {
   const location = useLocation();

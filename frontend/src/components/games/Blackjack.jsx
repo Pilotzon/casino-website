@@ -1,7 +1,7 @@
 import { useMemo, useRef, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useToast } from "../../context/ToastContext";
-import styles from "./Blackjack.module.css";
+import styles from "./blackjack.module.css";
 
 import paysSvg from "../../assets/blackjack/background.svg";
 import cardBackSvg from "../../assets/blackjack/cardback.svg";
@@ -24,7 +24,7 @@ import deckEntityPng from "../../assets/blackjack/deckentity.png";
 import cardMp3 from "../../assets/blackjack/Card.mp3";
 import winMp3 from "../../assets/blackjack/Win.mp3";
 import loseWav from "../../assets/blackjack/Lose.wav";
-import flipMp3 from "../../assets/blackjack/flip.mp3";
+import flipMp3 from "../../assets/blackjack/Flip.mp3";
 
 import useGameAudio from "../../hooks/useGameAudio";
 

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState, useCallback } from "react";
 import { gamesAPI } from "../../services/api";
 import { useAuth } from "../../context/AuthContext";
-import styles from "./Wheel.module.css";
+import styles from "./wheel.module.css";
 
 const RISK_LEVELS = ["low", "medium", "high"];
 const SEGMENT_OPTIONS = [10, 20, 30, 40, 50];

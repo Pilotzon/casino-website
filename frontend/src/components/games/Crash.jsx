@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
-import styles from './Crash.module.css';
+import styles from './crash.module.css';
 import useBetSound from "../../hooks/useBetSound";
 function Crash() {
   const { user, isAuthenticated, updateBalance } = useAuth();

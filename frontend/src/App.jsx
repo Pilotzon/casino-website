@@ -12,7 +12,7 @@ import CustomBets from "./pages/CustomBets";
 import Dashboard from "./pages/Dashboard";
 import Admin from "./pages/Admin";
 
-import Layout from "./components/layout/Layout";
+import Layout from "./components/layout/layout";
 
 // custom bets layout
 import CustomBetsLayout from "./components/customBets/Layout/CustomBetsLayout";

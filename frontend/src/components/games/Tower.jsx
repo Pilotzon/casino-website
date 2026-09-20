@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useToast } from "../../context/ToastContext";
 import { gamesAPI } from "../../services/api";
-import styles from "./Tower.module.css";
+import styles from "./tower.module.css";
 
 import boardBg from "../../assets/tower/board-background.webp";
 import castleTopDefault from "../../assets/tower/castle-top.svg";

@@ -1,5 +1,5 @@
 import useGameAudio from "./useGameAudio";
-import betMp3 from "../assets/bet.mp3";
+import betMp3 from "../assets/Bet.mp3";
 
 /**
  * Global "bet click" SFX.

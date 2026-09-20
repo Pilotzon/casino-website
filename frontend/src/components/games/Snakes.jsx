@@ -10,8 +10,8 @@ import diceRollSound from "../../assets/snakes/DiceRoll.mp3";
 import winSound from "../../assets/snakes/Win.mp3";
 import loseSound from "../../assets/snakes/Lose.mp3";
 import revealedSound from "../../assets/snakes/Revealed.mp3";
-import cashoutSound from "../../assets/snakes/cashout.mp3";
-import betSound from "../../assets/bet.mp3";
+import cashoutSound from "../../assets/snakes/Cashout.mp3";
+import betSound from "../../assets/Bet.mp3";
 import multUpSound from "../../assets/snakes/MultUp.mp3";
 
 const DIFFS = [

@@ -2,16 +2,16 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useToast } from "../../context/ToastContext";
 import { gamesAPI } from "../../services/api";
-import styles from "./Flip.module.css";
+import styles from "./flip.module.css";
 
 import useGameAudio from "../../hooks/useGameAudio";
 
 // Videos only
-import startingOnce from "../../assets/Flip/starting_once_animation.mp4";
-import h2h from "../../assets/Flip/flipping_heads-to-heads.mp4";
-import h2t from "../../assets/Flip/flipping_heads-to-tails.mp4";
-import t2h from "../../assets/Flip/flipping_tails-to-heads.mp4";
-import t2t from "../../assets/Flip/flipping_tails-to-tails.mp4";
+import startingOnce from "../../assets/flip/starting_once_animation.mp4";
+import h2h from "../../assets/flip/flipping_heads-to-heads.mp4";
+import h2t from "../../assets/flip/flipping_heads-to-tails.mp4";
+import t2h from "../../assets/flip/flipping_tails-to-heads.mp4";
+import t2t from "../../assets/flip/flipping_tails-to-tails.mp4";
 
 // ✅ Flip sounds
 import flipRoundMp3 from "../../assets/flip/Flip.mp3";

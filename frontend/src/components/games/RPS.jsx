@@ -31,7 +31,7 @@ import PaperSidebarIcon from "../../assets/rps/PaperSidebarIcon.svg";
 import ScissorsSidebarIcon from "../../assets/rps/ScissorsSidebarIcon.svg";
 
 // Sound imports
-import BetSound from "../../assets/bet.mp3";
+import BetSound from "../../assets/Bet.mp3";
 import WinSound from "../../assets/rps/Win.mp3";
 import LoseSound from "../../assets/rps/Lose.mp3";
 import SlideSound from "../../assets/rps/Slide.wav";

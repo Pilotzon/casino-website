@@ -3,7 +3,7 @@ import { useAuth } from "../../context/AuthContext";
 import { useToast } from "../../context/ToastContext";
 import { gamesAPI } from "../../services/api";
 
-import limboStyles from "./Limbo.module.css";
+import limboStyles from "./limbo.module.css";
 import styles from "./RussianRoulette.module.css";
 
 import gunImg from "../../assets/russian-roulette/Gun.png";

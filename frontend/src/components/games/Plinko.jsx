@@ -2,12 +2,12 @@ import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useToast } from "../../context/ToastContext";
 import { gamesAPI } from "../../services/api";
-import styles from "./Plinko.module.css";
+import styles from "./plinko.module.css";
 
 import useGameAudio from "../../hooks/useGameAudio";
 
 // ✅ Plinko win sound
-import plinkoWinMp3 from "../../assets/plinko/win.mp3";
+import plinkoWinMp3 from "../../assets/plinko/Win.mp3";
 
 function stepIsRight(step) {
   if (typeof step === "string") return step.toLowerCase() === "right";

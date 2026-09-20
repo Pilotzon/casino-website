@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import betMp3 from "../../assets/bet.mp3";
+import betMp3 from "../../assets/Bet.mp3";
 
 export default function GlobalBetSound({ enabled = true, volume = 0.8 }) {
   const baseRef = useRef(null);

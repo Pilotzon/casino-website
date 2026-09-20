@@ -6,11 +6,11 @@ import { useEffect, useLayoutEffect, useMemo, useRef, useState, useCallback } fr
 import { useAuth } from "../../context/AuthContext";
 import { useToast } from "../../context/ToastContext";
 import { gamesAPI } from "../../services/api";
-import styles from "./Roulette.module.css";
+import styles from "./roulette.module.css";
 
 // Assets
-import wheelPng from "../../assets/roulette/Wheel.png";
-import ballPng from "../../assets/roulette/ball.png";
+import wheelPng from "../../assets/roulette/wheel.png";
+import ballPng from "../../assets/roulette/Ball.png";
 
 import chip1 from "../../assets/roulette/Chip1.png";
 import chip5 from "../../assets/roulette/Chip5.png";

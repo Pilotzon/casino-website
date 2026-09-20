@@ -5,6 +5,9 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 3000,
+    host: '0.0.0.0',
+    // allow proxied/tunneled dev previews (e.g. sandbox preview hosts)
+    allowedHosts: true,
     proxy: {
       '/api': {
         target: 'http://localhost:5000',

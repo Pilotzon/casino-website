@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useToast } from "../context/ToastContext";
 import { adminAPI } from "../services/api";
-import styles from "./Admin.module.css";
+import styles from "./admin.module.css";
 
 function isFutureDate(value) {
   if (!value) return false;
