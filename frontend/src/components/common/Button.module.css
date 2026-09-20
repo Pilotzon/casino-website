@@ -8,7 +8,7 @@
   border: none;
   border-radius: var(--radius-md);
   cursor: pointer;
-  transition: all var(--transition-fast);
+  transition: transform 100ms ease, background-color 140ms ease, border-color 140ms ease, color 140ms ease, filter 140ms ease;
   white-space: nowrap;
   user-select: none;
 }
@@ -19,30 +19,28 @@
 }
 
 .button:not(:disabled):active {
-  transform: scale(0.98);
+  transform: scale(0.9); /* site-wide press: pure scale-down, ~100ms */
 }
 
 /* Variants */
 .primary {
-  background: var(--accent-success);
-  color: #013e01;
+  background: var(--color-accent-blue); /* primary action language matches Bet button */
+  color: #ffffff;
   font-weight: 800;
 }
 
 .primary:not(:disabled):hover {
-  background: var(--accent-success-hover);
-  filter: brightness(1.05);
+  background: var(--color-accent-blue-hover); /* brightness lift via -hover color, no scale */
 }
 
 .secondary {
-  background: var(--bg-input);
-  color: var(--text-primary);
-  border: 1px solid var(--border-default);
+  background: var(--color-btn-secondary-bg);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border-input); /* always rendered — no layout shift */
 }
 
 .secondary:not(:disabled):hover {
-  background: var(--bg-input-hover);
-  border-color: var(--border-focus);
+  background: var(--color-btn-secondary-hover);
 }
 
 .success {

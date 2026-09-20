@@ -8,7 +8,6 @@
    styles/global.css — do not redefine them here.
    ========================================================= */
 .container {
-  --bg-body: #1a2c38;
   --stage-bg: #0f2a35;
   --tile: #2f4553;
   --tile-dark: #243b48;
@@ -22,10 +21,10 @@
    ============================================================ */
 
 .container {
+  composes: game-shell from global;
   display: flex;
-  background: var(--bg-body);
+  background: var(--color-bg-game);
   color: #fff;
-  min-height: 600px;
   font-family: "proxima-nova", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
   overflow: hidden;
 }
@@ -36,15 +35,14 @@
    ============================================================ */
 
 .sidebar {
-  width: 320px;
+  width: var(--layout-sidebar-width);
   background: var(--bg-sidebar);
-  padding: 16px;
+  padding: var(--space-lg);
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  border-right: 1px solid rgba(0, 0, 0, 0.2);
+  gap: var(--space-lg);
+  border-right: 1px solid var(--color-border-navbar);
   flex-shrink: 0;
-  border-bottom-right-radius: 8px;
 }
 
 /* =========================================================
@@ -63,7 +61,7 @@
    built on the shared sidebar input tokens */
 .chipSelector {
   display: flex; align-items: center; justify-content: space-between;
-  background: var(--sidebar-input-bg);
+  background: var(--color-bg-input);
   border: var(--ui-input-border) solid var(--ui-outline);
   border-radius: var(--sidebar-input-radius);
   box-shadow: var(--ui-input-shadow);
@@ -122,7 +120,7 @@
    ============================================================ */
 
 .gameStage {
-  flex: 1; background: #0F212E; padding: 24px;
+  flex: 1; background: var(--color-bg-game); padding: 24px;
   display: flex; justify-content: center; align-items: flex-start;
   padding-top: 28px; overflow-y: auto; position: relative;
 }
@@ -183,7 +181,7 @@
 .winPopup {
   position: absolute; top: 22%; left: 50%;
   transform: translate(-50%, -50%) scale(0.85);
-  background: #0F212E; border: 2px solid rgba(0,172,0,0.9); border-radius: 16px;
+  background: var(--color-bg-game); border: 2px solid rgba(0,172,0,0.9); border-radius: 16px;
   padding: 18px 24px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.28);
   z-index: 100; animation: winPop 160ms ease-out forwards; min-width: 240px;
 }
@@ -423,7 +421,7 @@
   max-width: 360px;
   max-height: calc(100vh - 32px);
   max-height: calc(100dvh - 32px);
-  background: #0f212e;
+  background: var(--color-bg-game);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
   padding: 16px;

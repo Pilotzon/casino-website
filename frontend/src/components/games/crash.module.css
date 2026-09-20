@@ -6,28 +6,27 @@
    styles/global.css — do not redefine them here.
    ========================================================= */
 .container {
-  --bg-body: #1a2c38;
   --stage-bg: #0f212e;
   --accent-orange: #ff9500;
 }
 
 .container {
+  composes: game-shell from global;
   display: flex;
-  background: var(--bg-body);
+  background: var(--color-bg-game);
   color: white;
-  min-height: calc(100vh - 130px);
   font-family: 'proxima-nova';
 font-feature-settings: "salt" on;;
 }
 
 .sidebar {
-  width: 320px;
+  width: var(--layout-sidebar-width);
   background: var(--bg-sidebar);
-  padding: 16px;
+  padding: var(--space-lg);
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  border-right: 1px solid rgba(0,0,0,0.2);
+  gap: var(--space-lg);
+  border-right: 1px solid var(--color-border-navbar);
 }
 
 /* =========================================================

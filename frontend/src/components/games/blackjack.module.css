@@ -6,8 +6,6 @@
    styles/global.css — do not redefine them here.
    ========================================================= */
 .container {
-  --bg-body: #1a2c38;
-
   --lose-red: #ef4444;
 
   --table-bg: #0f2a35;
@@ -26,10 +24,10 @@
 }
 
 .container {
+  composes: game-shell from global;
   display: flex;
-  background: var(--bg-body);
+  background: var(--color-bg-game);
   color: white;
-  min-height: 620px;
   font-family: 'proxima-nova';
   font-feature-settings: "salt" on;
   overflow: hidden;
@@ -37,13 +35,13 @@
 
 /* Sidebar */
 .sidebar {
-  width: 320px;
+  width: var(--layout-sidebar-width);
   background: var(--bg-sidebar);
-  padding: 16px;
+  padding: var(--space-lg);
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  border-right: 1px solid rgba(0,0,0,0.2);
+  gap: var(--space-lg);
+  border-right: 1px solid var(--color-border-navbar);
 }
 
 .controlsHeader { margin-bottom: 4px; }
@@ -410,7 +408,7 @@
   top: 42%;
   transform: translate(-50%, -50%) scale(0.90);
   transform-origin: center;
-  background: #0F212E;
+  background: var(--color-bg-game);
   border-radius: 16px;
   padding: 16px 22px;
   text-align:center;

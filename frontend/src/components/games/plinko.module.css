@@ -6,8 +6,6 @@
    styles/global.css — do not redefine them here.
    ========================================================= */
 .container {
-  --bg-body: #1a2c38;
-
   --hist-item-h: 46px;
   --hist-gap: 0px;
   --hist-radius: 14px;
@@ -15,10 +13,10 @@
 }
 
 .container {
+  composes: game-shell from global;
   display: flex;
-  background: var(--bg-body);
+  background: var(--color-bg-game);
   color: white;
-  min-height: 600px;
   font-family: 'proxima-nova';
   font-feature-settings: "salt" on;
   overflow: hidden;
@@ -26,13 +24,13 @@
 
 /* Sidebar */
 .sidebar {
-  width: 320px;
+  width: var(--layout-sidebar-width);
   background: var(--bg-sidebar);
-  padding: 16px;
+  padding: var(--space-lg);
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  border-right: 1px solid rgba(0,0,0,0.2);
+  gap: var(--space-lg);
+  border-right: 1px solid var(--color-border-navbar);
 }
 
 
@@ -302,7 +300,7 @@
 .bucketModalCard {
   width: 100%;
   max-width: 360px;
-  background: #0f212e;
+  background: var(--color-bg-game);
   border-radius: 14px;
   border: 1px solid rgba(255,255,255,0.08);
   padding: 16px;
@@ -364,8 +362,8 @@
   height: 42px;
   border: none;
   border-radius: 10px;
-  background: var(--accent-green);
-  color: #013e01;
+  background: var(--color-accent-blue);
+  color: #ffffff;
   font-weight: 900;
   cursor: pointer;
   font-family: 'proxima-nova';

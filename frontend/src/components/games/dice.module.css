@@ -6,7 +6,6 @@
    styles/global.css — do not redefine them here.
    ========================================================= */
 .container {
-  --bg-body: #121f27;
   --bg-surface: #253641;
 
   --handle-blue: #4d88ff;
@@ -19,10 +18,10 @@
 }
 
 .container {
+  composes: game-shell from global;
   display: flex;
-  background: var(--bg-body);
+  background: var(--color-bg-game);
   color: var(--text-primary);
-  min-height: 650px;
   font-family: 'proxima-nova';
 font-feature-settings: "salt" on;;
   overflow: hidden;
@@ -30,14 +29,13 @@ font-feature-settings: "salt" on;;
 
 /* Sidebar Styles */
 .sidebar {
-  width: 320px;
+  width: var(--layout-sidebar-width);
   background: var(--bg-sidebar);
-  padding: 16px;
+  padding: var(--space-lg);
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  border-right: 1px solid rgba(0, 0, 0, 0.2);
-    border-bottom-right-radius: 8px;
+  gap: var(--space-lg);
+  border-right: 1px solid var(--color-border-navbar);
 }
 
 .controlsHeader {
@@ -94,7 +92,7 @@ font-feature-settings: "salt" on;;
   flex: 1;
   display: flex;
   flex-direction: column;
-  background: #0F212E;
+  background: var(--color-bg-game);
   padding: 50px;
   justify-content: center;
   position: relative;
@@ -298,7 +296,7 @@ font-feature-settings: "salt" on;;
   left: 50%;
   transform: translate(-50%, -50%) scale(0.85);
   transform-origin: center;
-  background: #0F212E;
+  background: var(--color-bg-game);
   border: 2px solid rgba(0, 172, 0, 0.9);
   border-radius: 16px;
   padding: 18px 24px;
@@ -367,7 +365,7 @@ font-feature-settings: "salt" on;;
 }
 
 .statInput {
-  background: var(--sidebar-input-bg);
+  background: var(--color-bg-input);
   border: var(--ui-input-border) solid var(--ui-outline);
   border-radius: var(--sidebar-input-radius);
   box-shadow: var(--ui-input-shadow);

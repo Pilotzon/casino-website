@@ -193,6 +193,7 @@ function Games() {
                   onChange={(e) => setSoundVolume(clamp01(e.target.value))}
                   disabled={!soundEnabled}
                   aria-label="Volume"
+                  style={{ "--vol-fill": `${Math.round(soundVolume * 100)}%` }}
                 />
                 <span className={styles.volumeValue}>{Math.round(soundVolume * 100)}%</span>
               </div>

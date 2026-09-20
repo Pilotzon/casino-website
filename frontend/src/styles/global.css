@@ -48,50 +48,50 @@
 .tk-proxima-nova { font-family: "proxima-nova",sans-serif; }
 
 :root {
-  /* Stake-inspired Color Palette */
-  --bg-body: #0f212e;
-  --bg-elevated: #1a2c38;
-  --bg-sidebar: #213743;
-  --bg-surface: #2f4553;
-  --bg-panel: #1a2c38;
-  --bg-input: #2f4553;
-  --bg-input-hover: #354d5c;
+  /* =========================================================
+     DESIGN OVERHAUL — STEEL BLUE THEME (single source of truth)
+     Site chrome tokens. Components reference these variables —
+     never hardcode these colors in component stylesheets.
+     ========================================================= */
 
-  /* Accent Colors */
-  --accent-primary: #00e701;
-  --accent-primary-hover: #00fa01;
-  --accent-success: #00e701;
-  --accent-success-hover: #00fa01;
-  --accent-danger: #ed4137;
-  --accent-danger-hover: #ff4137;
-  --accent-warning: #ff9f00;
-  --accent-blue: #3e73ff;
+  /* -- Color Palette ------------------------------------- */
+  --color-bg-page:            #0e1a24;   /* outermost page background, near-black navy */
+  --color-bg-navbar:          #0e1a24;   /* same as page, navbar blends into background */
+  --color-border-navbar:      #1c2b38;   /* subtle 1px bottom border on navbar */
 
-  /* Text Colors */
-  --text-primary: #ffffff;
-  --text-secondary: #b1bad3;
-  --text-tertiary: #7a8a9e;
-  --text-muted: #556575;
+  --color-bg-panel:           #17232e;   /* sidebar background */
+  --color-bg-game:            #0f1c27;   /* game area background — slightly darker than sidebar for contrast */
 
-  /* Border Colors */
-  --border-default: #2f4553;
-  --border-focus: #557086;
-  --border-active: #00e701;
+  --color-bg-input:           #0f212e;   /* bet amount input, profit display, mines/gems fields */
+  --color-border-input:       #2f4553;   /* default input border */
+  --color-border-input-focus: #4a6a80;   /* input border on focus, no glow/shadow */
 
-  /* Game Specific */
-  --game-heads: #ff9f00;
-  --game-tails: #3e73ff;
-  --game-red: #ed4137;
-  --game-black: #1a2c38;
-  --game-green: #00e701;
+  --color-bg-tile:            #2f4553;   /* empty game grid tile */
+  --color-bg-tile-hover:      #3a5265;   /* tile hover state */
 
-  /* Shadows */
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
-  --shadow-glow: 0 0 20px rgba(0, 231, 1, 0.3);
+  --color-text-primary:       #ffffff;
+  --color-text-secondary:     #8fa3b3;   /* labels like "Bet Amount", "Mines", "Gems" */
+  --color-text-muted:         #5b7386;   /* disabled button text, e.g. Random Pick */
 
-  /* Spacing */
+  --color-accent-blue:        #1475e1;   /* primary action — Bet button, Register button, active toggle */
+  --color-accent-blue-hover:  #1c84f5;   /* brightness lift on hover, no scale change */
+  --color-accent-blue-active: #105fc0;   /* slightly darker while pressed */
+
+  --color-btn-secondary-bg:    #24333f;  /* Sign In button, 1/2 / 2x segment buttons */
+  --color-btn-secondary-hover: #2c3d4a;
+
+  --color-switcher-bg:        #0f212e;   /* Manual/Auto toggle track */
+  --color-switcher-active:    #2f4553;   /* active tab capsule inside toggle */
+
+  /* -- Corner Radius Scale -------------------------------- */
+  --radius-sm: 4px;        /* grid tiles */
+  --radius-md: 8px;        /* inputs, buttons, dropdowns */
+  --radius-lg: 12px;       /* the outer boxed game+sidebar container */
+  --radius-xl: 12px;
+  --radius-pill: 9999px;   /* mode switcher track, balance display pill */
+  --radius-full: var(--radius-pill);   /* legacy alias */
+
+  /* -- Spacing Scale -------------------------------------- */
   --space-xs: 4px;
   --space-sm: 8px;
   --space-md: 12px;
@@ -99,21 +99,9 @@
   --space-xl: 24px;
   --space-2xl: 32px;
 
-  /* Border Radius */
-  --radius-sm: 4px;
-  --radius-md: 6px;
-  --radius-lg: 8px;
-  --radius-xl: 12px;
-  --radius-full: 9999px;
-
-  /* Typography */
-  --font-primary: 'proxima-nova', -apple-system, BlinkMacSystemFont;
-  --font-mono: 'JetBrains Mono', 'Courier New', monospace;
-
-  /* Transitions */
-  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+  /* -- Layout --------------------------------------------- */
+  --nav-height: 72px;              /* fixed navbar height */
+  --layout-sidebar-width: 320px;   /* boxed sidebar column width */
 
   /* =========================================================
      Shared Sidebar Controls (single source of truth)
@@ -122,39 +110,89 @@
      Game CSS modules must reference these tokens / compose the
      .sidebar-* classes below instead of redefining their own.
      ========================================================= */
-  --sidebar-input-bg: #0f212e;
+  --sidebar-input-bg: var(--color-bg-input);
   --sidebar-input-text: #ffffff;
-  --sidebar-input-radius: 9px;
+  --sidebar-input-radius: var(--radius-md);
   --sidebar-input-height: 44px;
   --sidebar-divider: rgba(255, 255, 255, 0.08);
   --sidebar-split-divider: rgba(255, 255, 255, 0.06);
-  --sidebar-mode-active-bg: #2f4553;
+  --sidebar-mode-active-bg: var(--color-switcher-active);
   --sidebar-mode-active-color: #ffffff;
-  --sidebar-btn-secondary-bg: #2f4553;
+  --sidebar-btn-secondary-bg: var(--color-btn-secondary-bg);
   --sidebar-btn-secondary-text: #ffffff;
 
-  /* Unified input outlines (previously duplicated per game) */
-  --ui-outline: rgba(255, 255, 255, 0.10);
-  --ui-outline-focus: rgba(255, 255, 255, 0.18);
-  --ui-input-radius: 8px;
-  --ui-input-border: 2px;
-  --ui-input-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  /* Unified input outlines — flat: 1px border, no glow/shadow */
+  --ui-outline: var(--color-border-input);
+  --ui-outline-focus: var(--color-border-input-focus);
+  --ui-input-radius: var(--radius-md);
+  --ui-input-border: 1px;
+  --ui-input-shadow: none;
 
-  /* Bet button (shared across all games) */
-  --bet-btn-bg: #00e701;
-  --bet-btn-text: #013e01;
-  --bet-btn-radius: 8px;
+  /* Bet button (shared across all games) — primary action blue */
+  --bet-btn-bg: var(--color-accent-blue);
+  --bet-btn-text: #ffffff;
+  --bet-btn-radius: var(--radius-md);
   --bet-btn-height: 44px;
-  --bet-btn-shadow: 0 7px 15px rgba(0, 0, 0, 0.1);
-  --bet-btn-hover-brightness: 1.08;
-  --bet-btn-press-scale: 1.04;          /* subtle zoom-in on press */
-  --bet-btn-press-duration: 220ms;
+  --bet-btn-press-scale: 0.9;           /* click: pure scale-down, ~100ms */
+  --bet-btn-press-duration: 100ms;
 
-  /* Shared game accents (were redefined with identical values
-     in nearly every game module) */
+  /* Shared game accents — win/loss feedback INSIDE games.
+     Deliberately green/red: these are game semantics, not chrome. */
   --accent-green: #00e701;
   --accent-red: #f12c4c;
   --bitcoin: #fca311;
+
+  /* =========================================================
+     Legacy aliases — pre-overhaul token names mapped onto the
+     steel blue palette so existing stylesheets inherit the new
+     theme without per-file rewrites. Do not use in new code.
+     ========================================================= */
+  --bg-body: var(--color-bg-game);
+  --bg-elevated: var(--color-bg-panel);
+  --bg-sidebar: var(--color-bg-panel);
+  --bg-panel: var(--color-bg-panel);
+  --bg-surface: var(--color-bg-tile);
+  --bg-input: var(--color-bg-input);
+  --bg-input-hover: var(--color-bg-tile-hover);
+  --text-secondary: var(--color-text-secondary);
+  --text-muted: var(--color-text-muted);
+  --border-default: var(--color-border-input);
+  --border-focus: var(--color-border-input-focus);
+  --border-active: var(--color-accent-blue);
+  --accent-primary: var(--color-accent-blue);
+  --accent-primary-hover: var(--color-accent-blue-hover);
+  --accent-blue: var(--color-accent-blue);
+
+  /* Kept for non-chrome consumers (dashboard/admin/toasts) */
+  --text-primary: #ffffff;
+  --text-tertiary: #7a8a9e;
+  --accent-success: #00e701;
+  --accent-success-hover: #00fa01;
+  --accent-danger: #ed4137;
+  --accent-danger-hover: #ff4137;
+  --accent-warning: #ff9f00;
+
+  /* Game Specific (game art semantics — untouched) */
+  --game-heads: #ff9f00;
+  --game-tails: #3e73ff;
+  --game-red: #ed4137;
+  --game-black: #1a2c38;
+  --game-green: #00e701;
+
+  /* Shadows (semantic consumers only — chrome is flat) */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 20px rgba(20, 117, 225, 0.3);
+
+  /* Typography (unchanged) */
+  --font-primary: 'proxima-nova', -apple-system, BlinkMacSystemFont;
+  --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 * {
@@ -172,7 +210,7 @@ html, body {
 body {
   font-family: var(--font-primary);
   font-feature-settings: "salt" on;
-  background: var(--bg-body);
+  background: var(--color-bg-page);
   color: var(--text-primary);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
@@ -205,13 +243,13 @@ body {
 
 /* Selection */
 ::selection {
-  background: var(--accent-primary);
-  color: var(--bg-body);
+  background: var(--color-accent-blue);
+  color: var(--color-text-primary);
 }
 
 /* Focus Styles */
 *:focus-visible {
-  outline: 2px solid var(--accent-primary);
+  outline: 2px solid var(--color-accent-blue);
   outline-offset: 2px;
 }
 
@@ -329,20 +367,38 @@ input[type="number"] {
    Defined ONCE here. Game CSS modules pull these in with
    `composes: sidebar-* from global;` instead of redefining
    input/button styling per game.
+
+   Site-wide button interaction spec:
+     * hover -> color swap only (no scale change)
+     * press -> transform: scale(0.9), ~100ms, pure scale
+     * state borders are always rendered (invisible when
+       inactive) so toggling never shifts layout
    ========================================================= */
 
-/* Subtle zoom-in on click/press for the bet button (all games) */
-@keyframes betButtonPress {
-  0%   { transform: scale(1); }
-  40%  { transform: scale(var(--bet-btn-press-scale)); }
-  100% { transform: scale(1); }
+/* ---- Boxed game shell (sidebar + game area container) ----
+   Fixed-height rounded box: navbar on top, box inset by
+   --space-xl, footer only reachable by page scroll. Games'
+   root .container composes this class. */
+.game-shell {
+  flex: 1 1 auto;
+  min-height: 0;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  margin-bottom: var(--space-xl);
 }
 
-/* ---- Manual/Auto mode toggle ---- */
+@media (max-width: 900px) {
+  .game-shell {
+    flex: none;
+    margin-bottom: var(--space-lg);
+  }
+}
+
+/* ---- Manual/Auto mode switcher ---- */
 .sidebar-mode-toggle {
-  background: var(--sidebar-input-bg);
-  border-radius: 50px;
-  padding: 5px;
+  background: var(--color-switcher-bg);
+  border-radius: var(--radius-pill);
+  padding: 4px;
   display: flex;
   width: 100%;
   position: relative;
@@ -351,21 +407,25 @@ input[type="number"] {
 .sidebar-mode-btn {
   flex: 1;
   background: transparent;
-  border: none;
-  color: var(--text-secondary);
-  padding: 10px 0;
-  border-radius: 40px;
+  border: 1px solid transparent; /* reserved — state never adds/removes the border */
+  color: var(--color-text-secondary);
+  padding: 9px 0;
+  border-radius: var(--radius-pill);
   font-weight: 700;
   font-size: 14px;
   cursor: pointer;
   font-family: var(--font-primary);
   font-feature-settings: "salt" on;
-  transition: all 0.2s ease;
+  transition: transform var(--bet-btn-press-duration) ease, background-color 140ms ease, color 140ms ease;
   text-align: center;
 }
 
 .sidebar-mode-btn:hover:not(:disabled) {
-  color: var(--text-primary);
+  color: var(--color-text-primary);
+}
+
+.sidebar-mode-btn:active:not(:disabled) {
+  transform: scale(var(--bet-btn-press-scale));
 }
 
 .sidebar-mode-btn:disabled {
@@ -374,16 +434,15 @@ input[type="number"] {
 }
 
 .sidebar-mode-active {
-  background: var(--sidebar-mode-active-bg);
+  background: var(--color-switcher-active); /* understated capsule, no glow */
   color: var(--sidebar-mode-active-color);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 /* ---- Control group / label row ---- */
 .sidebar-control-group {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--space-sm);
 }
 
 .sidebar-label-row {
@@ -391,32 +450,32 @@ input[type="number"] {
   justify-content: space-between;
   font-size: 13px;
   font-weight: 600;
-  color: var(--text-secondary);
+  color: var(--color-text-secondary);
 }
 
 /* ---- Bet amount input (input + split buttons) ---- */
 .sidebar-input-group {
   display: flex;
   align-items: center;
-  background: var(--sidebar-input-bg);
-  border: var(--ui-input-border) solid var(--ui-outline);
-  border-radius: var(--sidebar-input-radius);
-  box-shadow: var(--ui-input-shadow);
+  background: var(--color-bg-input);
+  border: 1px solid var(--color-border-input);
+  border-radius: var(--radius-md);
   height: var(--sidebar-input-height);
   overflow: hidden;
-  transition: border-color 0.2s;
+  transition: border-color 140ms ease;
 }
 
 .sidebar-input-group:focus-within {
-  border-color: var(--ui-outline-focus);
+  border-color: var(--color-border-input-focus); /* border color only, no glow */
 }
 
 .sidebar-input-group > input {
   flex: 1;
+  min-width: 0;
   background: transparent;
   border: none;
   color: var(--sidebar-input-text);
-  padding-left: 12px;
+  padding: 0 var(--space-md);
   font-weight: 700;
   font-size: 14px;
   outline: none;
@@ -426,9 +485,10 @@ input[type="number"] {
 
 .sidebar-input-wrapper {
   flex: 1;
+  min-width: 0;
   display: flex;
   align-items: center;
-  padding-left: 12px;
+  padding: 0 var(--space-md);
 }
 
 .sidebar-input-wrapper input,
@@ -446,39 +506,45 @@ input[type="number"] {
 
 .sidebar-currency-icon {
   color: var(--bitcoin);
-  margin-right: 12px;
+  margin-right: var(--space-md);
   font-weight: 700;
   font-size: 14px;
 }
 
+/* ---- 1/2 / 2x quick-set buttons (flush in input's right edge) ---- */
 .sidebar-split-buttons {
   display: flex;
   align-items: center;
-  background: var(--sidebar-input-bg);
-  border-left: 1px solid var(--sidebar-split-divider);
-  padding: 0 4px;
+  gap: 3px;
+  padding: 0 var(--space-sm);
   height: 100%;
 }
 
 .sidebar-split-buttons button {
-  background: transparent;
-  border: none;
-  color: var(--sidebar-input-text);
-  font-weight: 600;
-  padding: 0 12px;
-  height: 100%;
+  background: var(--color-btn-secondary-bg);
+  border: 1px solid transparent; /* reserved */
+  color: var(--color-text-primary);
+  font-weight: 700;
+  font-size: 12px;
+  padding: 0 10px;
+  height: 32px;
+  border-radius: var(--radius-sm);
   cursor: pointer;
-  font-size: 13px;
   font-family: var(--font-primary);
   font-feature-settings: "salt" on;
+  transition: transform var(--bet-btn-press-duration) ease, background-color 140ms ease;
 }
 
-.sidebar-split-buttons button:hover {
-  color: var(--sidebar-input-text);
+.sidebar-split-buttons button:hover:not(:disabled) {
+  background: var(--color-btn-secondary-hover);
+}
+
+.sidebar-split-buttons button:active:not(:disabled) {
+  transform: scale(var(--bet-btn-press-scale));
 }
 
 .sidebar-split-buttons button:disabled {
-  opacity: 0.55;
+  color: var(--color-text-muted);
   cursor: not-allowed;
 }
 
@@ -491,19 +557,18 @@ input[type="number"] {
 /* ---- Readonly input / dropdown ---- */
 .sidebar-readonly-input {
   position: relative;
-  background: var(--sidebar-input-bg);
-  border: var(--ui-input-border) solid var(--ui-outline);
-  border-radius: var(--sidebar-input-radius);
-  box-shadow: var(--ui-input-shadow);
+  background: var(--color-bg-input);
+  border: 1px solid var(--color-border-input);
+  border-radius: var(--radius-md);
   height: var(--sidebar-input-height);
   display: flex;
   align-items: center;
-  padding: 0 12px;
-  transition: border-color 0.2s;
+  padding: 0 var(--space-md);
+  transition: border-color 140ms ease;
 }
 
 .sidebar-readonly-input:focus-within {
-  border-color: var(--ui-outline-focus);
+  border-color: var(--color-border-input-focus);
 }
 
 .sidebar-readonly-input input,
@@ -528,29 +593,34 @@ input[type="number"] {
 
 .sidebar-readonly-input select option,
 .sidebar-readonly-input select optgroup {
-  background: var(--sidebar-input-bg);
+  background: var(--color-bg-input);
   color: var(--sidebar-input-text);
 }
 
 /* ---- Bet button (primary CTA of every game sidebar) ---- */
 .sidebar-bet-button {
-  background: var(--bet-btn-bg);
+  background: var(--color-accent-blue);
   color: var(--bet-btn-text);
   border: none;
-  border-radius: var(--bet-btn-radius);
+  border-radius: var(--radius-md);
   height: var(--bet-btn-height);
   font-weight: 800;
   font-size: 16px;
   cursor: pointer;
-  margin-top: 6px;
+  margin-top: var(--space-xs);
   font-family: var(--font-primary);
   font-feature-settings: "salt" on;
-  transition: filter 0.2s, transform 0.1s;
-  box-shadow: var(--bet-btn-shadow);
+  transition: transform var(--bet-btn-press-duration) ease, background-color 140ms ease;
 }
 
+/* Hover: brightness lift via the -hover color, never a scale change */
 .sidebar-bet-button:hover:not(:disabled) {
-  filter: brightness(var(--bet-btn-hover-brightness));
+  background: var(--color-accent-blue-hover);
+}
+
+/* Press: pure scale-down, no color change, ~100ms, back to 100% on release */
+.sidebar-bet-button:active:not(:disabled) {
+  transform: scale(var(--bet-btn-press-scale));
 }
 
 .sidebar-bet-button:disabled {
@@ -558,32 +628,33 @@ input[type="number"] {
   cursor: not-allowed;
 }
 
-/* Subtle zoom-in on click/press — applies to every game's bet button */
-.sidebar-bet-button:active:not(:disabled) {
-  animation: betButtonPress var(--bet-btn-press-duration) ease-out;
-}
-
-/* ---- Secondary sidebar button (cashout / roll / continue) ---- */
+/* ---- Secondary sidebar button (Random Pick / roll / continue) ---- */
 .sidebar-secondary-button {
-  background: var(--sidebar-btn-secondary-bg);
+  background: var(--color-btn-secondary-bg);
   color: var(--sidebar-btn-secondary-text);
   border: none;
-  border-radius: var(--bet-btn-radius);
+  border-radius: var(--radius-md);
   height: var(--bet-btn-height);
   font-weight: 800;
   font-size: 16px;
   cursor: pointer;
   font-family: var(--font-primary);
   font-feature-settings: "salt" on;
-  box-shadow: var(--ui-input-shadow);
-  transition: filter 0.2s, transform 0.1s;
+  transition: transform var(--bet-btn-press-duration) ease, background-color 140ms ease;
 }
 
 .sidebar-secondary-button:hover:not(:disabled) {
-  filter: brightness(var(--bet-btn-hover-brightness));
+  background: var(--color-btn-secondary-hover);
 }
 
+.sidebar-secondary-button:active:not(:disabled) {
+  transform: scale(var(--bet-btn-press-scale));
+}
+
+/* Disabled (e.g. Random Pick): secondary bg + muted text, full opacity */
 .sidebar-secondary-button:disabled {
-  opacity: 0.55;
+  opacity: 1;
+  background: var(--color-btn-secondary-bg);
+  color: var(--color-text-muted);
   cursor: not-allowed;
 }
