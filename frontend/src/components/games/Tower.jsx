@@ -465,7 +465,7 @@ function Tower({ soundEnabled = true, soundVolume = 0.8 }) {
             <span>$0.00</span>
           </div>
 
-          <div className={styles.readonlyInput}>
+          <div className={`${styles.readonlyInput} ${styles.profitInput}`}>
             <input type="text" value={format8(profit)} readOnly />
             <span className={styles.btcIcon}>₿</span>
           </div>

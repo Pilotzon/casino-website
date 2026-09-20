@@ -390,7 +390,7 @@ function Mines({ soundEnabled = true, soundVolume = 0.8 }) {
             <span>$0.00</span>
           </div>
 
-          <div className={styles.readonlyInput}>
+          <div className={`${styles.readonlyInput} ${styles.profitInput}`}>
             <input value={format8(profit)} readOnly />
             <div className={styles.coinChipSmall}>₿</div>
           </div>

@@ -168,9 +168,9 @@ font-feature-settings: "salt" on;;
 
 .graphContainer {
   flex: 1;
-  width: 1000px; /* fixed core size */
-  max-width: 100%;
-  margin: 0;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto; /* fills the panel, centered when capped */
   position: relative;
   background: #17232e; /* graph panel — visible against game bg */
   border-radius: 8px;

@@ -394,7 +394,7 @@ export default function RPS() {
             <span>Total Profit ({format2(currentMultiplier)}×)</span>
             <span>${format2((bet * currentMultiplier - bet) || 0)}</span>
           </div>
-          <div className={styles.readonlyMoney}>
+          <div className={`${styles.readonlyMoney} ${styles.profitInput}`}>
             <span className={styles.moneyValue}>${format2(inProgress ? bet * currentMultiplier : 0)}</span>
           </div>
         </div>

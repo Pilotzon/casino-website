@@ -64,7 +64,8 @@
   --color-bg-panel:           #17232e;   /* sidebar background */
   --color-bg-game:            #0d131a;   /* game grid panel background (behind the tiles) */
 
-  --color-bg-input:           #0f171e;   /* bet amount input, profit display, mines/gems fields */
+  --color-bg-input:           #0f171e;   /* bet amount input, mines dropdown, gems input */
+  --color-bg-input-profit:    #141f28;   /* Total Profit field specifically */
   --color-border-input:       #212e3b;   /* default input border */
   --color-border-input-focus: #4a6a80;   /* input border on focus, no glow/shadow */
 
@@ -109,7 +110,10 @@
 
   /* -- Layout --------------------------------------------- */
   --nav-height: 72px;              /* fixed navbar height */
-  --layout-sidebar-width: 320px;   /* boxed sidebar column width */
+  --layout-sidebar-width: 320px;   /* boxed sidebar column width (unchanged) */
+  --layout-frame-space: 24px;      /* boxed container margin: viewport edges + navbar */
+  --layout-bottom-space: 44px;     /* page background breathing room below the box */
+  --layout-max-width: 1400px;      /* boxed container width cap (narrower than full bleed) */
 
   /* =========================================================
      Shared Sidebar Controls (single source of truth)

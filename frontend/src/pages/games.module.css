@@ -129,11 +129,15 @@
 /* ===== Existing game view styles ===== */
 
 .gameContainer {
-  /* box = viewport - navbar - main's bottom padding; 24px gutter on ALL sides */
-  height: calc(100vh - var(--nav-height) - var(--space-lg));
+  /* contained card: centered, width-capped (game panel side gives), 24px
+     gutters all around, extra page-background breathing room below */
+  width: 100%;
+  max-width: var(--layout-max-width);
+  margin: 0 auto;
+  height: calc(100vh - var(--nav-height) - var(--layout-bottom-space));
   display: flex;
   flex-direction: column;
-  padding: var(--space-xl);
+  padding: var(--layout-frame-space);
 }
 
 @media (max-width: 900px) {

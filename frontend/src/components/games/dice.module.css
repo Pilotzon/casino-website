@@ -94,16 +94,15 @@ font-feature-settings: "salt" on;;
   flex-direction: column;
   background: #0d131a; /* game grid panel — exact Stake value */
   padding: 24px 32px;
-  justify-content: flex-start; /* top-left anchored */
-  align-items: flex-start;
+  justify-content: center; /* track fills + centers in the panel */
+  align-items: center;
   position: relative;
 }
 
 /* (rest of your Dice CSS unchanged below) */
 /* --------- UPDATED ROLLING BAR (matches screenshot) --------- */
 .sliderWrapper {
-  width: 900px; /* fixed core size */
-  max-width: 100%;
+  width: min(1000px, 94%); /* fills the panel proportionally */
   margin: 0;
   position: relative;
   padding: 0;

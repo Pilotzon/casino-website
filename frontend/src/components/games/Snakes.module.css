@@ -101,8 +101,8 @@
 .gameStage{
   flex:1;
   display:flex;
-  justify-content:flex-start; /* top-left anchored */
-  align-items:flex-start;
+  justify-content:center; /* board centered */
+  align-items:center;
   background:#0d131a; /* game grid panel — exact Stake value */
   padding:24px 32px;
 }

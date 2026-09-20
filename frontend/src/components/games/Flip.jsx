@@ -322,7 +322,7 @@ function Flip({ soundEnabled = true, soundVolume = 0.8 }) {
             <span>Total Profit (0.98×)</span>
             <span>$0.00</span>
           </div>
-          <div className={styles.readonlyInput}>
+          <div className={`${styles.readonlyInput} ${styles.profitInput}`}>
             <input type="text" value={profit.toFixed(8)} readOnly />
             <span className={styles.btcIcon}>₿</span>
           </div>

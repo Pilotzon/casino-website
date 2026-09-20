@@ -106,9 +106,13 @@ font-feature-settings: "salt" on;;
   width: 8px;
   height: 8px;
   transform: translateY(-50%) rotate(45deg);
-  border-right: 2px solid rgba(255, 255, 255, 0.55);
-  border-bottom: 2px solid rgba(255, 255, 255, 0.55);
+  border-right: 2px solid #ffffff; /* chevron — exact Stake value */
+  border-bottom: 2px solid #ffffff;
   pointer-events: none;
+}
+
+.profitInput {
+  background: var(--color-bg-input-profit); /* #141f28 — Total Profit field */
 }
 
 .bigButton {
@@ -143,16 +147,24 @@ font-feature-settings: "salt" on;;
 .gameStage {
   flex: 1;
   display: flex;
-  justify-content: flex-start; /* content anchored top-left, not centered */
-  align-items: flex-start;
+  justify-content: center; /* board fills + centers in the panel */
+  align-items: center;
   background: #0d131a; /* game grid panel — exact Stake value */
   padding: 24px 32px;
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(5, 105px); /* fixed tile size (~100-110px) */
+  grid-template-columns: repeat(5, 1fr); /* proportional — scales with the panel */
   gap: var(--mines-tile-gap);
+  width: 100%;
+}
+
+/* Desktop: the grid scales up to fill the game panel (both dimensions),
+   keeping its square aspect ratio; leftover space splits evenly. */
+@media (min-width: 901px) {
+  .gameStage { container-type: size; }
+  .grid { width: min(100cqw, calc(100cqh - 48px)); }
 }
 
 .tile {

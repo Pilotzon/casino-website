@@ -81,8 +81,8 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* top-left anchored */
-  justify-content: flex-start;
+  align-items: center; /* content centered in the panel */
+  justify-content: center;
   padding: 24px 32px;
   gap: 20px;
   overflow: hidden; /* nothing scrolls inside the box */
@@ -96,7 +96,7 @@
   line-height: 1;
   color: #ffffff;
   user-select: none;
-  text-align: left;
+  text-align: center;
   flex-shrink: 0;
 }
 
@@ -195,6 +195,7 @@
   background: #17232e; /* recent-results panel — visible against game bg */
   border-radius: 8px;
   padding: 12px;
+  width: min(100%, 860px);
 }
 
 .recentLabel {

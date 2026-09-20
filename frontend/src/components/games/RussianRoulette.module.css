@@ -86,7 +86,7 @@
   flex: 1;
   background: #0d131a; /* game grid panel — exact Stake value */
   display: grid;
-  place-items: start; /* top-left anchored */
+  place-items: center; /* scene centered */
   padding: 24px 32px;
   overflow: hidden;
   position: relative;

@@ -9,7 +9,7 @@
   flex: 1;
   width: 100%;
   padding-top: var(--nav-height); /* Account for fixed navbar */
-  padding-bottom: var(--space-lg);
+  padding-bottom: var(--layout-bottom-space); /* page bg visible below the box */
 }
 
 .loadingScreen {

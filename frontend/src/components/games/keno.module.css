@@ -5,10 +5,10 @@
    ========================================================= */
 .container {
 
-  --tile-face: #2f4553;
-  --tile-shadow: #213743;
+  --tile-face: #2c3d4e;   /* tile fill — exact Stake value */
+  --tile-shadow: #1a242f; /* bottom-edge bevel — exact Stake value */
   --tile-hover: #557086;
-  --tile-radius: 10px;
+  --tile-radius: 8px;     /* exact Stake value */
   --tile-gap: 12px;
 
   --tile-base-height: 8px;
@@ -113,8 +113,8 @@
   width: 8px;
   height: 8px;
   transform: translateY(-50%) rotate(45deg);
-  border-right: 2px solid rgba(255, 255, 255, 0.55);
-  border-bottom: 2px solid rgba(255, 255, 255, 0.55);
+  border-right: 2px solid #ffffff; /* chevron — exact Stake value */
+  border-bottom: 2px solid #ffffff;
   pointer-events: none;
 }
 
@@ -130,8 +130,8 @@
 .gameStage {
   flex: 1;
   display: flex;
-  justify-content: flex-start; /* top-left anchored */
-  align-items: flex-start;
+  justify-content: center; /* board fills + centers in the panel */
+  align-items: center;
   background: #0d131a; /* game grid panel — exact Stake value */
   padding: 24px 32px;
 }
@@ -153,8 +153,9 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(8, 72px); /* fixed tile size */
+  grid-template-columns: repeat(8, 1fr); /* proportional — scales with the panel */
   gap: var(--tile-gap);
+  width: 100%;
 }
 
 /* Tiles */
@@ -521,11 +522,10 @@
   cursor: pointer;
 }
 
-@media (max-width: 700px) {
-  .grid {
-    grid-template-columns: repeat(8, minmax(0, 1fr)); /* fluid again on small screens */
-    width: 100%;
-  }
+/* Desktop: board scales to fill the panel, square proportions kept */
+@media (min-width: 901px) {
+  .gameStage { container-type: size; }
+  .grid { width: min(100cqw, calc(100cqh - 40px)); }
 }
 
 /* responsive */
