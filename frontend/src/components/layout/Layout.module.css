@@ -2,7 +2,7 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: #0e1a24; /* page background — literal per spec */
+  background: #0f1923; /* page background — literal per spec */
 }
 
 .main {
@@ -18,7 +18,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #0e1a24;
+  background: #0f1923;
 }
 
 .loader {

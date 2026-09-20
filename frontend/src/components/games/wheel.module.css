@@ -13,7 +13,7 @@
 .container {
   composes: game-shell from global;
   display: flex;
-  background: #0f1c27; /* game panel — literal per spec */
+  background: #0d131a; /* game grid panel — exact Stake value */
   color: #fff;
   height: 100vh;
   font-family: "proxima-nova";
@@ -28,7 +28,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-lg);
-  border-right: 1px solid var(--color-border-navbar);
+  border-right: 1px solid #222d37; /* sidebar/game divider — exact Stake value */
   flex-shrink: 0;
 }
 
@@ -125,7 +125,7 @@
   display: flex;
   justify-content: flex-start; /* top-left anchored */
   align-items: flex-start;
-  background: #0f1c27; /* game panel — literal per spec */
+  background: #0d131a; /* game grid panel — exact Stake value */
   padding: 24px 32px;
   min-height: 0;
   overflow: hidden;
@@ -262,7 +262,7 @@
   left: 50%;
   transform: translate(-50%, -50%) scale(0.85);
   transform-origin: center;
-  background: #0f1c27; /* game panel — literal per spec */
+  background: #0d131a; /* game grid panel — exact Stake value */
   border: 2px solid rgba(0, 172, 0, 0.9);
   border-radius: 16px;
   padding: 18px 24px;
@@ -457,7 +457,7 @@
 .modalCard {
   width: 100%;
   max-width: 360px;
-  background: #0f1c27; /* game panel — literal per spec */
+  background: #0d131a; /* game grid panel — exact Stake value */
   border-radius: 14px;
   border: 1px solid rgba(255,255,255,0.08);
   padding: 16px;

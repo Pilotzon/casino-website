@@ -54,34 +54,42 @@
      never hardcode these colors in component stylesheets.
      ========================================================= */
 
-  /* -- Color Palette ------------------------------------- */
-  --color-bg-page:            #0e1a24;   /* outermost page background, near-black navy */
-  --color-bg-navbar:          #0e1a24;   /* same as page, navbar blends into background */
+  /* -- Color Palette (exact, inspected from real Stake Mines) - */
+  --color-bg-page:            #0f1923;   /* outer page background + behind navbar */
+  --color-bg-navbar:          #0f1923;   /* same as page, navbar blends into background */
   --color-border-navbar:      #1c2b38;   /* subtle 1px bottom border on navbar */
 
+  --color-bg-shell:           #1a242d;   /* boxed container's own background */
+  --color-divider-panel:      #222d37;   /* vertical divider between sidebar and game panel */
   --color-bg-panel:           #17232e;   /* sidebar background */
-  --color-bg-game:            #0f1c27;   /* game area background — slightly darker than sidebar for contrast */
+  --color-bg-game:            #0d131a;   /* game grid panel background (behind the tiles) */
 
-  --color-bg-input:           #0f212e;   /* bet amount input, profit display, mines/gems fields */
-  --color-border-input:       #2f4553;   /* default input border */
+  --color-bg-input:           #0f171e;   /* bet amount input, profit display, mines/gems fields */
+  --color-border-input:       #212e3b;   /* default input border */
   --color-border-input-focus: #4a6a80;   /* input border on focus, no glow/shadow */
 
   --color-bg-tile:            #2f4553;   /* empty game grid tile */
   --color-bg-tile-hover:      #3a5265;   /* tile hover state */
 
   --color-text-primary:       #ffffff;
-  --color-text-secondary:     #8fa3b3;   /* labels like "Bet Amount", "Mines", "Gems" */
-  --color-text-muted:         #5b7386;   /* disabled button text, e.g. Random Pick */
+  --color-text-secondary:     #b1bad2;   /* inactive mode-switcher label, secondary UI text */
+  --color-text-label:         #8596a6;   /* field labels: "Bet Amount", "Mines", "Gems" */
+  --color-text-info:          #a0aab8;   /* small secondary info text (e.g. "$0.00") */
+  --color-text-muted:         #8092a5;   /* disabled button text, e.g. Random Pick */
 
-  --color-accent-blue:        #1475e1;   /* primary action — Bet button, Register button, active toggle */
+  --color-accent-blue:        #1475e1;   /* selector active border, Register button, active toggle */
   --color-accent-blue-hover:  #1c84f5;   /* brightness lift on hover, no scale change */
   --color-accent-blue-active: #105fc0;   /* slightly darker while pressed */
 
-  --color-btn-secondary-bg:    #24333f;  /* Sign In button, 1/2 / 2x segment buttons */
+  --color-bet-btn-bg:         #2377ff;   /* Bet button background (exact Stake value) */
+  --color-btn-secondary-bg:    #24333f;  /* Sign In button (navbar) */
   --color-btn-secondary-hover: #2c3d4a;
+  --color-btn-split-bg:        #2f3d4c;  /* 1/2 / 2x quick-multiplier buttons */
+  --color-btn-split-divider:   #1e2936;  /* thin divider between 1/2 and 2x */
+  --color-btn-random-bg:       #2d3b48;  /* Random Pick button */
 
-  --color-switcher-bg:        #0f212e;   /* Manual/Auto toggle track */
-  --color-switcher-active:    #2f4553;   /* active tab capsule inside toggle */
+  --color-switcher-bg:        #0f171e;   /* Manual/Auto toggle track */
+  --color-switcher-active:    #384856;   /* active tab capsule inside toggle */
 
   /* -- Corner Radius Scale -------------------------------- */
   --radius-sm: 4px;        /* grid tiles */
@@ -210,7 +218,7 @@ html, body {
 body {
   font-family: var(--font-primary);
   font-feature-settings: "salt" on;
-  background: #0e1a24; /* page background — literal per spec */
+  background: #0f1923; /* page background — literal Stake value */
   color: var(--text-primary);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
@@ -383,7 +391,8 @@ input[type="number"] {
   flex: 1 1 auto;
   min-height: 0;
   border-radius: var(--radius-lg);
-  border: 1px solid #1c2b38; /* hairline frame so the box reads against the page */
+  border: 1px solid var(--color-divider-panel); /* #222d37 frame / shared-edge divider */
+  background: var(--color-bg-shell);            /* #1a242d shows behind the two panels */
   overflow: hidden;
 }
 
@@ -433,8 +442,8 @@ input[type="number"] {
 }
 
 .sidebar-mode-active {
-  background: var(--color-switcher-active); /* understated capsule, no glow */
-  color: var(--sidebar-mode-active-color);
+  background: var(--color-switcher-active); /* #384856 capsule */
+  color: #ffffff;
   border-color: var(--color-accent-blue); /* recolor only — border space was reserved */
 }
 
@@ -450,7 +459,12 @@ input[type="number"] {
   justify-content: space-between;
   font-size: 13px;
   font-weight: 600;
-  color: var(--color-text-secondary);
+  color: var(--color-text-label); /* #8596a6 field labels */
+}
+
+/* small secondary info next to a label (e.g. "$0.00") */
+.sidebar-label-row span:not(:first-child) {
+  color: var(--color-text-info); /* #a0aab8 */
 }
 
 /* ---- Bet amount input (input + split buttons) ---- */
@@ -521,7 +535,7 @@ input[type="number"] {
 }
 
 .sidebar-split-buttons button {
-  background: var(--color-btn-secondary-bg);
+  background: var(--color-btn-split-bg); /* #2f3d4c */
   border: 1px solid transparent; /* reserved */
   color: var(--color-text-primary);
   font-weight: 700;
@@ -533,10 +547,24 @@ input[type="number"] {
   font-family: var(--font-primary);
   font-feature-settings: "salt" on;
   transition: transform var(--bet-btn-press-duration) ease, background-color 140ms ease;
+  position: relative;
+}
+
+/* thin divider line between the 1/2 and 2x buttons */
+.sidebar-split-buttons button + button::before {
+  content: "";
+  position: absolute;
+  left: -2px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 60%;
+  background: var(--color-btn-split-divider); /* #1e2936 */
 }
 
 .sidebar-split-buttons button:hover:not(:disabled) {
-  background: var(--color-btn-secondary-hover);
+  background: var(--color-btn-split-bg);
+  filter: brightness(1.1);
 }
 
 .sidebar-split-buttons button:active:not(:disabled) {
@@ -599,8 +627,8 @@ input[type="number"] {
 
 /* ---- Bet button (primary CTA of every game sidebar) ---- */
 .sidebar-bet-button {
-  background: var(--color-accent-blue);
-  color: var(--bet-btn-text);
+  background: var(--color-bet-btn-bg); /* #2377ff — exact Stake value */
+  color: #ffffff;
   border: none;
   border-radius: var(--radius-md);
   height: var(--bet-btn-height);
@@ -613,9 +641,9 @@ input[type="number"] {
   transition: transform var(--bet-btn-press-duration) ease, background-color 140ms ease;
 }
 
-/* Hover: brightness lift via the -hover color, never a scale change */
+/* Hover: brightness lift only, never a scale change */
 .sidebar-bet-button:hover:not(:disabled) {
-  background: var(--color-accent-blue-hover);
+  filter: brightness(1.1);
 }
 
 /* Press: pure scale-down, no color change, ~100ms, back to 100% on release */
@@ -630,8 +658,8 @@ input[type="number"] {
 
 /* ---- Secondary sidebar button (Random Pick / roll / continue) ---- */
 .sidebar-secondary-button {
-  background: var(--color-btn-secondary-bg);
-  color: var(--sidebar-btn-secondary-text);
+  background: var(--color-btn-random-bg); /* #2d3b48 */
+  color: #ffffff;
   border: none;
   border-radius: var(--radius-md);
   height: var(--bet-btn-height);
@@ -644,17 +672,17 @@ input[type="number"] {
 }
 
 .sidebar-secondary-button:hover:not(:disabled) {
-  background: var(--color-btn-secondary-hover);
+  filter: brightness(1.1);
 }
 
 .sidebar-secondary-button:active:not(:disabled) {
   transform: scale(var(--bet-btn-press-scale));
 }
 
-/* Disabled (e.g. Random Pick): secondary bg + muted text, full opacity */
+/* Disabled (e.g. Random Pick): #2d3b48 bg + #8092a5 text, full opacity */
 .sidebar-secondary-button:disabled {
   opacity: 1;
-  background: var(--color-btn-secondary-bg);
-  color: var(--color-text-muted);
+  background: var(--color-btn-random-bg);
+  color: var(--color-text-muted); /* #8092a5 */
   cursor: not-allowed;
 }

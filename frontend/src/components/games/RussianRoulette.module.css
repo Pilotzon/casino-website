@@ -50,7 +50,7 @@
   left: 50%;
   transform: translate(-50%, -50%) scale(0.85);
   transform-origin: center;
-  background: #0f1c27; /* game panel — literal per spec */
+  background: #0d131a; /* game grid panel — exact Stake value */
   border: 2px solid rgba(0, 172, 0, 0.9);
   border-radius: 16px;
   padding: 18px 24px;
@@ -84,7 +84,7 @@
 /* ===== Stage ===== */
 .stage {
   flex: 1;
-  background: #0f1c27; /* game panel — literal per spec */
+  background: #0d131a; /* game grid panel — exact Stake value */
   display: grid;
   place-items: start; /* top-left anchored */
   padding: 24px 32px;

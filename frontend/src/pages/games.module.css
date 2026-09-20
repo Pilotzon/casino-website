@@ -143,6 +143,18 @@
   }
 }
 
+/* The boxed shell, declared directly on the game's root element so the
+   framed container exists even if the module-level composes ever failed.
+   Values intentionally identical to .game-shell in global.css. */
+.gameContainer > :nth-child(2) {
+  flex: 1 1 auto;
+  min-height: 0;
+  border-radius: var(--radius-lg); /* 12px on all four corners */
+  border: 1px solid #222d37;
+  background: #1a242d;
+  overflow: hidden;
+}
+
 .gameHeader {
   flex: 0 0 auto;
   padding: var(--space-sm) var(--space-xs);

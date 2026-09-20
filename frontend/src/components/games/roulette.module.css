@@ -22,7 +22,7 @@
 .container {
   composes: game-shell from global;
   display: flex;
-  background: #0f1c27; /* game panel — literal per spec */
+  background: #0d131a; /* game grid panel — exact Stake value */
   color: #fff;
   font-family: "proxima-nova", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
   overflow: hidden;
@@ -40,7 +40,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-lg);
-  border-right: 1px solid var(--color-border-navbar);
+  border-right: 1px solid #222d37; /* sidebar/game divider — exact Stake value */
   flex-shrink: 0;
 }
 
@@ -118,7 +118,7 @@
    ============================================================ */
 
 .gameStage {
-  flex: 1; background: #0f1c27; /* game panel — literal per spec */ padding: 24px;
+  flex: 1; background: #0d131a; /* game grid panel — exact Stake value */ padding: 24px;
   display: flex; justify-content: center; align-items: flex-start;
   padding-top: 28px; overflow-y: auto; position: relative;
 }
@@ -180,7 +180,7 @@
 .winPopup {
   position: absolute; top: 22%; left: 50%;
   transform: translate(-50%, -50%) scale(0.85);
-  background: #0f1c27; /* game panel — literal per spec */ border: 2px solid rgba(0,172,0,0.9); border-radius: 16px;
+  background: #0d131a; /* game grid panel — exact Stake value */ border: 2px solid rgba(0,172,0,0.9); border-radius: 16px;
   padding: 18px 24px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.28);
   z-index: 100; animation: winPop 160ms ease-out forwards; min-width: 240px;
 }
@@ -420,7 +420,7 @@
   max-width: 360px;
   max-height: calc(100vh - 32px);
   max-height: calc(100dvh - 32px);
-  background: #0f1c27; /* game panel — literal per spec */
+  background: #0d131a; /* game grid panel — exact Stake value */
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
   padding: 16px;

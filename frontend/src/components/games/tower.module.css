@@ -35,7 +35,7 @@
   composes: game-shell from global;
   display: flex;
   overflow: hidden;
-  background: #0f1c27; /* game panel — literal per spec */
+  background: #0d131a; /* game grid panel — exact Stake value */
   color: #fff;
   font-family: 'proxima-nova';
 }
@@ -47,12 +47,12 @@
   flex-direction: column;
   gap: var(--space-lg);
   background: #17232e; /* sidebar panel — literal per spec */
-  border-right: 1px solid var(--color-border-navbar);
+  border-right: 1px solid #222d37; /* sidebar/game divider — exact Stake value */
 }
 
 .gameStage {
   flex: 1;
-  background: #0f1c27; /* game panel — literal per spec */
+  background: #0d131a; /* game grid panel — exact Stake value */
   display: flex;
   align-items: flex-start; /* top-left anchored */
   justify-content: flex-start;
@@ -172,7 +172,7 @@
   left: 50%;
   transform: translate(-50%, -50%) scale(0.90);
   transform-origin: center;
-  background: #0f1c27; /* game panel — literal per spec */
+  background: #0d131a; /* game grid panel — exact Stake value */
   border: 2px solid rgba(0, 231, 1, 0.9);
   border-radius: 16px;
   padding: 18px 24px;
