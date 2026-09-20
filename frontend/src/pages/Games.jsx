@@ -149,6 +149,7 @@ function Games() {
     return (
       <div
         className={styles.gameContainer}
+        data-game={gameName || ""}
         data-sound={soundEnabled ? "on" : "off"}
         data-sound-enabled={soundEnabled ? "true" : "false"}
       >

@@ -81,23 +81,38 @@ font-feature-settings: "salt" on;;
   outline: none;
 }
 
-/* Crash-specific up/down stepper inside the cashout input */
+/* Crash-specific up/down stepper: a sub-rectangle stitched flush onto
+   the input's right edge — same height, no gap, no floating shape.
+   Outer corners come from the input group's radius + overflow hidden. */
 .arrowButtons {
   display: flex;
   flex-direction: column;
-  border-left: 1px solid var(--sidebar-split-divider);
+  flex: 0 0 30px;
+  height: 100%;
+  background: var(--color-btn-split-bg); /* #2f3d4c */
+  border-left: 1px solid var(--color-btn-split-divider); /* #1e2936 */
 }
 .arrowButtons button {
   flex: 1;
+  display: grid;
+  place-items: center;
   background: transparent;
   border: none;
-  color: var(--text-secondary);
+  color: var(--color-text-info); /* #a0aab8 */
   cursor: pointer;
-  padding: 0 10px;
-  font-size: 10px;
+  padding: 0;
+  font-size: 9px;
+  transition: background-color 140ms ease, color 140ms ease, transform 100ms ease;
+}
+.arrowButtons button:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.06);
+}
+.arrowButtons button:active {
+  transform: scale(0.9);
 }
 .arrowButtons button:first-child {
-  border-bottom: 1px solid var(--sidebar-split-divider);
+  border-bottom: 1px solid var(--color-btn-split-divider);
 }
 
 .betButton {

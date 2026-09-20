@@ -131,6 +131,11 @@
   overflow: hidden;
 }
 
+/* Desktop: cq units resolve against the actual game panel size */
+@media (min-width: 901px) {
+  .gameStage { container-type: size; }
+}
+
 .boardWrap {
   width: 100%;
   max-width: 1100px;
@@ -205,10 +210,13 @@
 
 .wheelOuter {
   position: relative;
-  width: 520px; /* fixed disc size */
-  max-width: 100%;
-  height: 520px;
-  max-height: 100%;
+  /* true circle: one side drives the size, aspect-ratio locks 1:1
+     (cqw/cqh fall back to viewport units when no container is set) */
+  width: min(520px, 92cqw, 76cqh);
+  max-width: none;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  max-height: none;
   border-radius: 50%;
   overflow: hidden;
   background: #263742;

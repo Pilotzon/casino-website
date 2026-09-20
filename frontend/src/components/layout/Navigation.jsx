@@ -226,10 +226,10 @@ function Navigation() {
               </>
             ) : (
               <>
-                <Button variant="secondary" size="sm" onClick={openLoginModal}>
+                <Button variant="secondary" size="sm" className={styles.authBtn} onClick={openLoginModal}>
                   Login
                 </Button>
-                <Button variant="primary" size="sm" onClick={openRegisterModal}>
+                <Button variant="primary" size="sm" className={styles.authBtn} onClick={openRegisterModal}>
                   Sign Up
                 </Button>
               </>

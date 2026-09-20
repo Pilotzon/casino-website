@@ -24,13 +24,13 @@
 
 /* Variants */
 .primary {
-  background: var(--color-accent-blue); /* primary action language matches Bet button */
+  background: var(--color-bet-btn-bg); /* #2377ff — same primary blue as the Bet button */
   color: #ffffff;
   font-weight: 800;
 }
 
 .primary:not(:disabled):hover {
-  background: var(--color-accent-blue-hover); /* brightness lift via -hover color, no scale */
+  filter: brightness(1.1); /* brightness lift only, never a scale change */
 }
 
 .secondary {

@@ -116,6 +116,8 @@ export default function Snakes() {
 
   const gameBoardRef = useRef(null);
   const layoutSeqRef = useRef(0);
+  const [layoutTick, setLayoutTick] = useState(0);
+  const layoutRetryRef = useRef(0);
 
   const [currentPosition, setCurrentPosition] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -350,18 +352,28 @@ export default function Snakes() {
         if (layoutSeqRef.current !== seq) return;
         if (gameBoardRef.current) return;
 
-        if (Array.isArray(b) && b.length === 12) setBoard(b);
+        if (Array.isArray(b) && b.length === 12) {
+          setBoard(b);
+          layoutRetryRef.current = 0;
+        }
 
         setZoomPulse(true);
         setTimeout(() => setZoomPulse(false), 400);
       } catch (e) {
         console.log("snakes layout err:", e?.response?.data?.message || e.message);
+        // recover instead of leaving the board empty (max 3 tries)
+        if (alive && !gameBoardRef.current && layoutRetryRef.current < 3) {
+          layoutRetryRef.current += 1;
+          setTimeout(() => {
+            if (alive) setLayoutTick((t) => t + 1);
+          }, 2500);
+        }
       }
     })();
     return () => {
       alive = false;
     };
-  }, [difficulty, status, landedOnSnake, hasWon]);
+  }, [difficulty, status, landedOnSnake, hasWon, layoutTick]);
 
   useEffect(() => {
     if (status !== "idle" && !landedOnSnake && !hasWon) return;
@@ -985,8 +997,7 @@ const stepWalk = async (from, to, diceSum) => {
           )}
 
           <div className={styles.board}>
-            {board &&
-              PERIMETER.map(([c, r], idx) => {
+            {PERIMETER.map(([c, r], idx) => {
                 const { kind, label } = tileView(idx);
                 
                 return (

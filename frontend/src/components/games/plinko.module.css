@@ -6,6 +6,8 @@
    styles/global.css — do not redefine them here.
    ========================================================= */
 .container {
+  --stage-card: #17232e;   /* board card — visible against the game panel */
+  --stage-card2: #121b23;  /* gradient end */
   --hist-item-h: 46px;
   --hist-gap: 0px;
   --hist-radius: 14px;

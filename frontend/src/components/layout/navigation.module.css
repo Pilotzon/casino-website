@@ -10,7 +10,7 @@
 }
 
 .container {
-  max-width: 1600px;
+  max-width: var(--layout-max-width); /* same width + alignment as the boxed game area */
   height: 100%;
   margin: 0 auto;
   padding: 0 var(--space-lg);
@@ -235,7 +235,7 @@
 }
 
 .mobileLinks {
-  max-width: 1600px;
+  max-width: var(--layout-max-width);
   margin: 0 auto;
   padding: 12px var(--space-lg) 16px var(--space-lg);
   display: flex;
@@ -341,10 +341,8 @@
 }
 .formGroup label {
   font-size: 13px;
-  font-weight: 800;
-  color: var(--text-secondary);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  font-weight: 600;
+  color: #8596a6; /* same muted label color as the game sidebars */
 }
 .formGroup input {
   width: 100%;
@@ -360,6 +358,21 @@
 .formGroup input:focus {
   border-color: var(--color-border-input-focus); /* no glow/shadow */
   background: var(--color-bg-input);
+}
+/* keep dark theme when the browser autofills (prevents white fill) */
+.formGroup input:-webkit-autofill,
+.formGroup input:-webkit-autofill:hover,
+.formGroup input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px var(--color-bg-input) inset;
+  -webkit-text-fill-color: #ffffff;
+  caret-color: #ffffff;
+  border: 1px solid var(--color-border-input);
+  transition: background-color 9999s ease-out;
+}
+/* ---------- §6 identical nav auth buttons ---------- */
+.authBtn {
+  min-width: 96px;
+  justify-content: center;
 }
 .hint {
   font-size: 12px;

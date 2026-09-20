@@ -147,6 +147,11 @@
   }
 }
 
+/* Per-game container height hook: games may opt into a slightly taller
+   box via data-game (width stays constant across all games), e.g.
+   .gameContainer[data-game="wheel"] { height: ... } — currently not
+   needed since each game's content self-sizes to the panel.
+
 /* The boxed shell, declared directly on the game's root element so the
    framed container exists even if the module-level composes ever failed.
    Values intentionally identical to .game-shell in global.css. */
