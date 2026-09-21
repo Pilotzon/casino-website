@@ -25,8 +25,8 @@
 .container {
   composes: game-shell from global;
   display: flex;
-  background: #0d131a; /* game grid panel — exact Stake value */
-  color: white;
+  background: var(--color-bg-game); /* game grid panel — exact Stake value */
+  color: var(--color-text-primary);
   font-family: 'proxima-nova';
   font-feature-settings: "salt" on;
   overflow: hidden;
@@ -35,7 +35,7 @@
 /* Sidebar */
 .sidebar {
   width: var(--layout-sidebar-width);
-  background: #17232e; /* sidebar panel — literal per spec */
+  background: var(--color-bg-panel); /* sidebar panel */
   padding: var(--space-lg);
   display: flex;
   flex-direction: column;
@@ -147,7 +147,7 @@
   flex:1;
   position:relative;
   overflow:hidden;
-  background: #0d131a; /* game grid panel — exact Stake value */
+  background: var(--color-bg-game); /* game grid panel — exact Stake value */
 }
 
 /* ===== SIMPLE DECK IMAGE (top-right) ===== */
@@ -403,7 +403,7 @@
   top: 42%;
   transform: translate(-50%, -50%) scale(0.90);
   transform-origin: center;
-  background: #0d131a; /* game grid panel — exact Stake value */
+  background: var(--color-bg-game); /* game grid panel — exact Stake value */
   border-radius: 16px;
   padding: 16px 22px;
   text-align:center;
@@ -428,7 +428,7 @@
   margin-top: 8px;
   font-weight: 900;
   font-size: 18px;
-  color: #ffffff;
+  color: var(--color-text-primary);
 }
 .resultPopupAmountMuted{
   margin-top: 8px;

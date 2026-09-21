@@ -15,8 +15,8 @@
 .container {
   composes: game-shell from global;
   display: flex;
-  background: #0d131a; /* game grid panel */
-  color: #fff;
+  background: var(--color-bg-game); /* game grid panel */
+  color: var(--color-text-primary);
   font-family: "proxima-nova";
   font-feature-settings: "salt" on;
   overflow: hidden;
@@ -24,7 +24,7 @@
 
 .sidebar {
   width: var(--layout-sidebar-width);
-  background: #17232e; /* sidebar panel */
+  background: var(--color-bg-panel); /* sidebar panel */
   padding: var(--space-lg);
   display: flex;
   flex-direction: column;
@@ -66,7 +66,7 @@
 /* Wheel-specific currency symbol inside the bet input */
 .currency {
   font-weight: 900;
-  color: #ffffff;
+  color: var(--color-text-primary);
   opacity: 0.9;
   font-size: 14px;
 }
@@ -134,7 +134,7 @@
   display: flex;
   justify-content: center;
   align-items: stretch;
-  background: #0d131a; /* game grid panel */
+  background: var(--color-bg-game); /* game grid panel */
   padding: 24px 32px;
   min-height: 0;
   min-width: 0;
@@ -294,7 +294,7 @@
   left: 50%;
   transform: translate(-50%, -50%) scale(0.85);
   transform-origin: center;
-  background: #0d131a; /* game grid panel */
+  background: var(--color-bg-game); /* game grid panel */
   border: 2px solid rgba(0, 172, 0, 0.9);
   border-radius: 16px;
   padding: 18px 24px;
@@ -318,7 +318,7 @@
   margin-top: 8px;
   font-weight: 900;
   font-size: 18px;
-  color: #ffffff;
+  color: var(--color-text-primary);
 }
 
 /* HOVER PANEL — floats directly above the multiplier row */
@@ -328,8 +328,8 @@
   right: 0;
   bottom: calc(var(--mult-card-height) + var(--result-line-space) + 12px);
   z-index: 50;
-  background: #1a242d;
-  border: 1px solid #222d37;
+  background: var(--color-bg-shell);
+  border: 1px solid var(--color-divider-panel);
   border-radius: 12px;
   padding: 12px 0;
   opacity: 0;
@@ -350,21 +350,21 @@
   padding: 0 12px;
 }
 .hoverBox {
-  background: #0f171e;
-  border: 1px solid #212e3b;
+  background: var(--color-bg-input);
+  border: 1px solid var(--color-border-input);
   border-radius: 8px;
   padding: 12px 14px;
 }
 .hoverLabel {
   font-size: 13px;
   font-weight: 700;
-  color: #8596a6;
+  color: var(--color-text-label);
 }
 .hoverValue {
   margin-top: 10px;
   font-size: 16px;
   font-weight: 900;
-  color: #ffffff;
+  color: var(--color-text-primary);
 }
 .hoverArrow {
   position: relative;
@@ -380,7 +380,7 @@
   height: 0;
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
-  border-top: 10px solid #1a242d;
+  border-top: 10px solid var(--color-bg-shell);
 }
 
 /* MULTIPLIER ROW — sits under the wheel; result line is reserved below it */
@@ -415,7 +415,7 @@
 
 /* result box: #17232e, 8px radius, white bold value, 4px colour bar below */
 .multCard {
-  background: #17232e;
+  background: var(--color-bg-panel);
   border: none;
   border-radius: 8px;
   height: var(--mult-card-height);
@@ -455,7 +455,7 @@
   display: grid;
   place-items: center;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--color-text-primary);
   letter-spacing: 0.2px;
 }
 
@@ -464,7 +464,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  color: #b1bad2;
+  color: var(--color-text-secondary);
   font-size: 13px;
   font-weight: 700;
   display: flex;
@@ -473,8 +473,8 @@
   gap: 8px;
   height: 24px;
 }
-.resultKey { color: #8596a6; font-weight: 900; }
-.resultVal { color: #ffffff; font-weight: 900; }
+.resultKey { color: var(--color-text-label); font-weight: 900; }
+.resultVal { color: var(--color-text-primary); font-weight: 900; }
 .resultSep { color: rgba(255, 255, 255, 0.18); }
 
 .modalOverlay {
@@ -489,16 +489,16 @@
 .modalCard {
   width: 100%;
   max-width: 360px;
-  background: #1a242d;
+  background: var(--color-bg-shell);
   border-radius: 12px;
-  border: 1px solid #222d37;
+  border: 1px solid var(--color-divider-panel);
   box-shadow: var(--shadow-modal);
   padding: 16px;
 }
 .modalTitle {
   font-weight: 900;
   font-size: 12px;
-  color: #b1bad2;
+  color: var(--color-text-secondary);
   text-transform: uppercase;
 }
 .modalNumber {
@@ -513,15 +513,15 @@
   gap: 10px;
 }
 .modalItem {
-  background: #0f171e;
+  background: var(--color-bg-input);
   border-radius: 8px;
   padding: 12px;
-  border: 1px solid #212e3b;
+  border: 1px solid var(--color-border-input);
 }
 .modalItemLabel {
   font-size: 12px;
   font-weight: 800;
-  color: #8596a6;
+  color: var(--color-text-label);
 }
 .modalItemValue {
   margin-top: 8px;
@@ -535,7 +535,7 @@
   border: none;
   border-radius: 8px;
   background: var(--color-bet-btn-bg); /* #2377ff */
-  color: #ffffff;
+  color: var(--color-text-primary);
   font-weight: 900;
   cursor: pointer;
   transition: transform var(--bet-btn-press-duration) ease, filter 140ms ease;

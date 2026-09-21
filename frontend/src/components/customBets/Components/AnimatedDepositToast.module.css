@@ -91,7 +91,7 @@
 
 .plusIcon span {
   font-size: 28px;
-  color: white;
+  color: var(--color-text-primary);
   line-height: 28px;
   position: relative;
   top: -3px;

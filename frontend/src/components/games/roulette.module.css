@@ -8,7 +8,7 @@
    styles/global.css — do not redefine them here.
    ========================================================= */
 .container {
-  --tile: #2f4553;
+  --tile: var(--color-bg-tile);
   --tile-dark: #243b48;
   --red: #fe2247;
   --green: #419e3f;
@@ -22,8 +22,8 @@
 .container {
   composes: game-shell from global;
   display: flex;
-  background: #0d131a; /* game grid panel — exact Stake value */
-  color: #fff;
+  background: var(--color-bg-game); /* game grid panel — exact Stake value */
+  color: var(--color-text-primary);
   font-family: "proxima-nova", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
   overflow: hidden;
 }
@@ -35,7 +35,7 @@
 
 .sidebar {
   width: var(--layout-sidebar-width);
-  background: #17232e; /* sidebar panel — literal per spec */
+  background: var(--color-bg-panel); /* sidebar panel */
   padding: var(--space-lg);
   display: flex;
   flex-direction: column;
@@ -82,7 +82,7 @@
   display: grid; place-items: center;
   transition: color 120ms ease, transform var(--bet-btn-press-duration) ease;
 }
-.chipNav:hover:not(:disabled) { color: #ffffff; background: transparent; }
+.chipNav:hover:not(:disabled) { color: var(--color-text-primary); background: transparent; }
 .chipNav:active:not(:disabled) { transform: scale(var(--bet-btn-press-scale)); }
 .chipNav:disabled { opacity: 1; color: var(--color-text-muted); cursor: not-allowed; }
 .chipRow {
@@ -136,7 +136,7 @@
    ============================================================ */
 
 .gameStage {
-  flex: 1; background: #0d131a; /* game grid panel — exact Stake value */ padding: 24px;
+  flex: 1; background: var(--color-bg-game); /* game grid panel — exact Stake value */ padding: 24px;
   display: flex; justify-content: center; align-items: flex-start;
   padding-top: 28px; overflow-y: auto; position: relative;
 }
@@ -151,10 +151,10 @@
   display: grid; grid-template-columns: 100px 1fr 70px;
   align-items: center; gap: 16px; margin-bottom: 18px;
 }
-.resultBox { width: 80px; height: 80px; border-radius: 10px; background: #2f4553; display: grid; place-items: center; position: relative; left: 175%;}
+.resultBox { width: 80px; height: 80px; border-radius: 10px; background: var(--color-bg-tile); display: grid; place-items: center; position: relative; left: 175%;}
 .resultNum { display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; font-size: 26px; font-weight: 900; }
 .resultColor_red   { background: var(--red); color: #fff; }
-.resultColor_black  { background: #2f4553; color: #fff; border: 2px solid rgba(255,255,255,0.15); }
+.resultColor_black  { background: var(--color-bg-tile); color: #fff; border: 2px solid rgba(255,255,255,0.15); }
 .resultColor_green  { background: var(--green); color: #fff; }
 
 
@@ -179,7 +179,7 @@
    History
    ============================================================ */
 
-.historyCol { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; background: #17232e; border-radius: 8px; padding: 12px; }
+.historyCol { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; background: var(--color-bg-panel); border-radius: 8px; padding: 12px; }
 .historyRow { display: flex; gap: 4px; align-items: center; justify-content: flex-start; flex-wrap: wrap; }
 .histBall {
   width: 38px; height: 38px; border-radius: 999px;
@@ -198,7 +198,7 @@
 .winPopup {
   position: absolute; top: 22%; left: 50%;
   transform: translate(-50%, -50%) scale(0.85);
-  background: #0d131a; /* game grid panel — exact Stake value */ border: 2px solid rgba(0,172,0,0.9); border-radius: 16px;
+  background: var(--color-bg-game); /* game grid panel — exact Stake value */ border: 2px solid rgba(0,172,0,0.9); border-radius: 16px;
   padding: 18px 24px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.28);
   z-index: 100; animation: winPop 160ms ease-out forwards; min-width: 240px;
 }
@@ -386,7 +386,7 @@
   background: transparent; border: none; color: #b1bad3;
   font-weight: 800; cursor: pointer; font-size: 14px;
 }
-.undoBtn:hover, .clearBtn:hover { color: #fff; }
+.undoBtn:hover, .clearBtn:hover { color: var(--color-text-primary); }
 .undoBtn:disabled, .clearBtn:disabled { opacity: 0.6; cursor: default; }
 
 
@@ -438,7 +438,7 @@
   max-width: 360px;
   max-height: calc(100vh - 32px);
   max-height: calc(100dvh - 32px);
-  background: #0d131a; /* game grid panel — exact Stake value */
+  background: var(--color-bg-game); /* game grid panel — exact Stake value */
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
   padding: 16px;
@@ -457,7 +457,7 @@
 
 .mobileResultBox {
   width: 64px; height: 64px; border-radius: 10px;
-  background: #2f4553; display: grid; place-items: center;
+  background: var(--color-bg-tile); display: grid; place-items: center;
 }
 
 .mobileWheelWrap {

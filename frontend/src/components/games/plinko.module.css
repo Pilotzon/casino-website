@@ -6,7 +6,7 @@
    styles/global.css — do not redefine them here.
    ========================================================= */
 .container {
-  --stage-card: #17232e;   /* board card — visible against the game panel */
+  --stage-card: var(--color-bg-panel);   /* board card — visible against the game panel */
   --stage-card2: #121b23;  /* gradient end */
   --hist-item-h: 46px;
   --hist-gap: 0px;
@@ -17,8 +17,8 @@
 .container {
   composes: game-shell from global;
   display: flex;
-  background: #0d131a; /* game grid panel — exact Stake value */
-  color: white;
+  background: var(--color-bg-game); /* game grid panel — exact Stake value */
+  color: var(--color-text-primary);
   font-family: 'proxima-nova';
   font-feature-settings: "salt" on;
   overflow: hidden;
@@ -27,7 +27,7 @@
 /* Sidebar */
 .sidebar {
   width: var(--layout-sidebar-width);
-  background: #17232e; /* sidebar panel — literal per spec */
+  background: var(--color-bg-panel); /* sidebar panel */
   padding: var(--space-lg);
   display: flex;
   flex-direction: column;
@@ -90,7 +90,7 @@
   display: flex;
   justify-content: center; /* board fills + centers in the panel */
   align-items: center;
-  background: #0d131a; /* game grid panel — exact Stake value */
+  background: var(--color-bg-game); /* game grid panel — exact Stake value */
   padding: 24px 32px;
   position: relative;
   overflow: visible;
@@ -244,7 +244,7 @@
 }
 
 .bucketHoverBox {
-  background: #2F4553;
+  background: var(--color-bg-tile);
   border-radius: 10px;
   padding: 12px 14px;
   box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
@@ -263,7 +263,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  color: #fff;
+  color: var(--color-text-primary);
 }
 
 .bucketHoverBtc {
@@ -302,7 +302,7 @@
 .bucketModalCard {
   width: 100%;
   max-width: 360px;
-  background: #0d131a; /* game grid panel — exact Stake value */
+  background: var(--color-bg-game); /* game grid panel — exact Stake value */
   border-radius: 14px;
   border: 1px solid rgba(255,255,255,0.08);
   padding: 16px;
@@ -320,7 +320,7 @@
   font-size: 30px;
   font-weight: 900;
   text-align: center;
-  color: #fff;
+  color: var(--color-text-primary);
 }
 
 .bucketModalGrid {
@@ -349,7 +349,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  color: #fff;
+  color: var(--color-text-primary);
 }
 
 .bucketModalBtc {
@@ -365,7 +365,7 @@
   border: none;
   border-radius: 10px;
   background: var(--color-accent-blue);
-  color: #ffffff;
+  color: var(--color-text-primary);
   font-weight: 900;
   cursor: pointer;
   font-family: 'proxima-nova';
@@ -465,7 +465,7 @@
 .mobileBlockerCard {
   background: rgba(15, 33, 46, 0.95);
   border: 1px solid rgba(255,255,255,0.12);
-  color: white;
+  color: var(--color-text-primary);
   padding: 16px 18px;
   border-radius: 12px;
   font-weight: 800;

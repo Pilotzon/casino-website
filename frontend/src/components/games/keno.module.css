@@ -31,8 +31,8 @@
 .container {
   composes: game-shell from global;
   display: flex;
-  background: #0d131a; /* game grid panel — exact Stake value */
-  color: #fff;
+  background: var(--color-bg-game); /* game grid panel — exact Stake value */
+  color: var(--color-text-primary);
   font-family: "proxima-nova";
   font-feature-settings: "salt" on;
   overflow: hidden;
@@ -40,7 +40,7 @@
 
 .sidebar {
   width: var(--layout-sidebar-width);
-  background: #17232e; /* sidebar panel — literal per spec */
+  background: var(--color-bg-panel); /* sidebar panel */
   padding: var(--space-lg);
   display: flex;
   flex-direction: column;
@@ -130,7 +130,7 @@
   display: flex;
   justify-content: center; /* board fills + centers in the panel */
   align-items: center;
-  background: #0d131a; /* game grid panel — exact Stake value */
+  background: var(--color-bg-game); /* game grid panel — exact Stake value */
   padding: 24px 32px;
 }
 
@@ -228,7 +228,7 @@
 .tileNumber {
   font-weight: 900;
   font-size: 22px;
-  color: #fff;
+  color: var(--color-text-primary);
   transition: transform 220ms ease, opacity 220ms ease, color 120ms ease;
 }
 
@@ -298,7 +298,7 @@
   gap: 14px;
 }
 .hoverBox {
-  background: #2F4553;
+  background: var(--color-bg-tile);
   border-radius: 10px;
   padding: 12px 14px;
   box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
@@ -364,7 +364,7 @@
   display: grid;
   gap: 12px;
   height: 48px;
-  background: #2f4553;
+  background: var(--color-bg-tile);
   border-radius: 6px;
   padding: 8px 10px;
 }
@@ -387,7 +387,7 @@
 
 .payoutPillBtn {
   height: 44px;
-  background: #2f4553;
+  background: var(--color-bg-tile);
   border-radius: 6px;
   display: grid;
   place-items: center;
@@ -425,7 +425,7 @@
   left: 50%;
   transform: translate(-50%, -50%) scale(0.85);
   transform-origin: center;
-  background: #0d131a; /* game grid panel — exact Stake value */
+  background: var(--color-bg-game); /* game grid panel — exact Stake value */
   border: 2px solid rgba(0, 172, 0, 0.9);
   border-radius: 16px;
   padding: 18px 24px;
@@ -450,7 +450,7 @@
   margin-top: 8px;
   font-weight: 900;
   font-size: 18px;
-  color: #ffffff;
+  color: var(--color-text-primary);
 }
 
 /* modal */
@@ -466,7 +466,7 @@
 .modalCard {
   width: 100%;
   max-width: 360px;
-  background: #0d131a; /* game grid panel — exact Stake value */
+  background: var(--color-bg-game); /* game grid panel — exact Stake value */
   border-radius: 14px;
   border: 1px solid rgba(255,255,255,0.08);
   padding: 16px;
@@ -515,7 +515,7 @@
   border: none;
   border-radius: 10px;
   background: var(--color-accent-blue);
-  color: #ffffff;
+  color: var(--color-text-primary);
   font-weight: 900;
   cursor: pointer;
 }

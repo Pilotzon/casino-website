@@ -2,7 +2,7 @@
   min-height: calc(100vh - 130px);
   padding: 22px;
   background: #0b0f14;
-  color: #fff;
+  color: var(--color-text-primary);
 }
 
 .shell {
@@ -43,7 +43,7 @@
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.10);
   background: rgba(255, 255, 255, 0.03);
-  color: #fff;
+  color: var(--color-text-primary);
   padding: 0 12px;
   outline: none;
 }
@@ -53,7 +53,7 @@
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.12);
   background: rgba(255, 255, 255, 0.06);
-  color: #fff;
+  color: var(--color-text-primary);
   font-weight: 900;
   padding: 0 12px;
   cursor: pointer;
@@ -67,7 +67,7 @@
 
 .card {
   text-decoration: none;
-  color: #fff;
+  color: var(--color-text-primary);
   background: rgba(255, 255,  255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 16px;

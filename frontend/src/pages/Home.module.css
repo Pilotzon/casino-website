@@ -1,13 +1,13 @@
 .home {
   min-height: calc(100vh - 130px);
-  background: #0f1923; /* page background */
+  background: var(--color-bg-page); /* page background */
 }
 
 .hero {
   padding: 96px 0;
   /* flat: plain page background, no glows / blurred blobs */
-  background: #0f1923;
-  border-bottom: 1px solid #222d37;
+  background: var(--color-bg-page);
+  border-bottom: 1px solid var(--color-divider-panel);
 }
 
 .heroContent {
@@ -23,16 +23,16 @@
   letter-spacing: -2px;
   margin-bottom: var(--space-md);
   line-height: 1.1;
-  color: #ffffff;
+  color: var(--color-text-primary);
 }
 
 .highlight {
-  color: #2377ff; /* the site accent — same blue as the Bet button */
+  color: var(--color-accent-blue); /* the site accent — same blue as the Bet button */
 }
 
 .subtitle {
   font-size: 20px;
-  color: #b1bad2;
+  color: var(--color-text-secondary);
   margin-bottom: var(--space-2xl);
   font-weight: 400;
 }
@@ -47,8 +47,8 @@
   align-items: center;
   gap: var(--space-sm);
   padding: var(--space-lg) var(--space-2xl);
-  background: #17232e;
-  border: 1px solid #222d37;
+  background: var(--color-bg-panel);
+  border: 1px solid var(--color-divider-panel);
   border-radius: var(--radius-lg);
   margin-bottom: var(--space-lg);
 }
@@ -103,9 +103,9 @@
   font-weight: 900;
   padding: 4px 10px;
   border-radius: 999px;
-  background: #2377ff;
+  background: var(--color-accent-blue);
   border: none;
-  color: #ffffff;
+  color: var(--color-text-primary);
   opacity: 0;
   transition: opacity 140ms ease, transform 140ms ease;
   pointer-events: none;
@@ -129,12 +129,12 @@
 
 .welcomeText {
   font-size: 18px;
-  color: #b1bad2;
+  color: var(--color-text-secondary);
   font-weight: 400;
 }
 
 .welcomeText strong {
-  color: #2377ff;
+  color: var(--color-accent-blue);
   font-weight: 700;
 }
 
@@ -168,8 +168,8 @@
    a soft neutral elevation shadow (no colour, no glow) */
 .feature {
   padding: 24px;
-  background: #17232e;
-  border: 1px solid #222d37;
+  background: var(--color-bg-panel);
+  border: 1px solid var(--color-divider-panel);
   border-radius: 12px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
   transition: transform 160ms ease;
@@ -191,9 +191,9 @@
   display: grid;
   place-items: center;
   border-radius: 8px;
-  background: #1a242d;
-  border: 1px solid #222d37; /* keeps the square legible on the #17232e card */
-  color: #2377ff;
+  background: var(--color-bg-shell);
+  border: 1px solid var(--color-divider-panel); /* keeps the square legible on the #17232e card */
+  color: var(--color-accent-blue);
   flex: 0 0 auto;
 }
 
@@ -206,12 +206,12 @@
   font-size: 20px;
   font-weight: 800;
   margin-bottom: var(--space-sm);
-  color: #ffffff;
+  color: var(--color-text-primary);
 }
 
 .featureText {
   font-size: 14px;
-  color: #b1bad2;
+  color: var(--color-text-secondary);
   line-height: 1.6;
   font-weight: 400;
 }

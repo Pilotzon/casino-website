@@ -4,7 +4,7 @@
   left: 0;
   right: 0;
   height: var(--nav-height);
-  background: #0f1923; /* blends into the page background — literal per spec */
+  background: var(--color-bg-navbar); /* blends into the page background */
   border-bottom: 1px solid var(--color-border-navbar);
   z-index: 1000;
 }
@@ -33,7 +33,7 @@
   align-items: center;
   text-decoration: none;
 
-  color: #ffffff;
+  color: var(--color-text-primary);
   transition: color 160ms ease, transform 120ms ease;
 }
 
@@ -69,7 +69,7 @@
   border-radius: var(--radius-md);
   border: none;
   background: transparent;
-  color: #ffffff;
+  color: var(--color-text-primary);
   cursor: pointer;
   display: none;
   align-items: center;
@@ -79,7 +79,7 @@
 }
 
 .mobileToggle:hover {
-  background: #1a242d;
+  background: var(--color-bg-shell);
 }
 
 .mobileToggle:active {
@@ -139,8 +139,8 @@
 
 .linkActive {
   /* same treatment as the active row in the mobile drawer: white on #24333f */
-  color: #ffffff;
-  background: #24333f;
+  color: var(--color-text-primary);
+  background: var(--color-btn-secondary-bg);
 }
 
 .linkDisabled {
@@ -161,7 +161,7 @@
   border-radius: 999px;
   background: var(--color-accent-blue); /* #2377ff */
   border: none;
-  color: #ffffff;
+  color: var(--color-text-primary);
   opacity: 0;
   pointer-events: none;
   transition: opacity 140ms ease, transform 140ms ease;
@@ -254,8 +254,8 @@
   width: min(300px, 84vw);
   display: flex;
   flex-direction: column;
-  background: #1a242d;
-  border-right: 1px solid #243240;
+  background: var(--color-bg-shell);
+  border-right: 1px solid var(--color-shell-border);
   box-shadow: 12px 0 32px rgba(0, 0, 0, 0.45); /* neutral, no colour */
   transform: translateX(-104%);
   visibility: hidden;
@@ -277,13 +277,13 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 12px 0 20px;
-  border-bottom: 1px solid #222d37;
+  border-bottom: 1px solid var(--color-divider-panel);
 }
 
 .drawerLogo {
   display: flex;
   align-items: center;
-  color: #ffffff;
+  color: var(--color-text-primary);
 }
 
 .drawerLogoSvg {
@@ -320,8 +320,8 @@
 }
 
 .drawerClose:hover {
-  background: #24333f;
-  color: #ffffff;
+  background: var(--color-btn-secondary-bg);
+  color: var(--color-text-primary);
 }
 
 .drawerClose:active {
@@ -338,7 +338,7 @@
   row-gap: 12px;
   align-items: center;
   padding: 16px 20px;
-  border-bottom: 1px solid #222d37;
+  border-bottom: 1px solid var(--color-divider-panel);
 }
 
 .drawerAvatar {
@@ -346,7 +346,7 @@
   height: 40px;
   border-radius: 50%;
   background: var(--color-accent-blue);
-  color: #ffffff;
+  color: var(--color-text-primary);
   font-weight: 900;
   font-size: 16px;
   display: grid;
@@ -362,7 +362,7 @@
 .drawerUser {
   font-weight: 800;
   font-size: 15px;
-  color: #ffffff;
+  color: var(--color-text-primary);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -401,7 +401,7 @@
   font-family: var(--font-mono);
   font-size: 14px;
   font-weight: 800;
-  color: #ffffff;
+  color: var(--color-text-primary);
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -451,17 +451,17 @@
 
 .drawerLink:hover {
   background: #1f2c38;
-  color: #ffffff;
+  color: var(--color-text-primary);
 }
 
 .drawerLink:active {
-  background: #24333f;
+  background: var(--color-btn-secondary-bg);
 }
 
 .drawerLinkActive,
 .drawerLinkActive:hover {
-  background: #24333f;
-  color: #ffffff;
+  background: var(--color-btn-secondary-bg);
+  color: var(--color-text-primary);
 }
 
 /* 3px accent bar on the active row */
@@ -501,7 +501,7 @@
 }
 
 .drawerLink:hover .drawerIcon {
-  color: #ffffff;
+  color: var(--color-text-primary);
 }
 
 .drawerLinkLabel {
@@ -545,7 +545,7 @@
   flex-direction: column;
   gap: 8px;
   padding: 16px 20px calc(16px + env(safe-area-inset-bottom, 0px));
-  border-top: 1px solid #222d37;
+  border-top: 1px solid var(--color-divider-panel);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -569,7 +569,7 @@
 .formGroup label {
   font-size: 13px;
   font-weight: 600;
-  color: #8596a6; /* same muted label color as the game sidebars */
+  color: var(--color-text-label); /* same muted label color as the game sidebars */
 }
 .formGroup input {
   width: 100%;

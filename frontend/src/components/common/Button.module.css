@@ -25,7 +25,7 @@
 /* Variants */
 .primary {
   background: var(--color-bet-btn-bg); /* #2377ff — same primary blue as the Bet button */
-  color: #ffffff;
+  color: var(--color-text-primary);
   font-weight: 800;
 }
 
@@ -56,7 +56,7 @@
 
 .danger {
   background: var(--accent-danger);
-  color: white;
+  color: var(--color-text-primary);
 }
 
 .danger:not(:disabled):hover {

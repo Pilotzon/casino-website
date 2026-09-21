@@ -17,8 +17,8 @@
 }
 
 .modal {
-  background: #1a242d; /* container/panel tone */
-  border: 1px solid #222d37;
+  background: var(--color-bg-shell); /* container/panel tone */
+  border: 1px solid var(--color-divider-panel);
   border-radius: var(--radius-lg); /* 12px, consistent with site cards */
   box-shadow: var(--shadow-modal); /* 0 8px 24px rgba(0,0,0,0.5) — soft neutral lift only */
   max-height: min(86vh, 760px);
@@ -44,7 +44,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 16px 24px;
-  border-bottom: 1px solid #222d37;
+  border-bottom: 1px solid var(--color-divider-panel);
 }
 
 .title {
@@ -62,7 +62,7 @@
   place-items: center;
   border-radius: var(--radius-md);
   background: transparent;
-  color: #8596a6;
+  color: var(--color-text-label);
   font-size: 17px;
   cursor: pointer;
   transition: background-color 140ms ease, color 140ms ease;
@@ -70,8 +70,8 @@
 }
 
 .close:hover {
-  background: #212e3b;
-  color: #ffffff;
+  background: var(--color-border-input);
+  color: var(--color-text-primary);
 }
 
 .content {

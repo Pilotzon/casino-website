@@ -11,8 +11,8 @@
 .container {
   composes: game-shell from global;
   display: flex;
-  background: #0d131a; /* game grid panel — exact Stake value */
-  color: white;
+  background: var(--color-bg-game); /* game grid panel — exact Stake value */
+  color: var(--color-text-primary);
   font-family: 'proxima-nova';
   font-feature-settings: "salt" on;
   overflow: hidden;
@@ -20,7 +20,7 @@
 
 .sidebar {
   width: var(--layout-sidebar-width);
-  background: #17232e; /* sidebar panel — literal per spec */
+  background: var(--color-bg-panel); /* sidebar panel */
   padding: var(--space-lg);
   display: flex;
   flex-direction: column;
@@ -77,7 +77,7 @@
 /* ===== Stage ===== */
 .gameStage {
   flex: 1;
-  background: #0d131a; /* game grid panel — exact Stake value */
+  background: var(--color-bg-game); /* game grid panel — exact Stake value */
   position: relative;
   display: flex;
   flex-direction: column;
@@ -94,7 +94,7 @@
   font-weight: 900;
   letter-spacing: -3px;
   line-height: 1;
-  color: #ffffff;
+  color: var(--color-text-primary);
   user-select: none;
   text-align: center;
   flex-shrink: 0;
@@ -109,7 +109,7 @@
   left: auto;
   transform: scale(0.85);
   transform-origin: center;
-  background: #0d131a; /* game grid panel — exact Stake value */
+  background: var(--color-bg-game); /* game grid panel — exact Stake value */
   border: 2px solid rgba(0, 172, 0, 0.9);
   border-radius: 16px;
   padding: 18px 24px;
@@ -137,7 +137,7 @@
   margin-top: 8px;
   font-weight: 900;
   font-size: 18px;
-  color: #ffffff;
+  color: var(--color-text-primary);
 }
 
 .bottomStack {
@@ -153,7 +153,7 @@
    panel (#17232e, 8px, 12px padding). */
 .bottomPanel {
   width: 100%;
-  background: #17232e;
+  background: var(--color-bg-panel);
   border: none;
   border-radius: 8px;
   padding: 12px;
@@ -183,7 +183,7 @@
   background: transparent;
   border: 0;
   outline: none;
-  color: #fff;
+  color: var(--color-text-primary);
   font-weight: 800;
   font-size: 14px;
 }
@@ -198,7 +198,7 @@
 
 .recentPanel {
   width: 100%; /* identical width to .bottomPanel above */
-  background: #17232e;
+  background: var(--color-bg-panel);
   border-radius: 8px;
   padding: 12px;
   box-sizing: border-box;

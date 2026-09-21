@@ -13,8 +13,8 @@
 .container {
   composes: game-shell from global;
   display: flex;
-  background: #0d131a; /* game grid panel — exact Stake value */
-  color: #fff;
+  background: var(--color-bg-game); /* game grid panel — exact Stake value */
+  color: var(--color-text-primary);
   font-family: "proxima-nova", sans-serif;
   overflow: hidden;
 }
@@ -22,7 +22,7 @@
 /* ═══════ Sidebar ═══════ */
 .sidebar {
   width: var(--layout-sidebar-width);
-  background: #17232e; /* sidebar panel — literal per spec */
+  background: var(--color-bg-panel); /* sidebar panel */
   padding: var(--space-lg);
   display: flex;
   flex-direction: column;
@@ -107,7 +107,7 @@
 /* ═══════ Stage ═══════ */
 .stage {
   flex: 1; position: relative; overflow: hidden;
-  background: #0d131a; /* game grid panel — exact Stake value */
+  background: var(--color-bg-game); /* game grid panel — exact Stake value */
   display: flex; justify-content: center; /* scene centered */
 }
 
@@ -460,7 +460,7 @@
   position: absolute;
   left: 50%; top: 40%;
   transform: translate(-50%, -50%) scale(1.2);
-  background: #0d131a; /* game grid panel — exact Stake value */
+  background: var(--color-bg-game); /* game grid panel — exact Stake value */
   border-radius: 14px;
   padding: 14px 20px;
   text-align: center;

@@ -8,8 +8,8 @@
 .container {
   composes: game-shell from global;
   display: flex;
-  background: #0d131a; /* game grid panel — exact Stake value */
-  color: white;
+  background: var(--color-bg-game); /* game grid panel — exact Stake value */
+  color: var(--color-text-primary);
   font-family: 'proxima-nova';
 font-feature-settings: "salt" on;;
   overflow: hidden;
@@ -17,7 +17,7 @@ font-feature-settings: "salt" on;;
 
 .sidebar {
   width: var(--layout-sidebar-width);
-  background: #17232e; /* sidebar panel — literal per spec */
+  background: var(--color-bg-panel); /* sidebar panel */
   padding: var(--space-lg);
   display: flex;
   flex-direction: column;
@@ -82,7 +82,7 @@ font-feature-settings: "salt" on;;
   left: 50%;
   transform: translate(-50%, -50%) scale(0.85);
   transform-origin: center;
-  background: #0d131a; /* game grid panel — exact Stake value */
+  background: var(--color-bg-game); /* game grid panel — exact Stake value */
   border: 2px solid rgba(0, 172, 0, 0.9);
   border-radius: 16px;
   padding: 18px 24px;
@@ -110,7 +110,7 @@ font-feature-settings: "salt" on;;
   margin-top: 8px;
   font-weight: 900;
   font-size: 18px;
-  color: #ffffff;
+  color: var(--color-text-primary);
 }
 
 @media (max-width: 600px) {
@@ -166,7 +166,7 @@ font-feature-settings: "salt" on;;
   font-family: 'proxima-nova';
 font-feature-settings: "salt" on;;
 }
-.activeSide .textSide { color: white; }
+.activeSide .textSide { color: var(--color-text-primary); }
 
 .dotHeads { width: 14px; height: 14px; border-radius: 50%; background: #c58d0e; }
 .dotTails { width: 12px; height: 12px; background: #3b82f6; transform: rotate(45deg); }
@@ -177,7 +177,7 @@ font-feature-settings: "salt" on;;
   flex-direction: column;
   justify-content: center; /* coin fills + centers in the panel */
   align-items: center;
-  background: #0d131a; /* game grid panel — exact Stake value */
+  background: var(--color-bg-game); /* game grid panel — exact Stake value */
   padding: 24px 32px;
   position: relative;
 }
@@ -220,7 +220,7 @@ font-feature-settings: "salt" on;;
 .historyBar {
   position: absolute;
   bottom: 25px;
-  background: #17232e; /* history panel — visible against game bg */
+  background: var(--color-bg-panel); /* history panel — visible against game bg */
   padding: 12px;
   border-radius: 8px;
   display: flex;
@@ -257,7 +257,7 @@ font-feature-settings: "salt" on;;
   left: 50%;
   transform: translate(-50%, -50%) scale(0.85);
   transform-origin: center;
-  background: #0d131a; /* game grid panel — exact Stake value */
+  background: var(--color-bg-game); /* game grid panel — exact Stake value */
   border: 2px solid rgba(0, 172, 0, 0.9);
   border-radius: 16px;
   padding: 18px 24px;
@@ -285,7 +285,7 @@ font-feature-settings: "salt" on;;
   margin-top: 8px;
   font-weight: 900;
   font-size: 18px;
-  color: #ffffff;
+  color: var(--color-text-primary);
 }
 
 @media (max-width: 600px) {

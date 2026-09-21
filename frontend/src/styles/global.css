@@ -49,14 +49,18 @@
 
 :root {
   /* =========================================================
-     DESIGN OVERHAUL — STEEL BLUE THEME (single source of truth)
-     Site chrome tokens. Components reference these variables —
-     never hardcode these colors in component stylesheets.
+     THEME TOKENS — the single source of truth for the whole UI.
+     Every stylesheet references these variables (no hard-coded
+     chrome colours anywhere else), so changing a value HERE
+     restyles the entire site. Derived tokens below point at the
+     primary ones with var(), e.g. the navbar follows the page
+     background and the Bet button follows the accent blue —
+     override a derived token only if you want it to differ.
      ========================================================= */
 
   /* -- Color Palette (exact, inspected from real Stake Mines) - */
   --color-bg-page:            #0f1923;   /* outer page background + behind navbar */
-  --color-bg-navbar:          #0f1923;   /* same as page, navbar blends into background */
+  --color-bg-navbar:          var(--color-bg-page);   /* navbar blends into the page background */
   --color-border-navbar:      #1c2b38;   /* subtle 1px bottom border on navbar */
 
   --color-bg-shell:           #1a242d;   /* boxed container's own background */
@@ -67,7 +71,7 @@
   --color-bg-game:            #0d131a;   /* game grid panel background (behind the tiles) */
 
   --color-bg-input:           #0f171e;   /* bet amount input, mines dropdown, gems input */
-  --color-bg-input-profit:    #0f171e;   /* Total Profit field — same fill as every other input */
+  --color-bg-input-profit:    var(--color-bg-input);   /* Total Profit field — same fill as every other input */
   --color-border-input:       #212e3b;   /* default input border */
   --color-border-input-focus: #4a6a80;   /* input border on focus, no glow/shadow */
 
@@ -84,14 +88,14 @@
   --color-accent-blue-hover:  #3d88ff;   /* brightness lift on hover, no scale change */
   --color-accent-blue-active: #1c63d6;   /* slightly darker while pressed */
 
-  --color-bet-btn-bg:         #2377ff;   /* Bet button background (exact Stake value) */
+  --color-bet-btn-bg:         var(--color-accent-blue);   /* Bet button background */
   --color-btn-secondary-bg:    #24333f;  /* Sign In button (navbar) */
   --color-btn-secondary-hover: #2c3d4a;
   --color-btn-split-bg:        #2f3d4c;  /* 1/2 / 2x quick-multiplier buttons */
   --color-btn-split-divider:   #1d2836;  /* thin divider between 1/2 and 2x */
   --color-btn-random-bg:       #2d3b48;  /* Random Pick button */
 
-  --color-switcher-bg:        #0f171e;   /* Manual/Auto toggle track */
+  --color-switcher-bg:        var(--color-bg-input);   /* Manual/Auto toggle track */
   --color-switcher-border:    #1b2734;   /* 1px outline on the toggle track */
   --color-switcher-active:    #384856;   /* active tab capsule inside toggle */
 
@@ -229,7 +233,7 @@ html, body {
 body {
   font-family: var(--font-primary);
   font-feature-settings: "salt" on;
-  background: #0f1923; /* page background — literal Stake value */
+  background: var(--color-bg-page); /* page background */
   color: var(--text-primary);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
@@ -490,7 +494,7 @@ input[type="number"] {
 .sidebar-mode-active,
 .sidebar-mode-active:hover {
   background: var(--color-switcher-active); /* #384856 capsule */
-  color: #ffffff;
+  color: var(--color-text-primary);
   border: none;
   outline: none;
   box-shadow: none;
@@ -679,7 +683,7 @@ input[type="number"] {
 /* ---- Bet button (primary CTA of every game sidebar) ---- */
 .sidebar-bet-button {
   background: var(--color-bet-btn-bg); /* #2377ff — exact Stake value */
-  color: #ffffff;
+  color: var(--color-text-primary);
   border: none;
   border-radius: var(--radius-md);
   height: var(--bet-btn-height);
@@ -714,7 +718,7 @@ input[type="number"] {
 /* ---- Secondary sidebar button (Random Pick / roll / continue) ---- */
 .sidebar-secondary-button {
   background: var(--color-btn-random-bg); /* #2d3b48 */
-  color: #ffffff;
+  color: var(--color-text-primary);
   border: none;
   border-radius: var(--radius-md);
   height: var(--bet-btn-height);

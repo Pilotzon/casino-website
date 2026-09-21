@@ -20,7 +20,7 @@
 .container {
   composes: game-shell from global;
   display: flex;
-  background: #0d131a; /* game grid panel — exact Stake value */
+  background: var(--color-bg-game); /* game grid panel — exact Stake value */
   color: var(--text-primary);
   font-family: 'proxima-nova';
 font-feature-settings: "salt" on;;
@@ -30,7 +30,7 @@ font-feature-settings: "salt" on;;
 /* Sidebar Styles */
 .sidebar {
   width: var(--layout-sidebar-width);
-  background: #17232e; /* sidebar panel — literal per spec */
+  background: var(--color-bg-panel); /* sidebar panel */
   padding: var(--space-lg);
   display: flex;
   flex-direction: column;
@@ -92,7 +92,7 @@ font-feature-settings: "salt" on;;
   flex: 1;
   display: flex;
   flex-direction: column;
-  background: #0d131a; /* game grid panel — exact Stake value */
+  background: var(--color-bg-game); /* game grid panel — exact Stake value */
   padding: 24px 32px;
   justify-content: center; /* track fills + centers in the panel */
   align-items: center;
@@ -129,7 +129,7 @@ font-feature-settings: "salt" on;;
 
 .scaleLabels span {
   top: 0;
-  color: #ffffff;
+  color: var(--color-text-primary);
   font-weight: 800;
   font-size: 15px;
   letter-spacing: 0.2px;
@@ -139,7 +139,7 @@ font-feature-settings: "salt" on;;
   top: -8px;
   width: 16px;
   height: 8px;
-  background: #2F4553;
+  background: var(--color-bg-tile);
   clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
   z-index: 5;
 }
@@ -149,7 +149,7 @@ font-feature-settings: "salt" on;;
   width: 100%;
   height: 58px;
   border-radius: 999px;
-  background: #2F4553;
+  background: var(--color-bg-tile);
   box-shadow: none;
   display: flex;
   align-items: center;
@@ -279,8 +279,8 @@ font-feature-settings: "salt" on;;
   top: -55px;
   left: 50%;
   transform: translateX(-50%);
-  background: #17232e; /* sidebar panel — literal per spec */
-  color: white;
+  background: var(--color-bg-panel); /* sidebar panel */
+  color: var(--color-text-primary);
   padding: 8px 12px;
   border-radius: 8px;
   font-weight: 800;
@@ -296,7 +296,7 @@ font-feature-settings: "salt" on;;
   left: 50%;
   transform: translate(-50%, -50%) scale(0.85);
   transform-origin: center;
-  background: #0d131a; /* game grid panel — exact Stake value */
+  background: var(--color-bg-game); /* game grid panel — exact Stake value */
   border: 2px solid rgba(0, 172, 0, 0.9);
   border-radius: 16px;
   padding: 18px 24px;
@@ -324,7 +324,7 @@ font-feature-settings: "salt" on;;
   margin-top: 8px;
   font-weight: 900;
   font-size: 18px;
-  color: #ffffff;
+  color: var(--color-text-primary);
 }
 
 /* Mobile: make popup flow naturally like Limbo */
@@ -348,7 +348,7 @@ font-feature-settings: "salt" on;;
   transform: translateX(-50%);
   width: 90%;
   max-width: 900px;
-  background: #17232e; /* stats panel — visible against game bg */
+  background: var(--color-bg-panel); /* stats panel — visible against game bg */
   border-radius: 8px;
   padding: 12px;
   display: flex;
@@ -379,7 +379,7 @@ font-feature-settings: "salt" on;;
 .statInput input {
   background: transparent;
   border: none;
-  color: white;
+  color: var(--color-text-primary);
   font-weight: 700;
   font-size: 14px;
   flex: 1;
@@ -406,7 +406,7 @@ font-feature-settings: "salt" on;;
   align-items: center;
   padding: 4px;
 }
-.swapBtn:hover { color: white; }
+.swapBtn:hover { color: var(--color-text-primary); }
 .swapBtn svg { width: 18px; height: 18px; }
 
 @media (max-width: 900px) {

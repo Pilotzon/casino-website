@@ -160,7 +160,7 @@
   min-height: 0;
   border-radius: var(--radius-lg); /* 12px on all four corners */
   border: 1px solid var(--color-shell-border); /* #243240 */
-  background: #1a242d;
+  background: var(--color-bg-shell);
   box-shadow: var(--shadow-shell);
   overflow: hidden;
 }
@@ -221,8 +221,8 @@
 }
 
 .soundToggle:hover {
-  background: #1a242d;
-  color: #ffffff;
+  background: var(--color-bg-shell);
+  color: var(--color-text-primary);
 }
 
 .soundToggle:active {
@@ -245,7 +245,7 @@
   background: linear-gradient(
     to right,
     var(--color-accent-blue) var(--vol-fill, 80%),
-    #2f3d4c var(--vol-fill, 80%)
+    var(--color-btn-split-bg) var(--vol-fill, 80%)
   );
   cursor: pointer;
   outline: none;
@@ -289,7 +289,7 @@
   background: linear-gradient(
     to right,
     #3a4856 var(--vol-fill, 80%),
-    #2f3d4c var(--vol-fill, 80%)
+    var(--color-btn-split-bg) var(--vol-fill, 80%)
   );
 }
 
