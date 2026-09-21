@@ -40,7 +40,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-lg);
-  border-right: 1px solid #222d37; /* sidebar/game divider — exact Stake value */
+  border-right: 1px solid var(--color-divider-panel); /* sidebar/game divider #253241 */
 }
 
 .controlsHeader { margin-bottom: 4px; }

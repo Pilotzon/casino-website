@@ -35,7 +35,7 @@ font-feature-settings: "salt" on;;
   display: flex;
   flex-direction: column;
   gap: var(--space-lg);
-  border-right: 1px solid #222d37; /* sidebar/game divider — exact Stake value */
+  border-right: 1px solid var(--color-divider-panel); /* sidebar/game divider #253241 */
 }
 
 .controlsHeader {
@@ -371,7 +371,7 @@ font-feature-settings: "salt" on;;
 .statInput {
   background: #0f171e;
   border: 1px solid #212e3b;
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   box-shadow: none;
   height: 44px;
   display: flex;

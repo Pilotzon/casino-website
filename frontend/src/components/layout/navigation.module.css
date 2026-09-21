@@ -64,21 +64,33 @@
 }
 
 .mobileToggle {
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.10);
-  background: rgba(255, 255, 255, 0.04);
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  border: none;
+  background: transparent;
+  color: #ffffff;
   cursor: pointer;
   display: none;
   align-items: center;
   justify-content: center;
+  padding: 0;
+  transition: background-color 120ms ease, transform 100ms ease;
+}
+
+.mobileToggle:hover {
+  background: #1a242d;
+}
+
+.mobileToggle:active {
+  transform: scale(0.92);
 }
 
 .hamburger {
   width: 18px;
   height: 2px;
-  background: rgba(255, 255, 255, 0.9);
+  border-radius: 2px;
+  background: currentColor;
   position: relative;
   display: block;
 }
@@ -89,7 +101,8 @@
   left: 0;
   width: 18px;
   height: 2px;
-  background: rgba(255, 255, 255, 0.9);
+  border-radius: 2px;
+  background: currentColor;
 }
 .hamburger::before { top: -6px; }
 .hamburger::after { top: 6px; }
@@ -165,10 +178,6 @@
   gap: var(--space-md);
 }
 
-.actionsHidden {
-  display: none;
-}
-
 .balance {
   display: flex;
   align-items: center;
@@ -212,120 +221,337 @@
   color: var(--text-primary);
 }
 
-/* Mobile Menu */
-.mobileMenu {
+/* =====================================================================
+   Mobile navigation — left-hand drawer
+   Backdrop dims + blurs the page; the drawer is a solid #1a242d panel with
+   a single hairline edge. Items are flat rows (no boxes/borders); the
+   active row gets a filled background and a 3px accent bar.
+   ===================================================================== */
+.drawerBackdrop {
   position: fixed;
-  top: var(--nav-height);
-  left: 0;
-  right: 0;
-  background: rgba(10, 14, 20, 0.92);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  transform: translateY(-10px);
+  inset: 0;
+  z-index: 1100;
+  background: rgba(6, 10, 15, 0.62);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
   opacity: 0;
   pointer-events: none;
-  transition: opacity 160ms ease, transform 160ms ease;
-    backdrop-filter: blur(12px);
+  transition: opacity 200ms ease;
 }
 
-.mobileMenuOpen {
-  transform: translateY(0);
+.drawerBackdropOpen {
   opacity: 1;
   pointer-events: auto;
-    backdrop-filter: blur(12px);
 }
 
-.mobileLinks {
-  max-width: var(--layout-max-width);
-  margin: 0 auto;
-  padding: 12px var(--space-lg) 16px var(--space-lg);
+.drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 1200;
+  width: min(300px, 84vw);
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  background: #1a242d;
+  border-right: 1px solid #243240;
+  box-shadow: 12px 0 32px rgba(0, 0, 0, 0.45); /* neutral, no colour */
+  transform: translateX(-104%);
+  visibility: hidden;
+  transition: transform 240ms cubic-bezier(0.32, 0.72, 0.2, 1), visibility 0s linear 240ms;
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
-.mobileLink {
-  height: 46px;
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.10);
-  background: rgba(255, 255, 255, 0.04);
-  color: #fff;
-  font-weight: 850;
-  cursor: pointer;
+.drawerOpen {
+  transform: translateX(0);
+  visibility: visible;
+  transition: transform 240ms cubic-bezier(0.32, 0.72, 0.2, 1), visibility 0s;
+}
+
+.drawerHeader {
+  height: var(--nav-height);
+  flex: 0 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 0 12px 0 20px;
+  border-bottom: 1px solid #222d37;
+}
+
+.drawerLogo {
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+}
+
+.drawerLogoSvg {
+  height: 24px;
+  width: auto;
+  display: block;
+}
+
+.drawerLogoSvg path {
+  fill: currentColor;
+}
+
+.drawerClose {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--color-text-secondary);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  padding: 0;
+  transition: background-color 120ms ease, color 120ms ease, transform 100ms ease;
+}
+
+.drawerClose svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.drawerClose:hover {
+  background: #24333f;
+  color: #ffffff;
+}
+
+.drawerClose:active {
+  transform: scale(0.92);
+}
+
+/* Signed-in account block */
+.drawerAccount {
+  flex: 0 0 auto;
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  grid-template-rows: auto auto;
+  column-gap: 12px;
+  row-gap: 12px;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid #222d37;
+}
+
+.drawerAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--color-accent-blue);
+  color: #ffffff;
+  font-weight: 900;
+  font-size: 16px;
+  display: grid;
+  place-items: center;
+}
+
+.drawerAccountText {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.drawerUser {
+  font-weight: 800;
+  font-size: 15px;
+  color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.drawerRole {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--color-text-label); /* #8596a6 */
+}
+
+.drawerBalance {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  height: 44px;
   padding: 0 12px;
-  
+  background: var(--color-bg-input);
+  border: 1px solid var(--color-border-input);
+  border-radius: var(--radius-md);
 }
 
-.mobileLinkActive {
-  border-color: rgba(255, 255, 255, 0.18);
-  background: rgba(255, 255, 255, 0.07);
+.drawerBalanceLabel {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--color-text-label);
 }
 
-.mobileLinkDisabled {
-  opacity: 0.65;
+.drawerBalanceValue {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 800;
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.drawerBalanceCurrency {
+  color: var(--accent-warning);
+  font-weight: 900;
+}
+
+/* Navigation list */
+.drawerNav {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 12px 12px;
+}
+
+.drawerSection {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: var(--color-text-label);
+  padding: 8px 12px 6px;
+}
+
+.drawerLink {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 44px;
+  padding: 0 12px;
+  border: none;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--color-text-secondary); /* #b1bad2 */
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 120ms ease, color 120ms ease;
+}
+
+.drawerLink:hover {
+  background: #1f2c38;
+  color: #ffffff;
+}
+
+.drawerLink:active {
+  background: #24333f;
+}
+
+.drawerLinkActive,
+.drawerLinkActive:hover {
+  background: #24333f;
+  color: #ffffff;
+}
+
+/* 3px accent bar on the active row */
+.drawerLinkActive::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 10px;
+  bottom: 10px;
+  width: 3px;
+  border-radius: 2px;
+  background: var(--color-accent-blue);
+}
+
+.drawerLinkActive .drawerIcon {
+  color: var(--color-accent-blue);
+}
+
+.drawerIcon {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  color: var(--color-text-label);
+  transition: color 120ms ease;
+}
+
+.drawerIcon svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.drawerLink:hover .drawerIcon {
+  color: #ffffff;
+}
+
+.drawerLinkLabel {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.drawerLinkDisabled,
+.drawerLinkDisabled:hover {
+  color: var(--color-text-muted); /* #8092a5 */
+  background: transparent;
   cursor: not-allowed;
 }
 
-.mobilePill {
-  font-size: 11px;
-  font-weight: 900;
-  padding: 4px 8px;
-  border-radius: 999px;
-  background: rgba(255, 0, 0, 0.10);
-  border: 1px solid rgba(255, 0, 0, 0.22);
+.drawerLinkDisabled .drawerIcon,
+.drawerLinkDisabled:hover .drawerIcon {
+  color: var(--color-text-muted);
 }
 
-.mobileDivider {
-  height: 1px;
-  background: rgba(255, 255, 255, 0.08);
-  margin: 10px 0;
-}
-
-.mobileAuth {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.mobileMeta {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  color: rgba(255, 255, 255, 0.9);
-}
-
-.mobileUserLine {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.mobileUser {
-  font-weight: 900;
-}
-
-.mobileRole {
-  font-size: 11px;
-  font-weight: 900;
-  opacity: 0.7;
-  text-transform: uppercase;
-}
-
-.mobileBalance {
-  font-family: var(--font-mono);
+.drawerPill {
+  font-size: 10px;
   font-weight: 800;
-  opacity: 0.9;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: var(--radius-pill);
+  background: var(--color-btn-random-bg); /* #2d3b48 */
+  color: var(--color-text-muted);
 }
 
-.mobileNote {
-  color: var(--text-secondary);
+.drawerNote {
+  padding: 8px 12px;
   font-size: 12px;
   font-weight: 700;
-  margin-top: 6px;
+  color: var(--color-text-label);
+}
+
+.drawerFooter {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px 20px calc(16px + env(safe-area-inset-bottom, 0px));
+  border-top: 1px solid #222d37;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drawer,
+  .drawerBackdrop {
+    transition: none;
+  }
 }
 
 /* Form styles */
@@ -397,13 +623,29 @@
 @media (max-width: 768px) {
   .container {
     padding: 0 var(--space-md);
-    
+    gap: var(--space-md);
+  }
+  .left {
+    gap: 8px;
   }
   .links {
     display: none;
   }
-  .username {
+  /* username + Logout live in the drawer on mobile */
+  .user {
     display: none;
+  }
+  .actions {
+    gap: var(--space-sm);
+  }
+  .balance {
+    padding: 6px 12px;
+  }
+  .balanceAmount {
+    font-size: 13px;
+  }
+  .authBtn {
+    min-width: 0;
   }
   .mobileToggle {
     display: inline-flex;
@@ -411,6 +653,10 @@
   .logoSvg {
     height: 24px;
   }
+}
 
-  
+@media (max-width: 380px) {
+  .balanceAmount {
+    font-size: 12px;
+  }
 }

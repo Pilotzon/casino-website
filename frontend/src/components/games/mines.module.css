@@ -7,15 +7,15 @@
    styles/global.css — do not redefine them here.
    ========================================================= */
 .container {
-  /* Mines Tile Configuration (design spec, Section 1 "Tile grids") */
-  --mines-tile-face: var(--color-bg-tile);        /* #2f4553 tile fill */
-  --mines-tile-shadow: #1a242f;                   /* darker bottom edge */
-  --mines-tile-hover: var(--color-bg-tile-hover); /* #3a5265 hover */
-  --mines-tile-hole: #071824;                     /* revealed hole color */
+  /* Mines Tile Configuration */
+  --mines-tile-face: #2c3d4e;    /* Tile fill — exact Stake value */
+  --mines-tile-shadow: #1a242f;  /* Bottom-edge bevel — exact Stake value */
+  --mines-tile-hover: #557086;   /* Lighten on hover */
+  --mines-tile-hole: #071824;    /* Empty hole color */
 
-  --mines-tile-radius: var(--radius-sm);  /* 4px */
-  --mines-tile-gap: 9px;                  /* 8-10px */
-  --mines-base-height: 2px;               /* soft 1–2px bottom-edge line, not a drop-shadow */
+  --mines-tile-radius: 8px;      /* exact Stake value */
+  --mines-tile-gap: 9px;   /* fixed: 8-10px per spec */
+  --mines-base-height: 8px;      /* The static 3D height */
 }
 
 /* ========================================= */
@@ -39,7 +39,7 @@ font-feature-settings: "salt" on;;
   display: flex;
   flex-direction: column;
   gap: var(--space-lg);
-  border-right: 1px solid #222d37; /* sidebar/game divider — exact Stake value */
+  border-right: 1px solid var(--color-divider-panel); /* sidebar/game divider #253241 */
 }
 
 
@@ -175,29 +175,55 @@ font-feature-settings: "salt" on;;
   border: none;
   outline: none;
   cursor: pointer;
-  border-radius: var(--mines-tile-radius); /* 4px */
+  border-radius: var(--mines-tile-radius);
 
-  background-color: var(--mines-tile-face); /* #2f4553 */
-  /* subtle raised edge: a 2px darker line along the bottom, no blur */
+  background-color: var(--mines-tile-face);
   box-shadow: 0 var(--mines-base-height) 0 var(--mines-tile-shadow);
 
+  /* CHANGED: Added transition for transform/shadow/bg-color 
+     This handles the reset animation when starting a new game.
+  */
   transition: transform 0s ease, box-shadow 0s ease, background-color 0.35s ease;
-
+  
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: var(--mines-base-height); /* room for the bottom edge */
+  margin-bottom: 5.5px;
 }
 
-/* Hover: fill lightens to #3a5265 — no lift, no glow */
+/* Top-surface highlight: a faint light-to-dark sheen over the #2c3d4e face
+   (reads as #324557 at the top edge fading to #283848 at the bottom) so each
+   tile looks like a slightly curved, raised push-button. Translucent, so the
+   hover / lost fills underneath still show through. */
+.tile:not(.tileRevealed)::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.045) 0%,
+    rgba(255, 255, 255, 0) 55%,
+    rgba(0, 0, 0, 0.07) 100%
+  );
+  pointer-events: none;
+}
+
+/* Hover: LEVITATE THE WHOLE TILE 
+   Transition here can be 'none' or '0.1s' for responsiveness. 
+   Keeping it short so clicking feels snappy.
+*/
 .tile:not(.tileRevealed):hover {
   background-color: var(--mines-tile-hover);
+  transform: translateY(-3.5px); 
   box-shadow: 0 var(--mines-base-height) 0 var(--mines-tile-shadow);
   cursor: pointer;
-  transition: background-color 80ms ease;
+  transition: transform 0s ease, box-shadow 0s ease;
 }
 
-/* Press: stays flat (tiles don't use the button scale) */
+/* Active (Click): UNREVEALED TILE
+   Instantly snaps back.
+*/
 .tile:not(.tileRevealed):active {
   background-color: var(--mines-tile-hover);
   transform: translateY(0) scale(1);
@@ -330,7 +356,7 @@ font-feature-settings: "salt" on;;
 @media (max-width: 600px) {
 
   .container {
-    --mines-base-height: 2px; /* same subtle bottom edge on mobile */
+  --mines-base-height: 6px;      /* The static 3D height */
   }
   
   .sidebar {
@@ -349,7 +375,7 @@ font-feature-settings: "salt" on;;
   }
 
   .tile {
-    border-radius: var(--mines-tile-radius); /* same 4px as desktop */
+    border-radius: 8px; /* same as desktop — exact Stake value */
   }
 
   .bigButton,

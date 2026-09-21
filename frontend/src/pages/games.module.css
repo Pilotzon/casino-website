@@ -159,8 +159,9 @@
   flex: 1 1 auto;
   min-height: 0;
   border-radius: var(--radius-lg); /* 12px on all four corners */
-  border: 1px solid #222d37;
+  border: 1px solid var(--color-shell-border); /* #243240 */
   background: #1a242d;
+  box-shadow: var(--shadow-shell);
   overflow: hidden;
 }
 
@@ -181,148 +182,142 @@
   gap: var(--space-md);
 }
 
-/* Sound container — flat group, no box/border/glow; sits directly
-   on the navbar background, separated only by spacing */
+/* ---- Sound control -------------------------------------------------
+   One compact, input-styled pill: [ speaker toggle | slider | value ].
+   Same fill/border as every other field (#0f171e / #212e3b), flat, no glow.
+   Muting never collapses the pill — the slider just dims — so the header
+   never shifts. */
 .soundSetting {
-  display: grid;
-  grid-template-columns: auto auto 1fr auto; /* label | toggle | slider | % */
+  display: inline-flex;
   align-items: center;
-  gap: var(--space-sm);
-  padding: 0;
-}
-
-.soundLabel {
-  font-size: 12px;
-  font-weight: 900;
-  color: var(--color-text-secondary);
+  gap: 10px;
+  height: 36px;
+  padding: 0 12px 0 4px;
+  background: var(--color-bg-input);
+  border: 1px solid var(--color-border-input);
+  border-radius: var(--radius-pill);
   user-select: none;
-  letter-spacing: 0.4px;
-  text-transform: uppercase;
 }
 
 .soundToggle {
-  width: 44px;
-  height: 24px;
-  border-radius: var(--radius-pill);
-  border: none;
-  background: var(--color-bg-input); /* off state: flat input fill */
-  padding: 2px;
-  cursor: pointer;
-  position: relative;
-  transition: background-color 140ms ease;
+  width: 28px;
+  height: 28px;
   flex: 0 0 auto;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-text-secondary); /* #b1bad2 icon */
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  padding: 0;
+  transition: background-color 120ms ease, color 120ms ease, transform 100ms ease;
+}
+
+.soundToggle svg {
+  width: 16px;
+  height: 16px;
+  display: block;
 }
 
 .soundToggle:hover {
-  filter: brightness(1.06);
+  background: #1a242d;
+  color: #ffffff;
 }
 
 .soundToggle:active {
-  transform: scale(0.98);
+  transform: scale(0.9);
 }
 
 .soundToggle:focus-visible {
   outline: 2px solid rgba(255, 255, 255, 0.35);
-  outline-offset: 3px;
+  outline-offset: 2px;
 }
 
-.soundToggleKnob {
-  display: block;
-  width: 20px;
-  height: 20px;
-  border-radius: var(--radius-pill);
-  background: #ffffff; /* plain white thumb, no drop-shadow */
-  transform: translateX(0);
-  transition: transform 140ms ease;
-}
-
-.soundToggleOn {
-  background: var(--color-accent-blue); /* on state: flat accent fill, no glow */
-}
-
-.soundToggleOn .soundToggleKnob {
-  transform: translateX(20px);
-}
-
-.soundToggleOff .soundToggleKnob {
-  transform: translateX(0);
-}
-
-/* Volume slider wrap */
-.volumeWrap {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-
-  overflow: hidden;
-  transform-origin: left center;
-
-  transition:
-    max-width 160ms ease-out,
-    opacity 120ms ease-out,
-    transform 160ms ease-out;
-}
-
-.volumeWrapOn {
-  max-width: 240px;
-  opacity: 1;
-  transform: translateX(0) scaleX(1);
-  pointer-events: auto;
-}
-
-.volumeWrapOff {
-  max-width: 0px;
-  opacity: 0;
-  transform: translateX(-2px) scaleX(0.92);
-  pointer-events: none;
-}
-
-/* Flat volume slider: input track + blue fill + plain white thumb */
+/* Slider: 4px track, blue fill up to the thumb, plain white 12px thumb */
 .volumeSlider {
   -webkit-appearance: none;
   appearance: none;
-  width: 140px;
-  height: 6px;
+  width: 112px;
+  height: 4px;
+  margin: 0;
   border-radius: var(--radius-pill);
   background: linear-gradient(
     to right,
     var(--color-accent-blue) var(--vol-fill, 80%),
-    var(--color-bg-input) var(--vol-fill, 80%)
+    #2f3d4c var(--vol-fill, 80%)
   );
   cursor: pointer;
   outline: none;
+  transition: opacity 140ms ease;
 }
 
 .volumeSlider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 14px;
-  height: 14px;
-  border-radius: var(--radius-pill);
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
   background: #ffffff;
   border: none;
   box-shadow: none;
+  transition: transform 100ms ease;
 }
 
 .volumeSlider::-moz-range-thumb {
-  width: 14px;
-  height: 14px;
-  border-radius: var(--radius-pill);
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
   background: #ffffff;
   border: none;
   box-shadow: none;
 }
 
+.volumeSlider:hover::-webkit-slider-thumb {
+  transform: scale(1.15);
+}
+
+.volumeSlider:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.35);
+  outline-offset: 4px;
+}
+
+/* Muted: everything goes to the muted greys, nothing moves */
 .volumeSlider:disabled {
-  opacity: 0.45;
+  cursor: default;
+  opacity: 1;
+  background: linear-gradient(
+    to right,
+    #3a4856 var(--vol-fill, 80%),
+    #2f3d4c var(--vol-fill, 80%)
+  );
+}
+
+.volumeSlider:disabled::-webkit-slider-thumb {
+  background: var(--color-text-muted); /* #8092a5 */
+  transform: none;
+}
+
+.volumeSlider:disabled::-moz-range-thumb {
+  background: var(--color-text-muted);
 }
 
 .volumeValue {
-  font-size: 12px;
-  font-weight: 900;
+  font-size: 11px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.2px;
   color: var(--color-text-secondary);
-  min-width: 44px;
+  min-width: 30px;
   text-align: right;
+}
+
+.soundSettingMuted .soundToggle {
+  color: var(--color-text-muted);
+}
+
+.soundSettingMuted .volumeValue {
+  color: var(--color-text-muted);
 }
 
 .backButton {
@@ -377,7 +372,10 @@
   }
 }
 
-/* ✅ MOBILE: one-row sound bar (everything same height) */
+/* ===== MOBILE =====
+   Header becomes two rows: [ back button ........ sound pill ] over the
+   page title. The sound pill keeps its compact desktop form (it never
+   stretches into a giant slider). */
 @media (max-width: 768px) {
   .title {
     font-size: 32px;
@@ -394,60 +392,43 @@
 
   .gameHeader {
     flex-wrap: wrap;
-    row-gap: var(--space-md);
+    row-gap: var(--space-sm);
+    padding: var(--space-xs) 0 var(--space-sm);
   }
 
-  .gameTitle {
-    flex: 1 1 auto;
+  .backButton {
+    order: 1;
   }
 
   .headerRight {
-    width: 100%;
-    order: 999;
-    margin-left: 0;
+    order: 2;
+    margin-left: auto;
   }
 
-  /* ✅ Force single-row layout */
+  .gameTitle {
+    order: 3;
+    flex: 1 1 100%;
+    font-size: 22px;
+    margin-top: var(--space-xs);
+  }
+
   .soundSetting {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-
-    padding: 10px 12px;
-    border-radius: 16px;
+    height: 34px;
+    gap: 8px;
+    padding: 0 10px 0 3px;
   }
 
-  /* Keep label compact so slider has room */
-  .soundLabel {
-    font-size: 11px;
-    flex: 0 0 auto;
-  }
-
-  /* Slider + % live in the volumeWrap; keep them aligned */
-  .volumeWrap {
-    flex: 1 1 auto;
-    min-width: 0;
-    justify-content: flex-end;
-    gap: 10px;
-  }
-
-  /* Make slider match control-row height visually */
   .volumeSlider {
-    width: 100%;
-    max-width: none;
-    height: 28px;
+    width: 88px;
   }
 
   .volumeValue {
-    min-width: 48px;
+    min-width: 28px;
   }
+}
 
-  /* ✅ When sound is OFF, shrink/collapse the slider area but keep one row */
-  .volumeWrapOff {
-    max-width: 0px;
-    opacity: 0;
-    transform: translateX(-2px) scaleX(0.92);
-    pointer-events: none;
+@media (max-width: 360px) {
+  .volumeSlider {
+    width: 64px;
   }
 }

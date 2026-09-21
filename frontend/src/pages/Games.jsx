@@ -163,41 +163,40 @@ function Games() {
           </h1>
 
           <div className={styles.headerRight}>
-            <div className={styles.soundSetting} aria-label="Sound setting">
-              <span className={styles.soundLabel}>Sound</span>
-
+            {/* Sound control: one compact input-styled pill —
+                [ speaker toggle | volume slider | value ] */}
+            <div
+              className={`${styles.soundSetting} ${soundEnabled ? "" : styles.soundSettingMuted}`}
+              role="group"
+              aria-label="Sound settings"
+            >
               <button
                 type="button"
-                className={`${styles.soundToggle} ${
-                  soundEnabled ? styles.soundToggleOn : styles.soundToggleOff
-                }`}
+                className={styles.soundToggle}
                 onClick={() => setSoundEnabled((v) => !v)}
                 aria-pressed={soundEnabled}
-                title={soundEnabled ? "Sound: On" : "Sound: Off"}
+                aria-label={soundEnabled ? "Mute sound" : "Unmute sound"}
+                title={soundEnabled ? "Mute" : "Unmute"}
               >
-                <span className={styles.soundToggleKnob} />
+                <SpeakerIcon muted={!soundEnabled} level={soundVolume} />
               </button>
 
-              <div
-                className={`${styles.volumeWrap} ${
-                  soundEnabled ? styles.volumeWrapOn : styles.volumeWrapOff
-                }`}
-                aria-hidden={!soundEnabled}
-              >
-                <input
-                  className={styles.volumeSlider}
-                  type="range"
-                  min="0"
-                  max="1"
-                  step="0.01"
-                  value={soundVolume}
-                  onChange={(e) => setSoundVolume(clamp01(e.target.value))}
-                  disabled={!soundEnabled}
-                  aria-label="Volume"
-                  style={{ "--vol-fill": `${Math.round(soundVolume * 100)}%` }}
-                />
-                <span className={styles.volumeValue}>{Math.round(soundVolume * 100)}%</span>
-              </div>
+              <input
+                className={styles.volumeSlider}
+                type="range"
+                min="0"
+                max="1"
+                step="0.01"
+                value={soundVolume}
+                onChange={(e) => setSoundVolume(clamp01(e.target.value))}
+                disabled={!soundEnabled}
+                aria-label="Volume"
+                style={{ "--vol-fill": `${Math.round(soundVolume * 100)}%` }}
+              />
+
+              <span className={styles.volumeValue} aria-live="polite">
+                {soundEnabled ? `${Math.round(soundVolume * 100)}%` : "Off"}
+              </span>
             </div>
           </div>
         </div>
@@ -263,6 +262,39 @@ function Games() {
         </div>
       </div>
     </div>
+  );
+}
+
+function SpeakerIcon({ muted = false, level = 1 }) {
+  const common = {
+    width: 16,
+    height: 16,
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: 2,
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    "aria-hidden": true,
+    focusable: false,
+  };
+  const body = <path d="M11 5 6 9H2v6h4l5 4V5z" fill="currentColor" stroke="none" />;
+
+  if (muted) {
+    return (
+      <svg {...common}>
+        {body}
+        <path d="m23 9-6 6" />
+        <path d="m17 9 6 6" />
+      </svg>
+    );
+  }
+  return (
+    <svg {...common}>
+      {body}
+      {level > 0 && <path d="M15.5 8.5a5 5 0 0 1 0 7" />}
+      {level > 0.5 && <path d="M19 5a10 10 0 0 1 0 14" />}
+    </svg>
   );
 }
 

@@ -60,12 +60,14 @@
   --color-border-navbar:      #1c2b38;   /* subtle 1px bottom border on navbar */
 
   --color-bg-shell:           #1a242d;   /* boxed container's own background */
-  --color-divider-panel:      #222d37;   /* vertical divider between sidebar and game panel */
+  --color-shell-border:       #243240;   /* 1px outline around the whole boxed layout */
+  --color-divider-panel:      #253241;   /* vertical divider between sidebar and game panel */
+  --shadow-shell:             0 8px 24px rgba(0, 0, 0, 0.45); /* diffuse ambient lift off the page */
   --color-bg-panel:           #17232e;   /* sidebar background */
   --color-bg-game:            #0d131a;   /* game grid panel background (behind the tiles) */
 
   --color-bg-input:           #0f171e;   /* bet amount input, mines dropdown, gems input */
-  --color-bg-input-profit:    #141f28;   /* Total Profit field specifically */
+  --color-bg-input-profit:    #0f171e;   /* Total Profit field — same fill as every other input */
   --color-border-input:       #212e3b;   /* default input border */
   --color-border-input-focus: #4a6a80;   /* input border on focus, no glow/shadow */
 
@@ -86,15 +88,16 @@
   --color-btn-secondary-bg:    #24333f;  /* Sign In button (navbar) */
   --color-btn-secondary-hover: #2c3d4a;
   --color-btn-split-bg:        #2f3d4c;  /* 1/2 / 2x quick-multiplier buttons */
-  --color-btn-split-divider:   #1e2936;  /* thin divider between 1/2 and 2x */
+  --color-btn-split-divider:   #1d2836;  /* thin divider between 1/2 and 2x */
   --color-btn-random-bg:       #2d3b48;  /* Random Pick button */
 
   --color-switcher-bg:        #0f171e;   /* Manual/Auto toggle track */
+  --color-switcher-border:    #1b2734;   /* 1px outline on the toggle track */
   --color-switcher-active:    #384856;   /* active tab capsule inside toggle */
 
   /* -- Corner Radius Scale -------------------------------- */
   --radius-sm: 4px;        /* grid tiles */
-  --radius-md: 8px;        /* inputs, buttons, dropdowns */
+  --radius-md: 6px;        /* inputs, buttons, dropdowns */
   --radius-lg: 12px;       /* the outer boxed game+sidebar container */
   --radius-xl: 12px;
   --radius-pill: 9999px;   /* mode switcher track, balance display pill */
@@ -408,14 +411,25 @@ input[type="number"] {
   flex: 1 1 auto;
   min-height: 0;
   border-radius: var(--radius-lg);
-  border: 1px solid var(--color-divider-panel); /* #222d37 frame / shared-edge divider */
-  background: var(--color-bg-shell);            /* #1a242d shows behind the two panels */
+  border: 1px solid var(--color-shell-border); /* #243240 outline around the frame */
+  background: var(--color-bg-shell);           /* #1a242d shows behind the two panels */
+  box-shadow: var(--shadow-shell);             /* neutral ambient shadow, no colour */
   overflow: hidden;
 }
 
+/* Mobile: the two panels stack, GAME FIRST — the board sits at the top of
+   the shell and the betting controls (always the first panel in the DOM)
+   move underneath it. The old right-hand divider becomes a top divider. */
 @media (max-width: 900px) {
   .game-shell {
     flex: none;
+    flex-direction: column;
+  }
+
+  .game-shell > div:first-of-type {
+    order: 2;
+    border-right: none;
+    border-top: 1px solid var(--color-divider-panel);
   }
 }
 
@@ -427,6 +441,7 @@ input[type="number"] {
              no ring. */
 .sidebar-mode-toggle {
   background: var(--color-switcher-bg);
+  border: 1px solid var(--color-switcher-border); /* #1b2734 track outline */
   border-radius: var(--radius-pill);
   padding: 4px;
   display: flex;

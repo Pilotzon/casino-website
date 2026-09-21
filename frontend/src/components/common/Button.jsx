@@ -9,7 +9,8 @@ function Button({
   disabled = false,
   onClick,
   type = 'button',
-  className = ''
+  className = '',
+  ...rest
 }) {
   const classes = [
     styles.button,
@@ -26,6 +27,7 @@ function Button({
       className={classes}
       onClick={onClick}
       disabled={disabled || loading}
+      {...rest}
     >
       {loading ? (
         <span className={styles.spinner}></span>
