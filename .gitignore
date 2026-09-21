@@ -15,7 +15,12 @@ build/
 # OS
 .DS_Store
 
-# Live database (per-user data — never ship/overwrite via git)
+# Live database + backups + uploads (per-user data — never ship/overwrite via git)
 backend/casino.db
 backend/casino.db-shm
 backend/casino.db-wal
+*.db
+*.db-shm
+*.db-wal
+backend/backups/
+backend/uploads/

@@ -98,9 +98,9 @@
 
 .stageCard {
   width: min(980px, 100%);
-  border-radius: 18px;
-  background: linear-gradient(180deg, var(--stage-card), var(--stage-card2));
-
+  /* flat: the board sits directly on the #0d131a game panel like every other
+     game (no inner gradient card) */
+  background: transparent;
   padding: 18px;
 }
 

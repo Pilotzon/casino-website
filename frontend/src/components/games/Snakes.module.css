@@ -72,7 +72,9 @@
 }
 
 /* Snakes-specific inline prefix inside the bet input */
-.prefix{ color:rgba(255,255,255,0.55); font-weight:800; margin-right:10px; }
+.btcIcon {
+  composes: sidebar-currency-icon from global; /* ₿ suffix like every other game */
+}
 
 .inputWrapper {
   composes: sidebar-input-wrapper from global;

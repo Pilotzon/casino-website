@@ -5,8 +5,9 @@ const {
   initializeGames,
   initializeSettings,
   addColumnIfNotExists,
-} = require("./config/database");
-require("dotenv").config();
+  closeDatabase,
+} = require("./database");
+require("dotenv").config({ path: require("path").resolve(__dirname, "..", "..", ".env") });
 
 /**
  * Initialize the entire database with schema and owner account
@@ -34,9 +35,11 @@ async function initDB() {
     console.log("2. Start the frontend: cd ../frontend && npm start");
     console.log("3. Login with owner credentials from your .env file\n");
 
+    closeDatabase(); // flush the WAL into the file before exiting
     process.exit(0);
   } catch (error) {
     console.error("❌ Database initialization failed:", error);
+    closeDatabase();
     process.exit(1);
   }
 }

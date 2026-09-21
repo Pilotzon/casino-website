@@ -87,10 +87,8 @@
   background: transparent; /* icon slot inside the field — no separator */
 }
 
-.coinIcon {
-  width: 18px;
-  height: 18px;
-  opacity: 0.95;
+.btcIcon {
+  composes: sidebar-currency-icon from global; /* ₿ like every other game */
 }
 
 .splitButtons {

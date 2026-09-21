@@ -126,19 +126,16 @@ font-feature-settings: "salt" on;;
 
 
 .coinChipSmall {
+  /* plain ₿ glyph — identical to the bet input and to every other game
+     (was a filled round coin badge, the only one of its kind) */
   position: absolute;
-  right: 10px;
+  right: 12px;
   top: 50%;
   transform: translateY(-50%);
-  width: 20px;
-  height: 20px;
-  border-radius: 999px;
-  background: #fca311;
-  color: #1a2c38;
-  display: grid;
-  place-items: center;
-  font-weight: 900;
-  font-size: 12px;
+  color: var(--bitcoin);
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1;
 }
 
 /* ========================================= */
@@ -189,24 +186,6 @@ font-feature-settings: "salt" on;;
   justify-content: center;
   align-items: center;
   margin-bottom: 5.5px;
-}
-
-/* Top-surface highlight: a faint light-to-dark sheen over the #2c3d4e face
-   (reads as #324557 at the top edge fading to #283848 at the bottom) so each
-   tile looks like a slightly curved, raised push-button. Translucent, so the
-   hover / lost fills underneath still show through. */
-.tile:not(.tileRevealed)::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.045) 0%,
-    rgba(255, 255, 255, 0) 55%,
-    rgba(0, 0, 0, 0.07) 100%
-  );
-  pointer-events: none;
 }
 
 /* Hover: LEVITATE THE WHOLE TILE 

@@ -2,10 +2,12 @@ const express = require("express");
 const cors = require("cors");
 const rateLimit = require("express-rate-limit");
 const path = require("path");
-require("dotenv").config();
+// .env lives next to package.json in backend/ — load it regardless of cwd
+require("dotenv").config({ path: path.resolve(__dirname, "..", ".env") });
 
-// Import database
-const { db } = require("./config/database");
+// Import database (opens the persistent SQLite file — see config/storage.js)
+const { db, dbPath, closeDatabase, summarizePersistedState } = require("./config/database");
+const { scheduleBackups, resolveUploadsDir } = require("./config/storage");
 
 // Import routes
 const authRoutes = require("./routes/auth");
@@ -34,13 +36,23 @@ app.use(
   })
 );
 
+// Schema + defaults. Everything here is idempotent (CREATE IF NOT EXISTS,
+// INSERT OR IGNORE): existing rows — users, balances, disabled games/pages,
+// settings — are NEVER overwritten on a restart.
 const { initializeDatabase, initializeGames, initializeSettings } = require("./config/database");
 initializeDatabase();
 initializeGames();
 initializeSettings();
+{
+  const st = summarizePersistedState();
+  console.log(
+    `📊 Persisted state: ${st.users} user(s), ${st.games} game(s) (${st.disabledGames} disabled), ` +
+      `${st.pages} page(s) (${st.disabledPages} disabled), ${st.rounds} round(s)`
+  );
+}
 
 // ✅ Serve uploaded files (custom bets images)
-app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
+app.use("/uploads", express.static(resolveUploadsDir()));
 
 // Body parsing
 app.use(express.json({ limit: "10mb" }));
@@ -186,27 +198,59 @@ setInterval(async () => {
 }, 60000);
 
 /**
- * Start server
+ * Start server + graceful shutdown
+ * Every way the process can stop flushes the WAL and closes the database:
+ * Ctrl+C (SIGINT), process managers / containers (SIGTERM, SIGHUP),
+ * nodemon restarts (SIGUSR2) and crashes (uncaughtException).
  */
-process.on("SIGTERM", () => {
-  console.log("SIGTERM received, closing server gracefully...");
-  server.close(() => {
-    console.log("Server closed");
-    db.close();
-    process.exit(0);
-  });
-});
+let shuttingDown = false;
+let stopBackups = () => {};
 
-process.on("SIGINT", () => {
-  console.log("\nSIGINT received, closing server gracefully...");
-  server.close(() => {
-    console.log("Server closed");
-    db.close();
-    process.exit(0);
-  });
+function shutdown(reason, { exitCode = 0, resignal = null } = {}) {
+  if (shuttingDown) return;
+  shuttingDown = true;
+  console.log(`\n${reason} — closing server and saving database...`);
+
+  const finish = () => {
+    stopBackups();
+    closeDatabase();
+    console.log("💾 Database saved and closed");
+    if (resignal) {
+      // nodemon: re-raise the signal so it can restart us
+      process.kill(process.pid, resignal);
+    } else {
+      process.exit(exitCode);
+    }
+  };
+
+  // give in-flight requests a moment, but never hang
+  const timer = setTimeout(finish, 3000);
+  if (typeof server !== "undefined" && server) {
+    server.close(() => {
+      clearTimeout(timer);
+      finish();
+    });
+  } else {
+    clearTimeout(timer);
+    finish();
+  }
+}
+
+process.on("SIGTERM", () => shutdown("SIGTERM received"));
+process.on("SIGINT", () => shutdown("SIGINT received"));
+process.on("SIGHUP", () => shutdown("SIGHUP received"));
+process.once("SIGUSR2", () => shutdown("Restart requested (nodemon)", { resignal: "SIGUSR2" }));
+process.on("uncaughtException", (err) => {
+  console.error("Uncaught exception:", err);
+  shutdown("Fatal error", { exitCode: 1 });
 });
+process.on("unhandledRejection", (err) => {
+  console.error("Unhandled rejection:", err);
+});
+process.on("exit", () => closeDatabase()); // last resort — synchronous checkpoint + close
 
 const server = app.listen(PORT, () => {
+  stopBackups = scheduleBackups(db, dbPath);
   console.log("╔════════════════════════════════════════════════════════╗");
   console.log("║                                                        ║");
   console.log("║       🎰 CASINO PLATFORM - BACKEND SERVER 🎰          ║");
@@ -226,6 +270,9 @@ const server = app.listen(PORT, () => {
   console.log(`║  • Pages: http://localhost:${PORT}/api/pages`.padEnd(57) + "║");
   console.log(`║  • Uploads: http://localhost:${PORT}/uploads`.padEnd(57) + "║");
   console.log("║                                                        ║");
+  console.log("╠════════════════════════════════════════════════════════╣");
+  console.log("║  Database (persistent, survives restarts/updates):     ║");
+  console.log(`║  ${dbPath}`.slice(0, 56).padEnd(57) + "║");
   console.log("╠════════════════════════════════════════════════════════╣");
   console.log("║  ⚠️  REMEMBER:                                          ║");
   console.log("║  • Virtual credits only - no real money               ║");

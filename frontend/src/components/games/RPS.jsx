@@ -358,6 +358,7 @@ export default function RPS() {
             <div className={styles.inputWrapper}>
               <input type="number" value={betAmount} onChange={(e) => setBetAmount(e.target.value)}
                 step="0.01" disabled={inProgress || isRevealing} />
+              <span className={styles.btcIcon}>₿</span>
             </div>
             <div className={styles.splitButtons}>
               <button onClick={() => adjustBet(0.5)} disabled={inProgress || isRevealing}>½</button>
@@ -395,7 +396,8 @@ export default function RPS() {
             <span>${format2((bet * currentMultiplier - bet) || 0)}</span>
           </div>
           <div className={`${styles.readonlyMoney} ${styles.profitInput}`}>
-            <span className={styles.moneyValue}>${format2(inProgress ? bet * currentMultiplier : 0)}</span>
+            <input type="text" value={format2(inProgress ? bet * currentMultiplier : 0)} readOnly />
+            <span className={styles.btcIcon}>₿</span>
           </div>
         </div>
       </div>

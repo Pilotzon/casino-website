@@ -138,8 +138,9 @@
 }
 
 .linkActive {
-  color: var(--color-accent-blue); /* active toggle = primary action blue */
-  background: var(--color-switcher-active);
+  /* same treatment as the active row in the mobile drawer: white on #24333f */
+  color: #ffffff;
+  background: #24333f;
 }
 
 .linkDisabled {

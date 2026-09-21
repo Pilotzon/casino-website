@@ -317,7 +317,7 @@ function Flip({ soundEnabled = true, soundVolume = 0.8 }) {
           </button>
         </div>
 
-        <div className={styles.controlGroup} style={{ marginTop: "auto" }}>
+        <div className={styles.controlGroup}>
           <div className={styles.labelRow}>
             <span>Total Profit (0.98×)</span>
             <span>$0.00</span>

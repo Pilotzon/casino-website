@@ -417,7 +417,7 @@ export default function Keno({ soundEnabled = true, soundVolume = 0.8 }) {
             </div>
 
             <div className={styles.coinChip}>
-              <img src={gemSvg} alt="" className={styles.coinIcon} />
+              <span className={styles.btcIcon}>₿</span>
             </div>
 
             <div className={styles.splitButtons}>

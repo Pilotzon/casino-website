@@ -913,7 +913,6 @@ const stepWalk = async (from, to, diceSum) => {
 
           <div className={styles.inputGroup}>
             <div className={styles.inputWrapper}>
-              <span className={styles.prefix}>$</span>
               <input
                 type="number"
                 value={betAmount}
@@ -922,6 +921,7 @@ const stepWalk = async (from, to, diceSum) => {
                 min="0"
                 disabled={isBusy || (status === "in_progress" && !landedOnSnake && !hasWon)}
               />
+              <span className={styles.btcIcon}>₿</span>
             </div>
 
             <div className={styles.splitButtons}>

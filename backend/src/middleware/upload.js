@@ -2,7 +2,11 @@ const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
 
-const baseDir = path.join(__dirname, "../../uploads/custom-bets");
+const { resolveUploadsDir } = require("../config/storage");
+
+// stored next to the database (outside the project folder by default) so
+// images survive restarts, updates and re-downloads exactly like the DB
+const baseDir = path.join(resolveUploadsDir(), "custom-bets");
 fs.mkdirSync(baseDir, { recursive: true });
 
 const storage = multer.diskStorage({

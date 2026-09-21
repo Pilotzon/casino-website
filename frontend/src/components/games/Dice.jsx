@@ -352,6 +352,7 @@ function Dice({ soundEnabled = true, soundVolume = 0.8 }) {
                     <div className={styles.handleIcon}>
                       <span></span>
                       <span></span>
+                      <span></span>
                     </div>
                   </div>
                 </div>

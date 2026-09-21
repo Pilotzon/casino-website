@@ -148,14 +148,19 @@
   flex-shrink: 0;
 }
 
+/* Both bottom panels (stats + recent multipliers) are the SAME width — they
+   simply fill .bottomStack — and share one surface, matching the Dice stats
+   panel (#17232e, 8px, 12px padding). */
 .bottomPanel {
-  background: rgba(33, 55, 67, 0.65);
-  border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 10px;
-  padding: 14px;
+  width: 100%;
+  background: #17232e;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 14px;
+  gap: 16px;
+  box-sizing: border-box;
 }
 
 .bottomBox { display: flex; flex-direction: column; gap: 8px; }
@@ -192,10 +197,11 @@
 }
 
 .recentPanel {
-  background: #17232e; /* recent-results panel — visible against game bg */
+  width: 100%; /* identical width to .bottomPanel above */
+  background: #17232e;
   border-radius: 8px;
   padding: 12px;
-  width: min(100%, 860px);
+  box-sizing: border-box;
 }
 
 .recentLabel {

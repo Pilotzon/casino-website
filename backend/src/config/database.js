@@ -1,13 +1,43 @@
 const Database = require("better-sqlite3");
 const path = require("path");
 const { systemSettings } = require("../config/classifiedConfig");
-require("dotenv").config();
+const storage = require("./storage");
+// .env lives in backend/ — load it from there no matter what the cwd is
+require("dotenv").config({ path: path.resolve(__dirname, "..", "..", ".env") });
 
-const dbPath = process.env.DATABASE_PATH || path.join(__dirname, "../../casino.db");
+/* ------------------------------------------------------------------
+   Open the ONE persistent database file.
+   - Location resolved by storage.js (outside the repo by default, or
+     DATABASE_PATH); the folder is created if needed.
+   - If the file is missing, a legacy copy inside the project is migrated,
+     or the newest rolling backup is restored — nothing is silently reset.
+   ------------------------------------------------------------------ */
+const location = storage.prepareDatabaseLocation(Database);
+const restoredFrom = location.restoredFrom;
+
+const dbPath = location.dbPath;
 const db = new Database(dbPath);
 
 db.pragma("foreign_keys = ON");
-db.pragma("journal_mode = WAL");
+db.pragma("journal_mode = WAL"); // durable, crash-safe write-ahead log
+db.pragma("synchronous = FULL"); // fsync on every commit: survives power loss / hard kills
+db.pragma("busy_timeout = 5000");
+
+const dbInfo = {
+  path: dbPath,
+  isNew: location.created && !restoredFrom,
+  migratedFrom: location.migratedFrom,
+  restoredFrom,
+};
+
+if (dbInfo.migratedFrom) {
+  console.log(`📦 Migrated existing database from ${dbInfo.migratedFrom}`);
+  console.log(`   (the old file was left untouched — you can delete it once you have verified the move)`);
+}
+if (dbInfo.restoredFrom) {
+  console.log(`♻️  Database file was missing — restored newest backup ${dbInfo.restoredFrom}`);
+}
+console.log(`🗄️  Database file: ${dbPath} ${dbInfo.isNew ? "(new — first run)" : "(existing data loaded)"}`);
 
 function addColumnIfNotExists(table, column, type) {
   const cols = db.prepare(`PRAGMA table_info(${table})`).all();
@@ -361,6 +391,11 @@ function initializeGames() {
   console.log("✅ Default games initialized");
 }
 
+/**
+ * Seed DEFAULT settings only for keys that do not exist yet.
+ * classifiedConfig.js provides first-run defaults; anything the owner has
+ * changed through the admin panel is kept across restarts.
+ */
 function initializeSettings() {
   const settings = [
     { key: "signup_enabled", value: systemSettings.signup_enabled },
@@ -369,33 +404,69 @@ function initializeSettings() {
     { key: "min_bet_amount", value: systemSettings.min_bet_amount },
   ];
 
-  const upsertSetting = db.prepare(`
-    INSERT INTO system_settings (setting_key, setting_value, updated_at)
+  const insertSetting = db.prepare(`
+    INSERT OR IGNORE INTO system_settings (setting_key, setting_value, updated_at)
     VALUES (?, ?, CURRENT_TIMESTAMP)
-    ON CONFLICT(setting_key) DO UPDATE SET
-      setting_value = excluded.setting_value,
-      updated_at = CURRENT_TIMESTAMP
   `);
 
   const tx = db.transaction((arr) => {
-    for (const s of arr) upsertSetting.run(s.key, s.value);
+    let added = 0;
+    for (const s of arr) added += insertSetting.run(s.key, s.value).changes;
+    return added;
   });
 
-  tx(settings);
-  console.log("✅ System settings synced from classifiedConfig.js");
+  const added = tx(settings);
+  console.log(added ? `✅ Seeded ${added} default system setting(s)` : "✅ System settings loaded (existing values kept)");
+}
+
+/** Row counts of the persisted state — printed on boot so persistence is verifiable. */
+function summarizePersistedState() {
+  const count = (sql) => {
+    try {
+      return db.prepare(sql).get().n;
+    } catch {
+      return 0;
+    }
+  };
+  return {
+    users: count("SELECT COUNT(*) AS n FROM users"),
+    games: count("SELECT COUNT(*) AS n FROM games"),
+    disabledGames: count("SELECT COUNT(*) AS n FROM games WHERE is_enabled = 0"),
+    pages: count("SELECT COUNT(*) AS n FROM pages"),
+    disabledPages: count("SELECT COUNT(*) AS n FROM pages WHERE is_enabled = 0"),
+    rounds: count("SELECT COUNT(*) AS n FROM rounds"),
+  };
 }
 
 function getDatabase() {
   return db;
 }
+
+let closed = false;
+/**
+ * Flush the write-ahead log into the main file and close. Safe to call more
+ * than once; used by every shutdown path (SIGINT/SIGTERM/nodemon restarts…).
+ */
 function closeDatabase() {
-  db.close();
+  if (closed) return;
+  closed = true;
+  try {
+    if (db.open) {
+      db.pragma("wal_checkpoint(TRUNCATE)");
+      db.close();
+    }
+  } catch (err) {
+    console.error("⚠️  Error while closing the database:", err.message);
+  }
 }
 
 module.exports = {
   db,
+  dbPath,
+  dbInfo,
   getDatabase,
   closeDatabase,
+  summarizePersistedState,
   initializeDatabase,
   initializeGames,
   initializeSettings,

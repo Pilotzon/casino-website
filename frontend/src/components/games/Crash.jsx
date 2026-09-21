@@ -262,7 +262,7 @@ function Crash() {
           </button>
         )}
 
-        <div className={styles.controlGroup} style={{ marginTop: 'auto' }}>
+        <div className={styles.controlGroup}>
           <div className={styles.labelRow}>
             <span>Profit on Win</span>
             <span>$0.00</span>
