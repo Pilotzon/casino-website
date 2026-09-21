@@ -5,11 +5,8 @@
 
 .hero {
   padding: 96px 0;
-  /* soft radial glow in the site's blue palette behind the hero text */
-  background:
-    radial-gradient(640px 320px at 50% -60px, rgba(35, 119, 255, 0.18), transparent 70%),
-    radial-gradient(900px 420px at 50% 10%, rgba(35, 119, 255, 0.07), transparent 75%),
-    #0f1923;
+  /* flat: plain page background, no glows / blurred blobs */
+  background: #0f1923;
   border-bottom: 1px solid #222d37;
 }
 
@@ -26,16 +23,16 @@
   letter-spacing: -2px;
   margin-bottom: var(--space-md);
   line-height: 1.1;
-  color: var(--text-primary);
+  color: #ffffff;
 }
 
 .highlight {
-  color: #4d9aff; /* lighter accent blue — unified with the Bet button family */
+  color: #2377ff; /* the site accent — same blue as the Bet button */
 }
 
 .subtitle {
   font-size: 20px;
-  color: var(--text-secondary);
+  color: #b1bad2;
   margin-bottom: var(--space-2xl);
   font-weight: 400;
 }
@@ -106,9 +103,9 @@
   font-weight: 900;
   padding: 4px 10px;
   border-radius: 999px;
-  background: #007AFF;
-  border: 2px solid #0054add0;
-  color: rgba(255, 255, 255, 0.92);
+  background: #2377ff;
+  border: none;
+  color: #ffffff;
   opacity: 0;
   transition: opacity 140ms ease, transform 140ms ease;
   pointer-events: none;
@@ -132,12 +129,12 @@
 
 .welcomeText {
   font-size: 18px;
-  color: var(--text-secondary);
+  color: #b1bad2;
   font-weight: 400;
 }
 
 .welcomeText strong {
-  color: #4d9aff;
+  color: #2377ff;
   font-weight: 700;
 }
 
@@ -163,58 +160,58 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: var(--space-lg);
-  grid-auto-rows: 1fr; /* uniform card heights */
-}
-
-.feature {
-  padding: var(--space-xl);
-  background: #17232e;
-  border: 1px solid #222d37;
-  border-radius: var(--radius-lg);
-  transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
-  height: 100%; /* uniform card sizing across the grid */
-  box-sizing: border-box;
-}
-
-.grid {
+  gap: var(--space-xl);
   grid-auto-rows: 1fr; /* equal-height rows -> uniform cards */
 }
 
-.feature:hover {
-  transform: translateY(-4px);
-  border-color: #2377ff;
-  box-shadow: 0 8px 24px rgba(35, 119, 255, 0.12);
+/* Feature card: #17232e, 12px radius, 1px #222d37 border, 24px padding and
+   a soft neutral elevation shadow (no colour, no glow) */
+.feature {
+  padding: 24px;
+  background: #17232e;
+  border: 1px solid #222d37;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  transition: transform 160ms ease;
+  height: 100%; /* uniform card sizing across the grid */
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 }
 
-/* icon sits in a rounded-square container, consistent across cards */
+.feature:hover {
+  transform: translateY(-2px); /* subtle lift; border/shadow stay neutral */
+}
+
+/* icon sits in a 40x40 rounded-square (#1a242d, 8px) — never a bare shape */
 .featureIcon {
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
   margin-bottom: var(--space-lg);
   display: grid;
   place-items: center;
-  border-radius: var(--radius-lg);
-  background: rgba(35, 119, 255, 0.12);
-  border: 1px solid rgba(35, 119, 255, 0.35);
-  color: #4d9aff;
+  border-radius: 8px;
+  background: #1a242d;
+  border: 1px solid #222d37; /* keeps the square legible on the #17232e card */
+  color: #2377ff;
+  flex: 0 0 auto;
 }
 
 .featureIcon svg {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
 }
 
 .featureTitle {
   font-size: 20px;
   font-weight: 800;
   margin-bottom: var(--space-sm);
-  color: var(--text-primary);
+  color: #ffffff;
 }
 
 .featureText {
   font-size: 14px;
-  color: #a0aab8;
+  color: #b1bad2;
   line-height: 1.6;
   font-weight: 400;
 }

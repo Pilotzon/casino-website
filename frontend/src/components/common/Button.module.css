@@ -33,14 +33,16 @@
   filter: brightness(1.1); /* brightness lift only, never a scale change */
 }
 
+/* Secondary (navbar "Login"): #24333f, white text, 8px radius, NO border —
+   identical box (height + padding) to .primary, only the fill differs. */
 .secondary {
-  background: var(--color-btn-secondary-bg);
+  background: var(--color-btn-secondary-bg); /* #24333f */
   color: var(--color-text-primary);
-  border: 1px solid var(--color-border-input); /* always rendered — no layout shift */
+  border: none;
 }
 
 .secondary:not(:disabled):hover {
-  background: var(--color-btn-secondary-hover);
+  background: var(--color-btn-secondary-hover); /* #2c3d4a */
 }
 
 .success {
@@ -50,7 +52,6 @@
 
 .success:not(:disabled):hover {
   background: var(--accent-success-hover);
-  box-shadow: 0 0 20px rgba(0, 255, 133, 0.4);
 }
 
 .danger {
@@ -60,7 +61,6 @@
 
 .danger:not(:disabled):hover {
   background: var(--accent-danger-hover);
-  box-shadow: 0 0 20px rgba(255, 61, 113, 0.4);
 }
 
 .warning {
@@ -75,12 +75,12 @@
 .ghost {
   background: transparent;
   color: var(--text-primary);
-  border: 1px solid var(--border-default);
+  border: 1px solid var(--color-border-input); /* #212e3b */
 }
 
 .ghost:not(:disabled):hover {
-  background: var(--bg-surface);
-  border-color: var(--border-focus);
+  background: var(--color-btn-secondary-bg);
+  border-color: var(--color-border-input-focus);
 }
 
 /* Sizes */

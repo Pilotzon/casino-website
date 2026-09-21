@@ -156,7 +156,7 @@ font-feature-settings: "salt" on;;
 
 /* Active: recolor the border ONLY — zero layout shift */
 .activeSide {
-  border-color: #1475e1;
+  border-color: var(--color-accent-blue); /* #2377ff */
 }
 
 .textSide {

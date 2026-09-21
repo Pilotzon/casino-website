@@ -5,14 +5,14 @@
    ========================================================= */
 .container {
 
-  --tile-face: #2c3d4e;   /* tile fill — exact Stake value */
-  --tile-shadow: #1a242f; /* bottom-edge bevel — exact Stake value */
-  --tile-hover: #557086;
-  --tile-radius: 8px;     /* exact Stake value */
+  --tile-face: var(--color-bg-tile);         /* #2f4553 tile fill (design spec) */
+  --tile-shadow: #1a242f;                    /* darker bottom edge */
+  --tile-hover: var(--color-bg-tile-hover);  /* #3a5265 */
+  --tile-radius: var(--radius-sm);           /* 4px */
   --tile-gap: 12px;
 
-  --tile-base-height: 8px;
-  --tile-base-height-hover: 11px;
+  --tile-base-height: 2px;        /* soft 1–2px bottom-edge line, not a drop-shadow */
+  --tile-base-height-hover: 2px;
 
   --picked: #8a2bff;
   --picked-hover: #9b49ff;
@@ -80,11 +80,11 @@
 
 /* Keno coin chip inside the bet input */
 .coinChip {
-  width: 42px;
+  padding: 0 12px 0 4px;
   display: grid;
   place-items: center;
-  border-left: 1px solid var(--sidebar-split-divider);
-  background: var(--color-bg-input);
+  align-self: stretch;
+  background: transparent; /* icon slot inside the field — no separator */
 }
 
 .coinIcon {
@@ -168,7 +168,7 @@
   border-radius: var(--tile-radius);
   background: var(--tile-face);
   box-shadow: 0 var(--tile-base-height) 0 var(--tile-shadow);
-  margin-bottom: 5.5px;
+  margin-bottom: var(--tile-base-height);
   display: grid;
   place-items: center;
   cursor: pointer;
@@ -176,8 +176,7 @@
 }
 
 .tile:hover {
-  background: var(--tile-hover);
-  transform: translateY(-3.5px);
+  background: var(--tile-hover); /* fill change only — no lift */
   box-shadow: 0 var(--tile-base-height-hover) 0 var(--tile-shadow);
 }
 
@@ -192,7 +191,6 @@
 }
 .tilePicked:hover {
   background: var(--picked-hover);
-  transform: translateY(-3.5px);
   box-shadow: 0 var(--tile-base-height-hover) 0 var(--picked-shadow-hover);
 }
 
@@ -208,7 +206,7 @@
 .tilePressedRed {
   background: #0B1C29;
   box-shadow:
-    inset 0 7px 0 var(--pressed-top),
+    inset 0 3px 0 var(--pressed-top),
     0 var(--tile-base-height) 0 #0F212E;
 }
 

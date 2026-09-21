@@ -327,8 +327,8 @@
 
 .backButton {
   padding: var(--space-xs) var(--space-md);
-  background: var(--color-btn-secondary-bg);
-  border: 1px solid var(--color-border-input); /* always rendered */
+  background: var(--color-btn-secondary-bg); /* #24333f secondary */
+  border: none;
   border-radius: var(--radius-md);
   color: var(--color-text-primary);
   font-weight: 700;

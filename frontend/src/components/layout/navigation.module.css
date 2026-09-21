@@ -145,9 +145,9 @@
   font-weight: 900;
   padding: 4px 10px;
   border-radius: 999px;
-  background: #007AFF;
-  border: 2px solid #0054add0;
-  color: rgba(255, 255, 255, 0.92);
+  background: var(--color-accent-blue); /* #2377ff */
+  border: none;
+  color: #ffffff;
   opacity: 0;
   pointer-events: none;
   transition: opacity 140ms ease, transform 140ms ease;

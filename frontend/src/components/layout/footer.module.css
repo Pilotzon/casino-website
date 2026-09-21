@@ -18,7 +18,7 @@
 .warning {
   font-size: 13px;
   font-weight: 800;
-  color: var(--accent-warning);
+  color: var(--color-accent-blue); /* single site accent — no stray orange */
   margin-bottom: var(--space-sm);
   text-transform: uppercase;
   letter-spacing: 0.5px;

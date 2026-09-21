@@ -436,45 +436,51 @@ const handleSpin = useCallback(async () => {
               </div>
             )}
 
-            <div
-              key={bounceKey}
-              className={`${styles.pointerWrap} ${bounceKey > 0 ? styles.pointerBounce : ""}`}
-              style={{ "--bounce-duration": `${bounceDuration}ms` }}
-              aria-hidden="true"
-            >
-              <div className={styles.pointerPin} />
-              <div className={styles.pointerDrop} />
-            </div>
-
-            <div
-              className={styles.wheelOuter}
-              style={{
-                transform: `rotate(${rotation}deg)`,
-                transition: spinning
-                  ? `transform ${spinDurationRef.current / 1000}s cubic-bezier(0.06, 0.9, 0.06, 1.0)`
-                  : "none",
-              }}
-            >
-              <div className={styles.rim} />
-              <div className={styles.ring}>
-                {(wheelLayout.length ? wheelLayout : Array.from({ length: segments })).map((seg, i) => {
-                  const segAngle = 360 / Number(segments);
-                  const angle = i * segAngle;
-                  const skew = 90 - segAngle;
-                  return (
-                    <div
-                      key={i}
-                      className={styles.segment}
-                      style={{
-                        transform: `rotate(${angle}deg) skewY(-${skew}deg)`,
-                        backgroundColor: seg?.color || "#406C82",
-                      }}
-                    />
-                  );
-                })}
+            {/* .wheelBox is a strict 1:1 square sized from the smaller of the
+                stage's width/height; the pointer is anchored to it (not to the
+                viewport) and the wheel itself fills it, so it can never be
+                stretched into an oval regardless of the panel's proportions. */}
+            <div className={styles.wheelBox}>
+              <div
+                key={bounceKey}
+                className={`${styles.pointerWrap} ${bounceKey > 0 ? styles.pointerBounce : ""}`}
+                style={{ "--bounce-duration": `${bounceDuration}ms` }}
+                aria-hidden="true"
+              >
+                <div className={styles.pointerPin} />
+                <div className={styles.pointerDrop} />
               </div>
-              <div className={styles.innerPlate}>
-                <div className={styles.innerCircle} />
+
+              <div
+                className={styles.wheelOuter}
+                style={{
+                  transform: `rotate(${rotation}deg)`,
+                  transition: spinning
+                    ? `transform ${spinDurationRef.current / 1000}s cubic-bezier(0.06, 0.9, 0.06, 1.0)`
+                    : "none",
+                }}
+              >
+                <div className={styles.rim} />
+                <div className={styles.ring}>
+                  {(wheelLayout.length ? wheelLayout : Array.from({ length: segments })).map((seg, i) => {
+                    const segAngle = 360 / Number(segments);
+                    const angle = i * segAngle;
+                    const skew = 90 - segAngle;
+                    return (
+                      <div
+                        key={i}
+                        className={styles.segment}
+                        style={{
+                          transform: `rotate(${angle}deg) skewY(-${skew}deg)`,
+                          backgroundColor: seg?.color || "#406C82",
+                        }}
+                      />
+                    );
+                  })}
+                </div>
+                <div className={styles.innerPlate}>
+                  <div className={styles.innerCircle} />
+                </div>
               </div>
             </div>
           </div>

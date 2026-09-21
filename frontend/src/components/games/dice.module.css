@@ -8,13 +8,13 @@
 .container {
   --bg-surface: #253641;
 
-  --handle-blue: #4d88ff;
+  --handle-blue: #2377ff;   /* slider handle — the site accent */
+  --track-red: #ed4137;
+  --track-green: #00e701;
+  --track-housing: #2f4553; /* flat housing the thin track sits in */
 
   --track-inset: 22px;
   --tick-compress: 0.96;
-
-  --pill-bg: #2a3f4c;
-  --pill-inner-ring: #243844;
 }
 
 .container {
@@ -139,33 +139,22 @@ font-feature-settings: "salt" on;;
   top: -8px;
   width: 16px;
   height: 8px;
-  background: #2F4553;
+  background: var(--track-housing);
   clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
   z-index: 5;
 }
 
+/* Flat slim housing (#2f4553) that the thin coloured track sits in.
+   No inner ring, no shadow. */
 .trackContainer {
   position: relative;
   width: 100%;
-  height: 58px;
+  height: 32px;
   border-radius: 999px;
-  background: #2F4553;
+  background: var(--track-housing);
   box-shadow: none;
   display: flex;
   align-items: center;
-}
-
-.trackContainer::before {
-  content: "";
-  position: absolute;
-  left: 10px;
-  right: 10px;
-  top: 10px;
-  bottom: 10px;
-  border-radius: 999px;
-  background: var(--pill-inner-ring);
-  pointer-events: none;
-  z-index: 0;
 }
 
 .trackPad {
@@ -176,12 +165,14 @@ font-feature-settings: "salt" on;;
   box-sizing: border-box;
 }
 
+/* The track: a thin 8px bar with pill ends; red #ed4137 / green #00e701 */
 .trackInner {
   position: relative;
   width: 100%;
-  height: 10px;
+  height: 8px;
   border-radius: 999px;
   background: rgba(0, 0, 0, 0.30);
+  overflow: visible;
 }
 
 .trackBar {
@@ -189,14 +180,14 @@ font-feature-settings: "salt" on;;
   top: 0;
   height: 100%;
   transition: width 0.12s linear;
-  border-radius: 999px;
+  border-radius: 999px; /* rounded ends on the far left / far right */
 }
 
 .barLeft { left: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; }
 .barRight { right: 0; border-top-left-radius: 0; border-bottom-left-radius: 0; }
 
-.barRed { background: var(--accent-red); }
-.barGreen { background: var(--accent-green); }
+.barRed { background: var(--track-red); }
+.barGreen { background: var(--track-green); }
 
 .handleWrapper {
   position: absolute;
@@ -207,21 +198,24 @@ font-feature-settings: "salt" on;;
   transition: left 0.12s linear;
 }
 
+/* Handle: small #2377ff rounded square (16px wide) sitting directly on the
+   track — two thin white grip lines, no glow, no shadow. */
 .handle {
-  width: 44px;
-  height: 44px;
+  width: 16px;
+  height: 22px;
   background: var(--handle-blue);
-  border-radius: 6px;
+  border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: none;
 }
 
-.handleIcon { display: flex; gap: 4px; height: 18px; }
+.handleIcon { display: flex; gap: 3px; height: 10px; }
 .handleIcon span {
-  width: 3px;
-  background: rgba(0, 0, 0, 0.22);
-  border-radius: 2px;
+  width: 2px;
+  background: #ffffff;
+  border-radius: 1px;
   display: block;
   height: 100%;
 }
@@ -265,7 +259,7 @@ font-feature-settings: "salt" on;;
   z-index: 20;
   opacity: 0;
   transition: left 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  box-shadow: none;
   pointer-events: none;
 }
 .resultGem.visible { opacity: 1; }
@@ -341,49 +335,63 @@ font-feature-settings: "salt" on;;
   }
 }
 
+/* ---- Multiplier / Roll Over / Win Chance panel ----
+   Outer container: #1a242d, 12px radius, 16px padding, 1px #222d37 border.
+   Each stat: #8596a6 label above a #0f171e value box (1px #212e3b, 8px)
+   with white bold text and a flush icon on the right. */
 .statsPanel {
   position: absolute;
-  bottom: 25px;
+  bottom: 24px;
   left: 50%;
   transform: translateX(-50%);
-  width: 90%;
-  max-width: 900px;
-  background: #17232e; /* stats panel — visible against game bg */
-  border-radius: 8px;
-  padding: 12px;
+  width: min(1000px, 94%);
+  background: #1a242d;
+  border: 1px solid #222d37;
+  border-radius: 12px;
+  padding: 16px;
   display: flex;
   gap: 16px;
+  box-shadow: none;
 }
 
-.statBox { flex: 1; background: #0f212e; border-radius: 4px; padding: 8px 12px; }
+.statBox {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
+}
 .statHeader {
-  color: var(--text-secondary);
-  font-size: 12px;
-  font-weight: 700;
-  margin-bottom: 6px;
+  color: #8596a6; /* field label colour */
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 8px;
 }
 
 .statInput {
-  background: var(--color-bg-input);
-  border: var(--ui-input-border) solid var(--ui-outline);
-  border-radius: var(--sidebar-input-radius);
-  box-shadow: var(--ui-input-shadow);
-  height: 42px;
+  background: #0f171e;
+  border: 1px solid #212e3b;
+  border-radius: 8px;
+  box-shadow: none;
+  height: 44px;
   display: flex;
   align-items: center;
-  padding: 0 12px;
-  transition: border-color 0.2s;
+  padding: 0 0 0 12px;
+  overflow: hidden;
+  transition: border-color 140ms ease;
 }
-.statInput.editable:focus-within { border-color: var(--ui-outline-focus); }
+.statInput.editable:focus-within { border-color: #4a6a80; } /* recolor only */
 
 .statInput input {
   background: transparent;
   border: none;
-  color: white;
+  color: #ffffff;
   font-weight: 700;
   font-size: 14px;
   flex: 1;
+  min-width: 0;
   outline: none;
+  font-family: var(--font-primary);
 }
 .statInput input::-webkit-outer-spin-button,
 .statInput input::-webkit-inner-spin-button {
@@ -391,22 +399,31 @@ font-feature-settings: "salt" on;;
   margin: 0;
 }
 
-.statSuffix {
-  color: var(--text-secondary);
+/* Right-side icon slot ("×", "%", swap) — flush inside the value box, same
+   #0f171e background, no separate button shape */
+.statSuffix,
+.swapBtn {
+  flex: 0 0 auto;
+  height: 100%;
+  min-width: 40px;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  color: #b1bad2;
   font-weight: 700;
   font-size: 14px;
 }
 
 .swapBtn {
-  background: transparent;
-  border: none;
-  color: var(--text-secondary);
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  padding: 4px;
+  transition: color 120ms ease, transform var(--bet-btn-press-duration) ease;
 }
-.swapBtn:hover { color: white; }
+.swapBtn:hover { color: #ffffff; }
+.swapBtn:active { transform: scale(var(--bet-btn-press-scale)); }
 .swapBtn svg { width: 18px; height: 18px; }
 
 @media (max-width: 900px) {
@@ -418,7 +435,7 @@ font-feature-settings: "salt" on;;
     left: 0;
     bottom: 0;
     transform: none;
-    border-radius: 0;
+    border-radius: 12px 12px 0 0;
     flex-direction: column;
   }
 }
@@ -461,7 +478,7 @@ font-feature-settings: "salt" on;;
   }
 
   .trackContainer {
-    height: 54px;
+    height: 32px;
   }
 
   /* Make stats panel part of layout instead of overlay */
@@ -473,9 +490,9 @@ font-feature-settings: "salt" on;;
     width: 100%;
     max-width: 100%;
     margin-top: 14px;
-    padding: 12px;
-    border-radius: 10px;
-    gap: 10px;
+    padding: 16px;
+    border-radius: 12px;
+    gap: 12px;
   }
 
   .statInput {

@@ -4,18 +4,19 @@
    styles/global.css — do not redefine them here.
    ========================================================= */
 .container {
-
-  /* CONTROL THESE TO ADJUST LAYOUT */
-  --wheel-to-strip-gap: 20px;
-  --strip-bottom-margin: 200px;
+  /* layout knobs */
+  --wheel-to-strip-gap: 20px;   /* space between the wheel and the multiplier row */
+  --result-line-space: 32px;    /* room reserved under the strip for the result line */
+  --mult-card-height: 54px;
+  --pointer-room: 14px;         /* how far the pointer overhangs the wheel's top edge */
+  --wheel-max: 560px;           /* hard cap so the wheel never gets comically large */
 }
 
 .container {
   composes: game-shell from global;
   display: flex;
-  background: #0d131a; /* game grid panel — exact Stake value */
+  background: #0d131a; /* game grid panel */
   color: #fff;
-  height: 100vh;
   font-family: "proxima-nova";
   font-feature-settings: "salt" on;
   overflow: hidden;
@@ -23,12 +24,12 @@
 
 .sidebar {
   width: var(--layout-sidebar-width);
-  background: #17232e; /* sidebar panel — literal per spec */
+  background: #17232e; /* sidebar panel */
   padding: var(--space-lg);
   display: flex;
   flex-direction: column;
   gap: var(--space-lg);
-  border-right: 1px solid #222d37; /* sidebar/game divider — exact Stake value */
+  border-right: 1px solid #222d37; /* sidebar/game divider */
   flex-shrink: 0;
 }
 
@@ -70,17 +71,16 @@
   font-size: 14px;
 }
 
-/* Wheel-specific BTC chip inside the bet input */
+/* BTC chip inside the bet input — a plain icon slot, no separator */
 .btcChip {
-  width: 42px;
+  padding: 0 12px 0 4px;
   display: grid;
   place-items: center;
-  border-left: 1px solid var(--sidebar-split-divider);
-  background: var(--color-bg-input);
-  font-weight: 1000;
-  font-size: 16px;
-  color: #ff9900;
-  text-shadow: 0 1px 0 rgba(0,0,0,0.35);
+  align-self: stretch;
+  background: transparent;
+  font-weight: 800;
+  font-size: 14px;
+  color: var(--bitcoin);
 }
 
 .splitButtons {
@@ -102,8 +102,8 @@
   width: 8px;
   height: 8px;
   transform: translateY(-50%) rotate(45deg);
-  border-right: 2px solid rgba(255, 255, 255, 0.55);
-  border-bottom: 2px solid rgba(255, 255, 255, 0.55);
+  border-right: 2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
   pointer-events: none;
 }
 
@@ -120,50 +120,78 @@
   font-size: 0.85rem;
 }
 
+/* =========================================================
+   GAME PANEL
+   gameStage  – the panel itself (padding, bg)
+   boardWrap  – column: [wheelStage (flex 1)] [multStrip] (+ result line)
+   wheelStage – the area left over above the multiplier row; it is the
+                size container the wheel measures itself against
+   wheelBox   – strict 1:1 square = min(stage width, stage height)
+   wheelOuter – the spinning wheel, fills wheelBox (width & height 100%)
+   ========================================================= */
 .gameStage {
   flex: 1;
   display: flex;
-  justify-content: center; /* wheel fills + centers in the panel */
-  align-items: center;
-  background: #0d131a; /* game grid panel — exact Stake value */
+  justify-content: center;
+  align-items: stretch;
+  background: #0d131a; /* game grid panel */
   padding: 24px 32px;
   min-height: 0;
+  min-width: 0;
   overflow: hidden;
-}
-
-/* Desktop: cq units resolve against the actual game panel size */
-@media (min-width: 901px) {
-  .gameStage { container-type: size; }
 }
 
 .boardWrap {
   width: 100%;
   max-width: 1100px;
+  height: 100%;
+  min-height: 0;
   display: flex;
   flex-direction: column;
-  align-items: center; /* centered */
+  align-items: center;
   position: relative;
-  height: 100%;
-  max-height: 100%;
 }
 
 .wheelStage {
   position: relative;
   width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex: 1;
+  flex: 1 1 auto;
   min-height: 0;
+  display: flex;
+  justify-content: center; /* centered horizontally */
+  align-items: center;     /* centered vertically in the space above the strip */
+  padding-top: var(--pointer-room); /* keeps the overhanging pointer inside the panel */
 }
 
+/* Desktop: the stage is a size container, so 100cqw/100cqh below are its
+   real content-box width/height — the wheel is sized from whichever is
+   smaller and can therefore never be stretched in either direction. */
+@media (min-width: 901px) {
+  .wheelStage {
+    container-type: size;
+  }
+}
+
+.wheelBox {
+  position: relative;
+  flex: 0 0 auto;
+  width: min(100%, 60vh);                         /* fallback (no cq units) */
+  width: min(100cqw, 100cqh, var(--wheel-max));    /* smaller of available w/h */
+  aspect-ratio: 1 / 1;                             /* strict 1:1 — a true circle */
+}
+
+/* Pointer — anchored to the wheel box (not the viewport), so it always sits
+   centred on the wheel's top edge at any wheel size. */
 .pointerWrap {
   position: absolute;
-  top: 50%;
+  top: calc(-1 * var(--pointer-room));
   left: 50%;
-  transform: translate(-50%, calc(-1 * min(260px, 34vw, 28vh)));
-  z-index: 50;
+  width: 26px;
+  height: 44px;
+  transform: translateX(-50%);
   transform-origin: 50% 10px;
+  z-index: 50;
+  pointer-events: none;
 }
 
 .pointerBounce {
@@ -171,26 +199,25 @@
 }
 
 @keyframes pointerFlick {
-  0%   { transform: translate(-50%, calc(-1 * min(260px, 34vw, 28vh))) rotate(0deg); }
-  10%  { transform: translate(-50%, calc(-1 * min(260px, 34vw, 28vh))) rotate(-34deg); }
-  25%  { transform: translate(-50%, calc(-1 * min(260px, 34vw, 28vh))) rotate(-26deg); }
-  40%  { transform: translate(-50%, calc(-1 * min(260px, 34vw, 28vh))) rotate(-19deg); }
-  55%  { transform: translate(-50%, calc(-1 * min(260px, 34vw, 28vh))) rotate(-10deg); }
-  70%  { transform: translate(-50%, calc(-1 * min(260px, 34vw, 28vh))) rotate(-6deg); }
-  85%  { transform: translate(-50%, calc(-1 * min(260px, 34vw, 28vh))) rotate(-1deg); }
-  100% { transform: translate(-50%, calc(-1 * min(260px, 34vw, 28vh))) rotate(0deg); }
+  0%   { transform: translateX(-50%) rotate(0deg); }
+  10%  { transform: translateX(-50%) rotate(-34deg); }
+  25%  { transform: translateX(-50%) rotate(-26deg); }
+  40%  { transform: translateX(-50%) rotate(-19deg); }
+  55%  { transform: translateX(-50%) rotate(-10deg); }
+  70%  { transform: translateX(-50%) rotate(-6deg); }
+  85%  { transform: translateX(-50%) rotate(-1deg); }
+  100% { transform: translateX(-50%) rotate(0deg); }
 }
 
 .pointerPin {
   position: absolute;
   left: 50%;
-  top: -2px;
+  top: 0;
   transform: translateX(-50%);
   width: 26px;
   height: 26px;
   border-radius: 999px;
   background: #ff5b76;
-  box-shadow: 0 6px 14px rgba(0,0,0,0.28);
   z-index: 2;
 }
 
@@ -204,19 +231,16 @@
   border-left: 12px solid transparent;
   border-right: 12px solid transparent;
   border-top: 28px solid #ff5b76;
-  filter: drop-shadow(0 6px 10px rgba(0,0,0,0.28));
   z-index: 1;
 }
 
+/* The wheel fills the square box exactly; everything inside uses
+   percentage insets so the rings stay concentric circles at any size. */
 .wheelOuter {
-  position: relative;
-  /* true circle: one side drives the size, aspect-ratio locks 1:1
-     (cqw/cqh fall back to viewport units when no container is set) */
-  width: min(520px, 92cqw, 76cqh);
-  max-width: none;
-  height: auto;
-  aspect-ratio: 1 / 1;
-  max-height: none;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
   overflow: hidden;
   background: #263742;
@@ -232,12 +256,12 @@
 
 .ring {
   position: absolute;
-  inset: 26px;
+  inset: 5%;
   border-radius: 50%;
   overflow: hidden;
   box-shadow:
-    inset 0 0 0 10px rgba(0,0,0,0.25),
-    0 0 0 1px rgba(255,255,255,0.04);
+    inset 0 0 0 10px rgba(0, 0, 0, 0.25),
+    0 0 0 1px rgba(255, 255, 255, 0.04);
 }
 
 .segment {
@@ -251,16 +275,16 @@
 
 .innerPlate {
   position: absolute;
-  inset: 50px;
+  inset: 9.6%;
   border-radius: 50%;
   background: radial-gradient(circle at 50% 35%, #162a37 0%, #0f212e 75%, #0b1a24 100%);
 }
 
 .innerCircle {
   position: absolute;
-  inset: 92px;
+  inset: 22%; /* of the inner plate (was 92px of 420px) */
   border-radius: 50%;
-  box-shadow: inset 0 0 0 2px rgba(255,255,255,0.06);
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.06);
   background: rgba(15, 33, 46, 0.55);
 }
 
@@ -270,12 +294,11 @@
   left: 50%;
   transform: translate(-50%, -50%) scale(0.85);
   transform-origin: center;
-  background: #0d131a; /* game grid panel — exact Stake value */
+  background: #0d131a; /* game grid panel */
   border: 2px solid rgba(0, 172, 0, 0.9);
   border-radius: 16px;
   padding: 18px 24px;
   text-align: center;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.28);
   opacity: 1;
   animation: wheelWinPop 160ms ease-out forwards;
   min-width: 240px;
@@ -298,21 +321,21 @@
   color: #ffffff;
 }
 
-/* HOVER PANEL - positioned absolutely above multStrip */
+/* HOVER PANEL — floats directly above the multiplier row */
 .hoverPanel {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: calc(54px + var(--strip-bottom-margin) + 10px + 30px); /* multCard height + bottom margin + result line + gap */
+  bottom: calc(var(--mult-card-height) + var(--result-line-space) + 12px);
   z-index: 50;
-  background: #213743;
-  border-radius: 10px;
+  background: #1a242d;
+  border: 1px solid #222d37;
+  border-radius: 12px;
   padding: 12px 0;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
   transition: opacity 120ms ease, visibility 120ms linear;
-  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
 }
 
 .hoverPanelVisible {
@@ -327,20 +350,21 @@
   padding: 0 12px;
 }
 .hoverBox {
-  background: #2F4553;
-  border-radius: 10px;
+  background: #0f171e;
+  border: 1px solid #212e3b;
+  border-radius: 8px;
   padding: 12px 14px;
-  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
 }
 .hoverLabel {
   font-size: 13px;
   font-weight: 700;
-  color: #b1bad3;
+  color: #8596a6;
 }
 .hoverValue {
   margin-top: 10px;
   font-size: 16px;
   font-weight: 900;
+  color: #ffffff;
 }
 .hoverArrow {
   position: relative;
@@ -356,16 +380,16 @@
   height: 0;
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
-  border-top: 10px solid #213743;
+  border-top: 10px solid #1a242d;
 }
 
-/* MULTSTRIP - fixed at bottom */
+/* MULTIPLIER ROW — sits under the wheel; result line is reserved below it */
 .multStrip {
   width: 100%;
   display: grid;
   gap: 10px;
-  margin-top: auto;
-  margin-bottom: var(--strip-bottom-margin);
+  margin-top: var(--wheel-to-strip-gap);
+  margin-bottom: var(--result-line-space);
   flex-shrink: 0;
 }
 
@@ -374,7 +398,6 @@
   background: transparent;
   padding: 0;
   margin: 0;
-  cursor: pointer;
   text-align: inherit;
   font-family: inherit;
   outline: none;
@@ -390,14 +413,15 @@
 .multCardBtn:hover .multCard { transform: none !important; filter: none !important; }
 .multCardBtn:focus .multCard { transform: none !important; filter: none !important; }
 
+/* result box: #17232e, 8px radius, white bold value, 4px colour bar below */
 .multCard {
-  background: #2a3f4d;
-  border: 1px solid rgba(255,255,255,0.06);
+  background: #17232e;
+  border: none;
   border-radius: 8px;
-  height: 54px;
+  height: var(--mult-card-height);
   position: relative;
   overflow: hidden;
-  box-shadow: 0 2px 0 rgba(0,0,0,0.18);
+  box-shadow: none;
 }
 
 .multFill {
@@ -405,7 +429,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  height: 6px;
+  height: 4px;
   opacity: 0.95;
   transition: height 180ms ease;
   z-index: 1;
@@ -416,7 +440,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  height: 6px;
+  height: 4px; /* the segment's own colour, 3–4px tall */
   z-index: 2;
 }
 
@@ -430,7 +454,7 @@
   height: 100%;
   display: grid;
   place-items: center;
-  font-weight: 900;
+  font-weight: 700;
   color: #ffffff;
   letter-spacing: 0.2px;
 }
@@ -440,7 +464,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  color: #b1bad3;
+  color: #b1bad2;
   font-size: 13px;
   font-weight: 700;
   display: flex;
@@ -449,14 +473,14 @@
   gap: 8px;
   height: 24px;
 }
-.resultKey { color: #7f93a6; font-weight: 900; }
+.resultKey { color: #8596a6; font-weight: 900; }
 .resultVal { color: #ffffff; font-weight: 900; }
-.resultSep { color: rgba(255,255,255,0.18); }
+.resultSep { color: rgba(255, 255, 255, 0.18); }
 
 .modalOverlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.55);
+  background: rgba(0, 0, 0, 0.55);
   display: grid;
   place-items: center;
   z-index: 1000;
@@ -465,15 +489,16 @@
 .modalCard {
   width: 100%;
   max-width: 360px;
-  background: #0d131a; /* game grid panel — exact Stake value */
-  border-radius: 14px;
-  border: 1px solid rgba(255,255,255,0.08);
+  background: #1a242d;
+  border-radius: 12px;
+  border: 1px solid #222d37;
+  box-shadow: var(--shadow-modal);
   padding: 16px;
 }
 .modalTitle {
   font-weight: 900;
   font-size: 12px;
-  color: #b1bad3;
+  color: #b1bad2;
   text-transform: uppercase;
 }
 .modalNumber {
@@ -488,15 +513,15 @@
   gap: 10px;
 }
 .modalItem {
-  background: #213743;
-  border-radius: 10px;
+  background: #0f171e;
+  border-radius: 8px;
   padding: 12px;
-  border: 1px solid rgba(255,255,255,0.06);
+  border: 1px solid #212e3b;
 }
 .modalItemLabel {
   font-size: 12px;
   font-weight: 800;
-  color: #b1bad3;
+  color: #8596a6;
 }
 .modalItemValue {
   margin-top: 8px;
@@ -508,41 +533,22 @@
   width: 100%;
   height: 42px;
   border: none;
-  border-radius: 10px;
-  background: var(--color-accent-blue);
+  border-radius: 8px;
+  background: var(--color-bet-btn-bg); /* #2377ff */
   color: #ffffff;
   font-weight: 900;
   cursor: pointer;
+  transition: transform var(--bet-btn-press-duration) ease, filter 140ms ease;
 }
+.modalBtnPrimary:hover { filter: brightness(1.1); }
+.modalBtnPrimary:active { transform: scale(var(--bet-btn-press-scale)); }
 
-/* Laptop screens with limited height */
+/* Shorter desktop viewports: tighten the vertical rhythm only — the wheel
+   still measures itself against the stage, so it simply gets smaller. */
 @media (min-width: 901px) and (max-height: 800px) {
   .container {
     --wheel-to-strip-gap: 16px;
-    --strip-bottom-margin: 16px;
-  }
-  .wheelOuter {
-    width: min(400px, 55vw, calc(100vh - 260px));
-    height: min(400px, 55vw, calc(100vh - 260px));
-  }
-  .pointerWrap {
-    transform: translate(-50%, calc(-1 * min(200px, 27.5vw, calc(50vh - 130px))));
-  }
-  @keyframes pointerFlick {
-    0%   { transform: translate(-50%, calc(-1 * min(200px, 27.5vw, calc(50vh - 130px)))) rotate(0deg); }
-    10%  { transform: translate(-50%, calc(-1 * min(200px, 27.5vw, calc(50vh - 130px)))) rotate(-34deg); }
-    25%  { transform: translate(-50%, calc(-1 * min(200px, 27.5vw, calc(50vh - 130px)))) rotate(-26deg); }
-    40%  { transform: translate(-50%, calc(-1 * min(200px, 27.5vw, calc(50vh - 130px)))) rotate(-19deg); }
-    55%  { transform: translate(-50%, calc(-1 * min(200px, 27.5vw, calc(50vh - 130px)))) rotate(-10deg); }
-    70%  { transform: translate(-50%, calc(-1 * min(200px, 27.5vw, calc(50vh - 130px)))) rotate(-6deg); }
-    85%  { transform: translate(-50%, calc(-1 * min(200px, 27.5vw, calc(50vh - 130px)))) rotate(-1deg); }
-    100% { transform: translate(-50%, calc(-1 * min(200px, 27.5vw, calc(50vh - 130px)))) rotate(0deg); }
-  }
-  .multCard {
-    height: 48px;
-  }
-  .hoverPanel {
-    bottom: calc(48px + var(--strip-bottom-margin) + 10px + 24px);
+    --mult-card-height: 48px;
   }
   .hoverBox {
     padding: 10px 12px;
@@ -553,46 +559,20 @@
   }
 }
 
-/* Even smaller laptop screens */
 @media (min-width: 901px) and (max-height: 700px) {
   .container {
     --wheel-to-strip-gap: 12px;
-    --strip-bottom-margin: 12px;
-  }
-  .wheelOuter {
-    width: min(340px, 50vw, calc(100vh - 240px));
-    height: min(340px, 50vw, calc(100vh - 240px));
-  }
-  .pointerWrap {
-    transform: translate(-50%, calc(-1 * min(170px, 25vw, calc(50vh - 120px))));
-  }
-  @keyframes pointerFlick {
-    0%   { transform: translate(-50%, calc(-1 * min(170px, 25vw, calc(50vh - 120px)))) rotate(0deg); }
-    10%  { transform: translate(-50%, calc(-1 * min(170px, 25vw, calc(50vh - 120px)))) rotate(-34deg); }
-    25%  { transform: translate(-50%, calc(-1 * min(170px, 25vw, calc(50vh - 120px)))) rotate(-26deg); }
-    40%  { transform: translate(-50%, calc(-1 * min(170px, 25vw, calc(50vh - 120px)))) rotate(-19deg); }
-    55%  { transform: translate(-50%, calc(-1 * min(170px, 25vw, calc(50vh - 120px)))) rotate(-10deg); }
-    70%  { transform: translate(-50%, calc(-1 * min(170px, 25vw, calc(50vh - 120px)))) rotate(-6deg); }
-    85%  { transform: translate(-50%, calc(-1 * min(170px, 25vw, calc(50vh - 120px)))) rotate(-1deg); }
-    100% { transform: translate(-50%, calc(-1 * min(170px, 25vw, calc(50vh - 120px)))) rotate(0deg); }
-  }
-  .multCard {
-    height: 44px;
-  }
-  .hoverPanel {
-    bottom: calc(44px + var(--strip-bottom-margin) + 10px + 24px);
+    --mult-card-height: 44px;
   }
 }
 
+/* Tablet / mobile: stacked layout, page scroll; the wheel is sized from
+   the stage width (inline container) capped by the viewport height. */
 @media (max-width: 900px) {
   .container {
     --wheel-to-strip-gap: 16px;
-    --strip-bottom-margin: 16px;
-  }
-  .container {
     flex-direction: column;
     height: auto;
-    min-height: 100vh;
     overflow: auto;
   }
   .sidebar {
@@ -611,59 +591,33 @@
     min-height: 450px;
   }
   .wheelStage {
+    container-type: inline-size;
     flex: 0 0 auto;
-    padding: 20px 0;
+    padding: calc(var(--pointer-room) + 6px) 0 6px;
   }
-  .wheelOuter {
-    width: min(520px, 78vw, 70vh);
-    height: min(520px, 78vw, 70vh);
-  }
-  .pointerWrap {
-    transform: translate(-50%, calc(-1 * min(260px, 39vw, 35vh)));
-  }
-  @keyframes pointerFlick {
-    0%   { transform: translate(-50%, calc(-1 * min(260px, 39vw, 35vh))) rotate(0deg); }
-    10%  { transform: translate(-50%, calc(-1 * min(260px, 39vw, 35vh))) rotate(-34deg); }
-    25%  { transform: translate(-50%, calc(-1 * min(260px, 39vw, 35vh))) rotate(-26deg); }
-    40%  { transform: translate(-50%, calc(-1 * min(260px, 39vw, 35vh))) rotate(-19deg); }
-    55%  { transform: translate(-50%, calc(-1 * min(260px, 39vw, 35vh))) rotate(-10deg); }
-    70%  { transform: translate(-50%, calc(-1 * min(260px, 39vw, 35vh))) rotate(-6deg); }
-    85%  { transform: translate(-50%, calc(-1 * min(260px, 39vw, 35vh))) rotate(-1deg); }
-    100% { transform: translate(-50%, calc(-1 * min(260px, 39vw, 35vh))) rotate(0deg); }
-  }
-  .multStrip {
-    margin-top: var(--wheel-to-strip-gap);
+  .wheelBox {
+    width: min(100%, 70vh);
+    width: min(100cqw, 70vh, 520px);
   }
   .resultLine {
     position: relative;
     margin-top: 10px;
+  }
+  .multStrip {
+    margin-bottom: 0;
   }
 }
 
 @media (max-width: 600px) {
   .container {
     --wheel-to-strip-gap: 14px;
-    --strip-bottom-margin: 14px;
   }
   .gameStage {
     padding: 12px;
   }
-  .wheelOuter {
-    width: min(440px, 88vw, 50vh);
-    height: min(440px, 88vw, 50vh);
-  }
-  .pointerWrap {
-    transform: translate(-50%, calc(-1 * min(220px, 44vw, 25vh)));
-  }
-  @keyframes pointerFlick {
-    0%   { transform: translate(-50%, calc(-1 * min(220px, 44vw, 25vh))) rotate(0deg); }
-    10%  { transform: translate(-50%, calc(-1 * min(220px, 44vw, 25vh))) rotate(-34deg); }
-    25%  { transform: translate(-50%, calc(-1 * min(220px, 44vw, 25vh))) rotate(-26deg); }
-    40%  { transform: translate(-50%, calc(-1 * min(220px, 44vw, 25vh))) rotate(-19deg); }
-    55%  { transform: translate(-50%, calc(-1 * min(220px, 44vw, 25vh))) rotate(-10deg); }
-    70%  { transform: translate(-50%, calc(-1 * min(220px, 44vw, 25vh))) rotate(-6deg); }
-    85%  { transform: translate(-50%, calc(-1 * min(220px, 44vw, 25vh))) rotate(-1deg); }
-    100% { transform: translate(-50%, calc(-1 * min(220px, 44vw, 25vh))) rotate(0deg); }
+  .wheelBox {
+    width: min(100%, 50vh);
+    width: min(100cqw, 50vh, 440px);
   }
 
   .multStrip {

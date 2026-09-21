@@ -56,34 +56,51 @@
 .controlGroup { composes: sidebar-control-group from global; }
 .labelRow { composes: sidebar-label-row from global; }
 
-/* Chip selector — roulette-specific chip picking control,
-   built on the shared sidebar input tokens */
+/* Chip selector — ONE continuous flush control styled exactly like a
+   standard input (#0f171e fill, 1px #212e3b border, 8px radius, 44px tall):
+   [ ‹ | chip chip chip chip | › ]. The arrows are flush against the inner
+   left/right edges — no separate rounded buttons, no borders. */
 .chipSelector {
-  display: flex; align-items: center; justify-content: space-between;
-  background: var(--color-bg-input);
-  border: var(--ui-input-border) solid var(--ui-outline);
-  border-radius: var(--sidebar-input-radius);
-  box-shadow: var(--ui-input-shadow);
-  height: 54px; padding: 0 8px; gap: 8px;
-  transition: border-color 0.2s;
+  display: flex; align-items: stretch;
+  background: var(--color-bg-input);            /* #0f171e */
+  border: 1px solid var(--color-border-input);  /* #212e3b */
+  border-radius: var(--radius-md);              /* 8px */
+  box-shadow: none;
+  height: var(--sidebar-input-height);          /* 44px — same as Bet Amount */
+  padding: 0; gap: 0;
+  overflow: hidden;
+  transition: border-color 140ms ease;
 }
-.chipSelector:focus-within { border-color: var(--ui-outline-focus); }
+.chipSelector:focus-within { border-color: var(--color-border-input-focus); }
 .chipNav {
-  width: 36px; height: 36px; border-radius: 10px;
-  background: rgba(255,255,255,0.06); border: 1px solid var(--sidebar-split-divider);
-  color: #fff; font-weight: 900; cursor: pointer; flex-shrink: 0;
+  width: 34px; height: 100%; flex-shrink: 0;
+  border: none; border-radius: 0;
+  background: transparent;                      /* container's #0f171e shows through */
+  color: var(--color-text-secondary);           /* #b1bad2 */
+  font-size: 20px; line-height: 1; font-weight: 700;
+  cursor: pointer;
+  display: grid; place-items: center;
+  transition: color 120ms ease, transform var(--bet-btn-press-duration) ease;
 }
-.chipRow { display: flex; gap: 10px; justify-content: center; flex: 1; }
+.chipNav:hover:not(:disabled) { color: #ffffff; background: transparent; }
+.chipNav:active:not(:disabled) { transform: scale(var(--bet-btn-press-scale)); }
+.chipNav:disabled { opacity: 1; color: var(--color-text-muted); cursor: not-allowed; }
+.chipRow {
+  display: flex; align-items: center; justify-content: center;
+  gap: 6px; flex: 1; min-width: 0; padding: 0 2px;
+}
 .chipBtn {
-  width: 40px; height: 40px; border-radius: 999px;
-  border: 3px solid transparent; background: transparent;
+  width: 36px; height: 36px; border-radius: 999px;
+  border: none; background: transparent;        /* unselected: just the chip art */
+  padding: 0;
   display: grid; place-items: center; cursor: grab; flex-shrink: 0;
-  transition: border-color 150ms ease; outline: none;
+  transition: background-color 150ms ease; outline: none;
 }
-.chipBtn:active { cursor: grabbing; }
-.chipBtn img { width: 34px; height: 34px; filter: brightness(1.35) saturate(1.25); pointer-events: none; }
+.chipBtn:active { cursor: grabbing; transform: none; }
+.chipBtn:disabled { opacity: 1; }
+.chipBtn img { width: 30px; height: 30px; filter: brightness(1.35) saturate(1.25); pointer-events: none; }
 .chipBtnActive {
-  border-color: #1475e1; /* recolor only — 3px border space always reserved */
+  background: var(--color-switcher-active);      /* #384856 circle behind the selected chip */
 }
 
 /* Bet input */
@@ -103,8 +120,9 @@
   font-weight: 800;
 }
 .splitButtons { composes: sidebar-split-buttons from global; }
-/* Roulette split buttons are display-only (disabled) */
-.splitButtons button { opacity: 0.7; cursor: not-allowed; }
+/* Roulette split buttons are display-only (disabled): solid #2f3d4c with
+   #8092a5 text via the shared disabled rule — never faded/translucent */
+.splitButtons button { cursor: not-allowed; }
 .divider { composes: sidebar-divider from global; }
 
 /* Bet button */

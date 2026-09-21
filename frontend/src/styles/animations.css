@@ -100,13 +100,10 @@
   }
 }
 
+/* glow keyframes retired — the UI is flat (no colored glows). Kept as a
+   no-op so any stale animation-name reference degrades gracefully. */
 @keyframes glow {
-  0%, 100% {
-    box-shadow: 0 0 10px var(--accent-primary);
-  }
-  50% {
-    box-shadow: 0 0 20px var(--accent-primary);
-  }
+  0%, 100% { box-shadow: none; }
 }
 
 @keyframes shimmer {
@@ -247,7 +244,7 @@
 }
 
 .hover-glow:hover {
-  box-shadow: var(--shadow-glow);
+  box-shadow: none; /* glows removed site-wide */
 }
 
 .hover-brightness:hover {

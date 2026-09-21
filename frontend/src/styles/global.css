@@ -78,9 +78,9 @@
   --color-text-info:          #a0aab8;   /* small secondary info text (e.g. "$0.00") */
   --color-text-muted:         #8092a5;   /* disabled button text, e.g. Random Pick */
 
-  --color-accent-blue:        #1475e1;   /* selector active border, Register button, active toggle */
-  --color-accent-blue-hover:  #1c84f5;   /* brightness lift on hover, no scale change */
-  --color-accent-blue-active: #105fc0;   /* slightly darker while pressed */
+  --color-accent-blue:        #2377ff;   /* the ONE accent blue: Bet/Register buttons, toggles, links */
+  --color-accent-blue-hover:  #3d88ff;   /* brightness lift on hover, no scale change */
+  --color-accent-blue-active: #1c63d6;   /* slightly darker while pressed */
 
   --color-bet-btn-bg:         #2377ff;   /* Bet button background (exact Stake value) */
   --color-btn-secondary-bg:    #24333f;  /* Sign In button (navbar) */
@@ -126,8 +126,8 @@
   --sidebar-input-text: #ffffff;
   --sidebar-input-radius: var(--radius-md);
   --sidebar-input-height: 44px;
-  --sidebar-divider: rgba(255, 255, 255, 0.08);
-  --sidebar-split-divider: rgba(255, 255, 255, 0.06);
+  --sidebar-divider: var(--color-btn-split-divider);       /* #1e2936 line between ½ and 2× */
+  --sidebar-split-divider: var(--color-btn-split-divider);
   --sidebar-mode-active-bg: var(--color-switcher-active);
   --sidebar-mode-active-color: #ffffff;
   --sidebar-btn-secondary-bg: var(--color-btn-secondary-bg);
@@ -191,11 +191,15 @@
   --game-black: #1a2c38;
   --game-green: #00e701;
 
-  /* Shadows (semantic consumers only — chrome is flat) */
+  /* Shadows — the UI is flat. Only two neutral elevation shadows exist:
+     modals (--shadow-modal) and homepage feature cards (--shadow-card).
+     No colored/blue glows anywhere. */
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
   --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
-  --shadow-glow: 0 0 20px rgba(20, 117, 225, 0.3);
+  --shadow-modal: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --shadow-card: 0 8px 24px rgba(0, 0, 0, 0.4);
+  --shadow-glow: none; /* retired — kept only so legacy consumers resolve to "no glow" */
 
   /* Typography (unchanged) */
   --font-primary: 'proxima-nova', -apple-system, BlinkMacSystemFont;
@@ -259,10 +263,19 @@ body {
   color: var(--color-text-primary);
 }
 
-/* Focus Styles */
+/* Focus Styles — keyboard-only, neutral (no blue ring / glow anywhere).
+   Text inputs never get an outline: their focus state is purely the
+   #4a6a80 border colour change defined on the input itself. */
 *:focus-visible {
-  outline: 2px solid var(--color-accent-blue);
+  outline: 2px solid rgba(255, 255, 255, 0.35);
   outline-offset: 2px;
+}
+
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: none;
+  box-shadow: none;
 }
 
 /* Disabled State */
@@ -406,7 +419,12 @@ input[type="number"] {
   }
 }
 
-/* ---- Manual/Auto mode switcher ---- */
+/* ---- Manual/Auto mode switcher ----
+   Track: #0f171e pill with 4px inner padding.
+   Inactive: plain #b1bad2 text on the track — NO border of any kind.
+   Active:   #384856 filled capsule + white text — the ONLY difference
+             between the two states is the fill. No border, no outline,
+             no ring. */
 .sidebar-mode-toggle {
   background: var(--color-switcher-bg);
   border-radius: var(--radius-pill);
@@ -419,9 +437,11 @@ input[type="number"] {
 .sidebar-mode-btn {
   flex: 1;
   background: transparent;
-  border: 1px solid transparent; /* reserved — state never adds/removes the border */
-  color: var(--color-text-secondary);
-  padding: 9px 0;
+  border: none;      /* no border at all — not even a transparent one */
+  outline: none;
+  box-shadow: none;
+  color: var(--color-text-secondary); /* #b1bad2 */
+  padding: 10px 0;
   border-radius: var(--radius-pill);
   font-weight: 700;
   font-size: 14px;
@@ -440,15 +460,25 @@ input[type="number"] {
   transform: scale(var(--bet-btn-press-scale));
 }
 
+/* keyboard focus only (never triggered by mouse) — neutral, never blue */
+.sidebar-mode-btn:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.35);
+  outline-offset: 2px;
+}
+
 .sidebar-mode-btn:disabled {
-  opacity: 0.65;
+  opacity: 1; /* solid muted colour at full opacity, never a faded button */
+  color: var(--color-text-muted);
   cursor: not-allowed;
 }
 
-.sidebar-mode-active {
+.sidebar-mode-active,
+.sidebar-mode-active:hover {
   background: var(--color-switcher-active); /* #384856 capsule */
   color: #ffffff;
-  border-color: var(--color-accent-blue); /* recolor only — border space was reserved */
+  border: none;
+  outline: none;
+  box-shadow: none;
 }
 
 /* ---- Control group / label row ---- */
@@ -524,51 +554,48 @@ input[type="number"] {
 
 .sidebar-currency-icon {
   color: var(--bitcoin);
-  margin-right: var(--space-md);
+  margin-right: 0;
   font-weight: 700;
   font-size: 14px;
+  flex: 0 0 auto;
 }
 
-/* ---- 1/2 / 2x quick-set buttons (flush in input's right edge) ---- */
+/* ---- ½ / 2× quick-set buttons ----
+   Merged into the right edge of the bet input: full input height, no
+   gap, no padding, no own radius (the input group's overflow:hidden +
+   8px radius rounds only the outer-right corners). The pair is one
+   continuous #2f3d4c block split by a single 1px #1e2936 line. */
 .sidebar-split-buttons {
   display: flex;
-  align-items: center;
-  gap: 3px;
-  padding: 0 var(--space-sm);
+  align-items: stretch;
+  align-self: stretch;
+  gap: 0;
+  padding: 0;
+  margin: 0;
   height: 100%;
+  flex: 0 0 auto;
+  background: var(--color-btn-split-bg); /* #2f3d4c */
 }
 
 .sidebar-split-buttons button {
   background: var(--color-btn-split-bg); /* #2f3d4c */
-  border: 1px solid transparent; /* reserved */
+  border: none;
+  border-radius: 0;          /* flush — no independent rounded corners */
   color: var(--color-text-primary);
   font-weight: 700;
   font-size: 12px;
-  padding: 0 10px;
-  height: 32px;
-  border-radius: var(--radius-sm);
+  padding: 0 14px;
+  height: 100%;
+  min-width: 40px;
   cursor: pointer;
   font-family: var(--font-primary);
   font-feature-settings: "salt" on;
-  transition: transform var(--bet-btn-press-duration) ease, background-color 140ms ease;
+  transition: transform var(--bet-btn-press-duration) ease, filter 140ms ease;
   position: relative;
 }
 
-/* thin divider line between the 1/2 and 2x buttons */
-.sidebar-split-buttons button + button::before {
-  content: "";
-  position: absolute;
-  left: -2px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 1px;
-  height: 60%;
-  background: var(--color-btn-split-divider); /* #1e2936 */
-}
-
 .sidebar-split-buttons button:hover:not(:disabled) {
-  background: var(--color-btn-split-bg);
-  filter: brightness(1.1);
+  filter: brightness(1.1); /* brightness only, no scale */
 }
 
 .sidebar-split-buttons button:active:not(:disabled) {
@@ -576,14 +603,19 @@ input[type="number"] {
 }
 
 .sidebar-split-buttons button:disabled {
+  opacity: 1;
   color: var(--color-text-muted);
   cursor: not-allowed;
 }
 
+/* the single thin line between ½ and 2× (rendered as the .divider element
+   every game places between the two buttons) */
 .sidebar-divider {
   width: 1px;
-  height: 16px;
-  background: var(--sidebar-divider);
+  height: 100%;
+  align-self: stretch;
+  background: var(--color-btn-split-divider); /* #1e2936 */
+  flex: 0 0 auto;
 }
 
 /* ---- Readonly input / dropdown ---- */
@@ -655,8 +687,12 @@ input[type="number"] {
   transform: scale(var(--bet-btn-press-scale));
 }
 
+/* Disabled: solid muted fill + muted text at FULL opacity (no opacity fade) */
 .sidebar-bet-button:disabled {
-  opacity: 0.55;
+  opacity: 1;
+  background: var(--color-btn-random-bg); /* #2d3b48 */
+  color: var(--color-text-muted);         /* #8092a5 */
+  filter: none;
   cursor: not-allowed;
 }
 

@@ -89,7 +89,7 @@
 
 .choiceSmall:active:not(:disabled) { transform: scale(0.9); }
 .choiceSmall:disabled { opacity: 0.5; cursor: not-allowed; }
-.choiceSmallActive { border-color: #1475e1; } /* recolor only — zero layout shift */
+.choiceSmallActive { border-color: var(--color-accent-blue); } /* recolor only — zero layout shift */
 .choiceSmallIcon { width: 14px; height: 14px; opacity: 0.9;}
 
 .profitInput {
@@ -290,7 +290,7 @@
 .multPillActive {
   color: #0f212e;
   background: #fff;
-  border-color: #1475e1; /* recolor only — border space always reserved */
+  border-color: var(--color-accent-blue); /* #2377ff — recolor only, border space always reserved */
 }
 .multPillSpacer { width: 1px; height: 22px; }
 

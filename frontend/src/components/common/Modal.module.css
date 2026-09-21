@@ -20,7 +20,7 @@
   background: #1a242d; /* container/panel tone */
   border: 1px solid #222d37;
   border-radius: var(--radius-lg); /* 12px, consistent with site cards */
-  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.55);
+  box-shadow: var(--shadow-modal); /* 0 8px 24px rgba(0,0,0,0.5) — soft neutral lift only */
   max-height: min(86vh, 760px);
   overflow: hidden;
   display: flex;
